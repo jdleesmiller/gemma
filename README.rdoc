@@ -28,7 +28,8 @@ Then put the following at the top of your +Rakefile.rb+:
   end
 
 This gives you a list of standard rake tasks with settings based on your
-gemspec, in addition to any that you add yourself.
+gemspec, in addition to any that you define yourself. (Note that the yard task
+only appears if you have the yard gem installed.)
 
   rake clean         # Remove any temporary products.
   rake clobber       # Remove any generated file.
