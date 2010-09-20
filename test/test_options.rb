@@ -1,4 +1,5 @@
 require "test/unit"
+require "rubygems"
 require "gemma"
 
 class TestOptions < Test::Unit::TestCase
