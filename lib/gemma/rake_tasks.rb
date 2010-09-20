@@ -79,40 +79,41 @@ module Gemma
     attr_reader :plugins
 
     #
-    # @return [RcovPlugin] 
+    # @return [RcovTasks] 
     #
     def rcov; @plugins[:rcov] end
 
     #
-    # @return [RDocPlugin] 
+    # @return [RDocTasks] 
     #
     def rdoc; @plugins[:rdoc] end
 
     #
-    # @return [TestUnitPlugin]
+    # @return [TestUnitTasks]
     #
     def test; @plugins[:test] end
 
     #
-    # @return [YardPlugin]
+    # @return [YardTasks]
     #
     def yard; @plugins[:yard] end
 
     #
-    # @return [GemPlugin]
+    # @return [GemTasks]
     #
-    def gem; @plugins[:gem] end
+    #def gem; @plugins[:gem] end
 
     protected
 
     def create_default_plugins
-      @plugins[:rcov] = Gemma::RcovPlugin.new(gemspec)
-      @plugins[:rdoc] = Gemma::RDocPlugin.new(gemspec)
-      @plugins[:test] = Gemma::TestUnitPlugin.new(gemspec)
-      @plugins[:yard] = Gemma::YardPlugin.new(gemspec)
+      @plugins[:rcov] = Gemma::RakeTasks::RcovTasks.new(gemspec)
+      @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
+      @plugins[:test] = Gemma::RakeTasks::TestUnitTasks.new(gemspec)
+      @plugins[:yard] = Gemma::RakeTasks::YardTasks.new(gemspec)
 
-      # not quite ready... and pretty trivial
-      # @plugins[:gem]  = Gemma::GemPlugin.new(gemspec, gemspec_file_name)
+      # not that helpful yet
+      # @plugins[:gem]  = Gemma::RakeTasks::GemTasks.new(gemspec,
+      #   gemspec_file_name)
     end
 
   end

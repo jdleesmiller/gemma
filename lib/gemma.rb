@@ -1,14 +1,14 @@
 require 'gemma/version'
-require 'gemma/plugin'
 require 'gemma/options'
 require 'gemma/rake_tasks'
 
 # Load default Rakefile plugins:
-require 'gemma/plugin/gem_plugin'
-require 'gemma/plugin/rcov_plugin'
-require 'gemma/plugin/rdoc_plugin'
-require 'gemma/plugin/yard_plugin'
-require 'gemma/plugin/test_unit_plugin'
+require 'gemma/rake_tasks/plugin'
+require 'gemma/rake_tasks/gem_tasks'
+require 'gemma/rake_tasks/rcov_tasks'
+require 'gemma/rake_tasks/rdoc_tasks'
+require 'gemma/rake_tasks/yard_tasks'
+require 'gemma/rake_tasks/test_unit_tasks'
 
 #require 'gemma/utility'
 

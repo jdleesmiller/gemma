@@ -32,19 +32,24 @@ a configuration specified in the Rakefile, which is the opposite to what gemma
 does. Mr Bones is a gem template generator that appears to be similar to Hoe
 and Jeweler, but I haven't used it myself.
 
-Gemesis generates rake tasks from the gemspec, but (at the time of writing) it
-doesn't provide tasks for tests and documentation, etc.
-
-The rake-compiler provides support for compiling native extensions from a
-gemspec, and it fits well with gemma. 
-
 * http://seattlerb.rubyforge.org/hoe/
 * http://github.com/technicalpickles/jeweler 
 * http://codeforpeople.rubyforge.org/bones/ 
+
+gemesis provides tasks for building, releasing and installing gems based on the
+gemspec, but (at the time of writing) it doesn't provide tasks for tests and
+documentation, etc.
+
 * http://github.com/markryall/gemesis/tree/master/lib/gemesis
+
+rake-compiler provides support for compiling native extensions from a
+gemspec, and it looks like it should work fairly well with gemma.
+
 * http://github.com/luislavena/rake-compiler
 
-Useful reading:
+Helpful reading:
+
+* http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/
 * http://rubygems.rubyforge.org/rubygems-update/Gem/Version.html
 
 == HISTORY
