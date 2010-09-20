@@ -135,7 +135,7 @@ module Gemma
         if use_gem_if_available
           begin
             gem('rdoc')
-          rescue 
+          rescue LoadError
             # ignore -- just use the standard library one
           end
         end
