@@ -130,7 +130,7 @@ module Gemma
       def create_rake_tasks
         begin
           require 'yard'
-          yd = YARD::Rake::YardocTask.new do |yd|
+          YARD::Rake::YardocTask.new do |yd|
             yd.name    = self.task_name
             yd.options = complete_options
             yd.files   = self.files
