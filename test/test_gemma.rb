@@ -1,9 +1,7 @@
 require "rubygems"
-require "rake"
-require "set"
 require "test/unit"
-
 require "gemma"
+require "set"
 
 class TestGemma < Test::Unit::TestCase
   def test_empty_spec
