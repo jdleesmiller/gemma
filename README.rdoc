@@ -10,13 +10,13 @@ common rake tasks with default settings extracted from your .gemspec file.
 
 == SYNOPSIS
 
-To create a gem called +mygem+, first create +mygem.gemspec+ as
+To create a gem called +mygem+, first create <tt>mygem.gemspec</tt> as
 described in http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/.
 
 For more information about the gemspec, see the Gem::Specification Reference
 (http://docs.rubygems.org/read/chapter/20).
 
-Then put the following at the top of your +Rakefile.rb+:
+Then put the following at the top of your <tt>Rakefile.rb</tt>:
   begin
     require 'rubygems'
     require 'gemma'
@@ -41,7 +41,7 @@ only appears if you have the yard gem installed.)
   rake test          # Run tests
   rake yard          # Generate YARD Documentation
 
-You can further customize the generated tasks by passing a block to
+You can customize the generated tasks by passing a block to
 +with_gemspec_file+:
 
   Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
@@ -88,14 +88,30 @@ gemspec, and it looks like it should work fairly well with gemma.
 
 * http://github.com/luislavena/rake-compiler
 
-Helpful reading:
+Other helpful articles:
 
-* http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/
 * http://rubygems.rubyforge.org/rubygems-update/Gem/Version.html
+* http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/ 
+
+== TODO
+
+* make it easier to add custom tasks and / or new task generators, as in
+
+    # DOES NOT WORK YET
+    Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
+      g.yard_dev = Gemma::RakeTasks::YardTasks.new(g.gemspec, :yard_dev)
+      g.yard_dev.output = 'dev_docs'
+      g.yard_dev.options.push('--protected', '--private')
+    end
+
+* more tasks (e.g. to publish docs)
+* generate gem skeletons
+* tasks for version control? (see http://github.com/nvie/gitflow)
 
 == HISTORY
 
-TODO
+<em>0.0.1</em>
+* first release
 
 == LICENSE
 
