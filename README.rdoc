@@ -23,8 +23,8 @@ Then put the following at the top of your <tt>Rakefile.rb</tt>:
 
     Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec'
   rescue LoadError
-    # Gemma is not installed; optionally, you can print a message:
-    puts "Install gemma (sudo gem install gemma) for more rake tasks."
+    # Gemma is not installed; print an (optional) message:
+    puts "Install gemma (sudo gem install gemma) for standard rake tasks."
   end
 
 This gives you a list of standard rake tasks with settings based on your
@@ -49,6 +49,17 @@ You can customize the generated tasks by passing a block to
   end
 
 See the gemma API docs for more information.
+
+== REQUIREMENTS
+
+You must have ruby, rubygems and rake installed. Tasks are also included for
+rcov (http://eigenclass.org/hiki.rb?rcov) and yard (http://yardoc.org/).
+
+Gemma has been tested on:
+* x86-linux (Ubuntu 10.04) with Ruby 1.8.7p249
+* x86-linux (rvm) with Ruby 1.9.2p0 (2010-08-18 revision 29034)
+* x86_64-linux (CentOS) with Ruby 1.8.7p72
+Gemma has not yet been tested on Windows.
 
 == INSTALL
 
@@ -96,17 +107,16 @@ Other helpful articles:
 == TODO
 
 * make it easier to add custom tasks and / or new task generators, as in
-
     # DOES NOT WORK YET
     Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
       g.yard_dev = Gemma::RakeTasks::YardTasks.new(g.gemspec, :yard_dev)
       g.yard_dev.output = 'dev_docs'
       g.yard_dev.options.push('--protected', '--private')
     end
-
 * more tasks (e.g. to publish docs)
 * generate gem skeletons
 * tasks for version control? (see http://github.com/nvie/gitflow)
+* contributions welcome!
 
 == HISTORY
 
