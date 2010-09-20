@@ -59,6 +59,8 @@ Gemma has been tested on:
 * x86-linux (Ubuntu 10.04) with Ruby 1.8.7p249
 * x86-linux (rvm) with Ruby 1.9.2p0 (2010-08-18 revision 29034)
 * x86_64-linux (CentOS) with Ruby 1.8.7p72
+* with yard 0.5.8 and 0.6.1
+* with rcov 0.9.6 and 0.9.9
 Gemma has not yet been tested on Windows.
 
 == INSTALL
