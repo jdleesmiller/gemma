@@ -46,7 +46,7 @@ module Gemma
         # Don't document the test files.
         # Yard splits up the ruby files from the 'extra' files.
         @files = gemspec.files - gemspec.test_files - gemspec.extra_rdoc_files
-        @extra_files = gemspec.extra_rdoc_files
+        @extra_files = gemspec.extra_rdoc_files.dup
         @extra_files.delete(main) if main
       end
 
