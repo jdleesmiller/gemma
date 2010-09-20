@@ -1,0 +1,138 @@
+= gemma
+
+http://github.com/jdleesmiller/gemma
+
+== DESCRIPTION
+
+If you are using .gemspecs as intended
+(http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/), gemma generates
+common rake tasks with default settings extracted from your .gemspec file.
+
+== SYNOPSIS
+
+To create a gem called +mygem+, first create <tt>mygem.gemspec</tt> as
+described in http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/.
+
+For more information about the gemspec, see the Gem::Specification Reference
+(http://docs.rubygems.org/read/chapter/20).
+
+Then put the following at the top of your <tt>Rakefile.rb</tt>:
+  begin
+    require 'rubygems'
+    require 'gemma'
+
+    Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec'
+  rescue LoadError
+    # Gemma is not installed; optionally, you can print a message:
+    puts "Install gemma (sudo gem install gemma) for more rake tasks."
+  end
+
+This gives you a list of standard rake tasks with settings based on your
+gemspec, in addition to any that you define yourself. (Note that the yard task
+only appears if you have the yard gem installed.)
+
+  rake clean         # Remove any temporary products.
+  rake clobber       # Remove any generated file.
+  rake clobber_rcov  # Remove rcov products for rcov
+  rake clobber_rdoc  # Remove rdoc products
+  rake rcov          # Analyze code coverage with tests
+  rake rdoc          # Build the rdoc HTML Files
+  rake rerdoc        # Force a rebuild of the RDOC files
+  rake test          # Run tests
+  rake yard          # Generate YARD Documentation
+
+You can customize the generated tasks by passing a block to
++with_gemspec_file+:
+
+  Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
+    g.rdoc.title = 'My Gem Is Great'
+  end
+
+See the gemma API docs for more information.
+
+== INSTALL
+
+You should be able to install with
+
+  gem install gemma
+
+Alternatively, you can get the source with
+
+  git clone git://github.com/jdleesmiller/gemma.git
+
+and run
+
+  gem build gemma.gemspec
+  gem install gemma-<version>.gem
+
+== RELATED PROJECTS
+
+There are many projects that make gem development easier.
+Hoe and Jeweler are the most popular; they generate the gemspec and tasks using
+a configuration specified in the Rakefile, which is the opposite to what gemma
+does. Mr Bones is a gem template generator that appears to be similar to Hoe
+and Jeweler, but I haven't used it myself.
+
+* http://seattlerb.rubyforge.org/hoe/
+* http://github.com/technicalpickles/jeweler 
+* http://codeforpeople.rubyforge.org/bones/ 
+
+gemesis provides tasks for building, releasing and installing gems based on the
+gemspec, but (at the time of writing) it doesn't provide tasks for tests and
+documentation, etc.
+
+* http://github.com/markryall/gemesis/tree/master/lib/gemesis
+
+rake-compiler provides support for compiling native extensions from a
+gemspec, and it looks like it should work fairly well with gemma.
+
+* http://github.com/luislavena/rake-compiler
+
+Other helpful articles:
+
+* http://rubygems.rubyforge.org/rubygems-update/Gem/Version.html
+* http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/ 
+
+== TODO
+
+* make it easier to add custom tasks and / or new task generators, as in
+
+    # DOES NOT WORK YET
+    Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
+      g.yard_dev = Gemma::RakeTasks::YardTasks.new(g.gemspec, :yard_dev)
+      g.yard_dev.output = 'dev_docs'
+      g.yard_dev.options.push('--protected', '--private')
+    end
+
+* more tasks (e.g. to publish docs)
+* generate gem skeletons
+* tasks for version control? (see http://github.com/nvie/gitflow)
+
+== HISTORY
+
+<em>0.0.1</em>
+* first release
+
+== LICENSE
+
+Copyright (c) 2010 John Lees-Miller
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
