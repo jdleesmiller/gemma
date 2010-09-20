@@ -29,14 +29,23 @@ and run
 There are many projects that make gem development easier.
 Hoe and Jeweler are the most popular; they generate the gemspec and tasks using
 a configuration specified in the Rakefile, which is the opposite to what gemma
-does.
+does. Mr Bones is a gem template generator that appears to be similar to Hoe
+and Jeweler, but I haven't used it myself.
 
 Gemesis generates rake tasks from the gemspec, but (at the time of writing) it
 doesn't provide tasks for tests and documentation, etc.
 
+The rake-compiler provides support for compiling native extensions from a
+gemspec, and it fits well with gemma. 
+
 * http://seattlerb.rubyforge.org/hoe/
 * http://github.com/technicalpickles/jeweler 
+* http://codeforpeople.rubyforge.org/bones/ 
 * http://github.com/markryall/gemesis/tree/master/lib/gemesis
+* http://github.com/luislavena/rake-compiler
+
+Useful reading:
+* http://rubygems.rubyforge.org/rubygems-update/Gem/Version.html
 
 == HISTORY
 

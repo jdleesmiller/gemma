@@ -17,6 +17,7 @@ module Gemma
       # Defaults.
       @task_name = :rcov
       @output = 'rcov'
+      @with_rcov_task = nil
     end
 
     #

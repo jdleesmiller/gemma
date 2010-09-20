@@ -11,14 +11,14 @@ class TestOptions < Test::Unit::TestCase
   end
 
   def test_long_form
-    input = %w(--a av --b --c cv)
+    input = %w(--a av --b --c=cv)
 
     # option a has an argument
-    assert_equal Options::ExtractResult.new('av', %w(--b --c cv)),
+    assert_equal Options::ExtractResult.new('av', %w(--b --c=cv)),
       Options.extract(%w(--a), input)
 
     # option b has no argument; result is ''
-    assert_equal Options::ExtractResult.new('', %w(--a av --c cv)),
+    assert_equal Options::ExtractResult.new('', %w(--a av --c=cv)),
       Options.extract(%w(--b), input)
 
     # option c also has argument

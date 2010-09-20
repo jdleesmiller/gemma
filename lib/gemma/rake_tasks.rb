@@ -110,7 +110,9 @@ module Gemma
       @plugins[:rdoc] = Gemma::RDocPlugin.new(gemspec)
       @plugins[:test] = Gemma::TestUnitPlugin.new(gemspec)
       @plugins[:yard] = Gemma::YardPlugin.new(gemspec)
-      @plugins[:gem]  = Gemma::GemPlugin.new(gemspec, gemspec_file_name)
+
+      # not quite ready... and pretty trivial
+      # @plugins[:gem]  = Gemma::GemPlugin.new(gemspec, gemspec_file_name)
     end
 
   end

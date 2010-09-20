@@ -16,6 +16,7 @@ module Gemma
 
       # Defaults.
       @task_name = :test
+      @with_test_task = nil
     end
 
     #

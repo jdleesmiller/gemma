@@ -2,6 +2,8 @@ module Gemma
   #
   # Create tasks to build and release (push) gems.
   #
+  # TODO not done yet
+  #
   class GemPlugin < Plugin
     #
     # @param [Gem::Specification] gemspec
@@ -11,6 +13,9 @@ module Gemma
       super(gemspec)
 
       @gemspec_file_name = gemspec_file_name
+
+      # Defaults.
+      @output = 'pkg'
     end
 
     #
@@ -22,6 +27,22 @@ module Gemma
     attr_accessor :gemspec_file_name
 
     #
+    # Name of directory in which gem files are placed; defaults to pkg.
+    #
+    # @return [String]
+    #
+    attr_accessor :output
+
+    #
+    # Full path to gem file.
+    #
+    # @return [String]
+    #
+    def gem_file
+      File.join(output, gemspec.file_name)
+    end
+
+    #
     # Internal method; see {Plugin#create_rake_tasks}.
     #
     # @return [nil]
@@ -30,19 +51,18 @@ module Gemma
     #
     def create_rake_tasks
       if gemspec_file_name
+        directory output
+
         desc "gem build"
-        task :build do
+        task :build => output do
           sh "gem build #{gemspec_file_name}"
+          mv gemspec.file_name, gem_file
         end
+        CLOBBER.include(gem_file)
          
         desc "gem release"
         task :release => :build do
-          puts "gem push #{gemspec.file_name}"
-        end
-
-        desc "gem release"
-        task :release => :build do
-          puts "gem validate #{gemspec.file_name}"
+          sh "gem push #{gem_file}"
         end
       end
 

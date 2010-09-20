@@ -11,7 +11,8 @@ module Gemma
   # are also passed through to yardoc by default. The short forms `-m` and
   # `-t` of these arguments are also passed on as `--main` and `--title` to
   # yardoc (note that `-m` and `-t` mean different things to yardoc than to
-  # rdoc!).
+  # rdoc!). Note that any files (that is, non-options) in `rdoc_options` are
+  # also ignored.
   #
   # If you want to further customize your yardoc output, you can add options in
   # the {Gemma::RakeTasks.with_gemspec_file} configuration block.
@@ -31,6 +32,7 @@ module Gemma
       # Defaults.
       @task_name = :yard
       @output = 'yard'
+      @with_yardoc_task = nil
 
       # Extract supported rdoc options and add to the default yard options.
       # Keep track of main, if it is given, because we have to remove it from
@@ -127,7 +129,6 @@ module Gemma
     def create_rake_tasks
       begin
         require 'yard'
-        require 'yard/rake/yardoc_task'
         yd = YARD::Rake::YardocTask.new do |yd|
           yd.name    = self.task_name
           yd.options = complete_options

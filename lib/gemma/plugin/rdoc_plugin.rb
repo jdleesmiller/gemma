@@ -24,6 +24,7 @@ module Gemma
       # Defaults.
       @use_gem_if_available = true
       @task_name = :rdoc
+      @with_rdoc_task = nil
 
       # I'm not sure whether it's a good idea to pass -o in the gemspec, but
       # for now we'll handle it, because it's needed in the Rakefile.
