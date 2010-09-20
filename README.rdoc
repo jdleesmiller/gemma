@@ -1,13 +1,53 @@
 = gemma
 
-TODO URLs
+http://github.com/jdleesmiller/gemma
 
 == DESCRIPTION
 
+If you are using .gemspecs as intended
+(http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/), gemma generates
+common rake tasks with default settings extracted from your .gemspec file.
 
 == SYNOPSIS
 
-TODO
+To create a gem called +mygem+, first create +mygem.gemspec+ as
+described in http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/.
+
+For more information about the gemspec, see the Gem::Specification Reference
+(http://docs.rubygems.org/read/chapter/20).
+
+Then put the following at the top of your +Rakefile.rb+:
+  begin
+    require 'rubygems'
+    require 'gemma'
+
+    Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec'
+  rescue LoadError
+    # Gemma is not installed; optionally, you can print a message:
+    puts "Install gemma (sudo gem install gemma) for more rake tasks."
+  end
+
+This gives you a list of standard rake tasks with settings based on your
+gemspec, in addition to any that you add yourself.
+
+  rake clean         # Remove any temporary products.
+  rake clobber       # Remove any generated file.
+  rake clobber_rcov  # Remove rcov products for rcov
+  rake clobber_rdoc  # Remove rdoc products
+  rake rcov          # Analyze code coverage with tests
+  rake rdoc          # Build the rdoc HTML Files
+  rake rerdoc        # Force a rebuild of the RDOC files
+  rake test          # Run tests
+  rake yard          # Generate YARD Documentation
+
+You can further customize the generated tasks by passing a block to
++with_gemspec_file+:
+
+  Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
+    g.rdoc.title = 'My Gem Is Great'
+  end
+
+See the gemma API docs for more information.
 
 == INSTALL
 

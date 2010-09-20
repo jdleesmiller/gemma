@@ -9,16 +9,18 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["John Lees-Miller"]
   s.email       = ["jdleesmiller@gmail.com"]
-  s.homepage    = "" # http://gemma.rubyforge.org/"
-  s.summary     = "Generates common gem development rake tasks from your "\
-                  "gemspec (not the other way around)."
-  s.description = ""
-  #s.rubyforge_project = "gemma"
+  s.homepage    = "http://github.com/jdleesmiller/gemma"
+  s.summary     = "Generate helpful rake tasks from your gemspec."
+  s.description = <<DESC
+If you are using .gemspecs as intended
+(http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/), gemma generates
+common rake tasks with default settings extracted from your .gemspec file.
+DESC
+
+  # TODO s.rubyforge_project = "gemma"
   
   s.files        = Dir["lib/**/*.rb"]
   s.test_files   = Dir["test/test_*.rb"]
-
-  s.add_development_dependency 'yard'
 
   s.rdoc_options = ['--main', 'README.rdoc']
   s.extra_rdoc_files << "README.rdoc"
