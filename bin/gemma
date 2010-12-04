@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+#
+# == gemma
+#
+# Create new gem from template(s).
+# Options can be specified on the command line or interactively.
+#
+# == Usage
+#
+# gemma new [options]
+#
+# -h, --help::
+#   show this message
+#
+# --name=name::
+#   name of the gem to create; if unspecified, gemma assumes that you want to
+#   create the gem interactively, and prompts will be given for any other
+#   arguments not specified on the command line.
+#
+# --dir=name::
+#   directory to create the new gem in; default is the name of the gem; specify
+#   --dir=. to make the current directory the root of the gem.
+#
+# --module=name::
+#   name of module that contains the gem contents (e.g. MyNewGem for a gem
+#   called my_new_gem); by default, this is computed from the gem name.
+#
+# --template=path::
+#   path to template to use instead of default template(s); specify this
+#   argument multiple times to copy from several templates (in order). 
+#
+
+require 'getoptlong'
+require 'rdoc/usage'
+
+require 'rubygems'
+require 'gemma'
+require 'highline'
+
+#
+# Process options.
+#
+command = ARGV.shift
+unless command && command == "new"
+  RDoc::usage
+end
+
+getopt = GetoptLong.new(
+  ['--help',     '-h', GetoptLong::NO_ARGUMENT      ],
+  ['--name',           GetoptLong::REQUIRED_ARGUMENT],
+  ['--dir',            GetoptLong::REQUIRED_ARGUMENT],
+  ['--module',         GetoptLong::REQUIRED_ARGUMENT],
+  ['--template',       GetoptLong::REQUIRED_ARGUMENT]
+)
+
+opts = {}
+opts['--template'] = []
+getopt.each do |opt, arg|
+  case opt
+  when '--help' then
+    RDoc::usage
+  when '--template' then
+    opts['--template'] << arg
+  else
+    opts[opt] = arg
+  end
+end
+
+#
+# Create from template; prompt for any missing info.
+#
+hl = HighLine.new
+gt = Gemma::GemFromTemplate.new
+
+interactive = !opts['--name'] || opts['--name'].empty?
+
+unless interactive
+  gt.gem_name    = opts['--name']
+else
+  gt.gem_name    = hl.ask('gem name: ')
+end
+
+if opts['--dir']
+  gt.dir_name    = opts['--dir']
+elsif interactive
+  gt.dir_name    =
+    hl.ask('create gem in directory: ') {|q| q.default = gt.dir_name}
+end
+
+if opts['--module']
+  gt.module_name = opts['--module']
+elsif interactive
+  gt.module_name =
+    hl.ask('wrap contents in module called: ') {|q| q.default = gt.module_name}
+end
+
+if interactive && opts['--template'].empty?
+  # TODO hl.choice
+elsif opts['--template'].empty?
+  # Create all, for want of better behavior. 
+else
+  # use the user's templates
+end 
+
+puts "not done yet..."
+p gt

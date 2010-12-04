@@ -21,7 +21,7 @@ module Gemma
       end
 
       #
-      # Name of rake task used to generate these docs; defaults to test.
+      # Name of rake task used to run the test; defaults to test.
       #
       # @return [Symbol]    
       # 

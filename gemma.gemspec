@@ -18,9 +18,12 @@ common rake tasks with default settings extracted from your .gemspec file.
 DESC
 
   # TODO s.rubyforge_project = "gemma"
+  #s.add_dependency 'highline', 
   
-  s.files        = Dir["lib/**/*.rb"]
+  s.files        = Dir["{bin,lib}/**/*.rb"]
   s.test_files   = Dir["test/test_*.rb"]
+
+  s.executables << 'gemma'
 
   s.rdoc_options = ['--main', 'README.rdoc']
   s.extra_rdoc_files << "README.rdoc"

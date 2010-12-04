@@ -1,0 +1,34 @@
+# -*- encoding: utf-8 -*-
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+ 
+require '<%= gem_name %>/version'
+ 
+Gem::Specification.new do |s|
+  s.name              = '<%= gem_name %>'
+  s.version           = <%= module_name %>::VERSION
+  s.platform          = Gem::Platform::RUBY
+  s.authors           = ['TODO']
+  s.email             = ['TODO']
+  s.homepage          = 'TODO'
+  s.rubyforge_project = 'TODO'
+  s.summary           = <<SUMMARY
+TODO
+SUMMARY
+  s.description       = <<DESCRIPTION
+TODO
+DESCRIPTION
+
+  #s.add_dependency 'TODO'
+  #s.add_development_dependency 'TODO'
+  <% glob_dirs = File.directory?('bin') ? '{lib,bin}' : 'lib' %>
+  s.files        = Dir.glob('<%= glob_dirs %>/**/*.rb') + %w(README.rdoc)
+  s.test_files   = Dir.glob('test/test_*.rb')
+  <% if File.directory?('bin') %>
+  s.executables << '<%= gem_name %>'
+  <% end %>
+  s.rdoc_options = [
+    "--main",    "README.rdoc",
+    "--title",   "<%= gem_name %>-#{<%= module_name %>::VERSION}"]
+  s.extra_rdoc_files << "README.rdoc"
+end

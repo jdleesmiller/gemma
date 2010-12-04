@@ -133,5 +133,58 @@ class TestGemma < Test::Unit::TestCase
       end
     end
   end
+
+  def test_conventions_good_gem_name
+    assert  Gemma::Conventions.good_gem_name?("my_gem_name")
+    assert  Gemma::Conventions.good_gem_name?("my-gem-name")
+    assert  Gemma::Conventions.good_gem_name?("foo")
+    assert  Gemma::Conventions.good_gem_name?("foo1")
+    assert  Gemma::Conventions.good_gem_name?("foo_4_bar")
+    assert !Gemma::Conventions.good_gem_name?("Foo")
+    assert !Gemma::Conventions.good_gem_name?("FooBar")
+    assert !Gemma::Conventions.good_gem_name?("Foo_Bar")
+    assert !Gemma::Conventions.good_gem_name?("Foo-Bar")
+  end
+
+  def test_conventions_gem_name_to_module_name
+    assert_equal 'MyGem',
+      Gemma::Conventions.gem_name_to_module_name("my_gem")
+    assert_equal 'MyGem3',
+      Gemma::Conventions.gem_name_to_module_name("my_gem3")
+    assert_equal 'A4B',
+      Gemma::Conventions.gem_name_to_module_name("a_4_b")
+    assert_equal 'A4b',
+      Gemma::Conventions.gem_name_to_module_name("a4b")
+  end
+
+  def test_template
+    gt = Gemma::GemFromTemplate.new
+    gt.gem_name = "my_new_gem"
+    assert gt.good_gem_name?
+    
+    assert_equal "MyNewGem", gt.module_name
+    gt.module_name = "Foo" # override default
+    assert_equal "Foo", gt.module_name
+    gt.module_name = nil
+    assert_equal "MyNewGem", gt.module_name
+
+    assert_equal "my_new_gem", gt.dir_name
+    gt.dir_name = "bar" # override default
+    assert_equal "bar", gt.dir_name
+    gt.dir_name = nil
+    assert_equal "my_new_gem", gt.dir_name
+
+    template_paths = Gemma::GemFromTemplate::BUILTIN_TEMPLATES.map{|path|
+      File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT,path)}
+    assert File.basename(template_paths.first) == 'base'
+
+    gt.dir_name = File.join('test', "my_new_gem_base")
+    FileUtils.rm_r gt.destination_path if File.directory?(gt.destination_path)
+    gt.create_gem template_paths[0..0]
+
+    gt.dir_name = File.join('test', "my_new_gem_full")
+    FileUtils.rm_r gt.destination_path if File.directory?(gt.destination_path)
+    gt.create_gem template_paths
+  end
 end
 

@@ -6,6 +6,9 @@ end
 
 task :default => :test
 
+CLOBBER << 'test/my_new_gem_base'
+CLOBBER << 'test/my_new_gem_full'
+
 =begin
 desc "docs to rubyforge"
 task :publish_docs => :rdoc_sh do
