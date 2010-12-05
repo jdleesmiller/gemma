@@ -158,8 +158,9 @@ Other helpful articles:
 
 == HISTORY
 
-<em>0.1.0</em>
+<em>1.0.0</em>
 * added templates
+* now depends on bundler for gem tasks
 * more documentation
 
 <em>0.0.2</em>
