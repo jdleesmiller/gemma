@@ -6,7 +6,12 @@ http://github.com/jdleesmiller/gemma
 
 Gemma is a gem development helper like hoe and jeweler, but it keeps the
 gemspec in a gemspec file, where it belongs, instead of in your Rakefile.
-This makes your gem play better with commands like gem and bundle.
+This helps your gem to play nicely with commands like gem and bundle, and it
+allows gemma to provide rake tasks with sensible defaults for many common gem
+development tasks.
+
+See also http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended for more
+background.
 
 === To Create a New Gem
 
@@ -18,18 +23,18 @@ This gives you a simple gem template like the following:
 
   my_new_gem
   |-- bin
-  |   `-- my_new_gem              -- executable (optional)
-  |-- Gemfile                     -- for integration with bundler
-  |-- .gitignore                  -- helpful if you're using git
+  |   +-- my_new_gem              # executable (optional)
+  |-- Gemfile                     # for integration with bundler
+  |-- .gitignore                  # helpful if you're using git
   |-- lib
   |   |-- my_new_gem
-  |   |   `-- version.rb          -- the one and only version constant
-  |   `-- my_new_gem.rb           -- the main code file 
-  |-- my_new_gem.gemspec          -- gem metadata
-  |-- Rakefile.rb                 -- development tasks
-  |-- README.rdoc                 -- documentation
-  `-- test
-      `-- test_my_new_gem.rb      -- unit tests with test/unit (optional)
+  |   |   +-- version.rb          # the one and only version constant
+  |   +-- my_new_gem.rb           # the main code file 
+  |-- my_new_gem.gemspec          # gem metadata
+  |-- Rakefile.rb                 # development tasks
+  |-- README.rdoc                 # documentation
+  +-- test
+      +-- test_my_new_gem.rb      # unit tests with test/unit (optional)
 
 Things you need to change in the template are marked with a +TODO+ tag.
 
@@ -39,13 +44,15 @@ and then modify the Rakefile as described below.
 
 === To Modify an Existing Gem to use Gemma
 
-First you have to have a gemspec file. See
+First you have to have a <tt>.gemspec</tt> file. See
 http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended
-for a template and advice. If you have been using hoe or jeweler, you already
-have all of the information in your Rakefile, so it shouldn't be hard to move it
-into the gemspec file.
+for a template and advice, and see
+http://docs.rubygems.org/read/chapter/20
+for reference material. If you have been using hoe or jeweler, you already
+have all of the information in your Rakefile, so you just have to move it into
+a <tt>.gemspec</tt> file.
 
-Gemma provides rake tasks with (intelligent) defaults based on the contents of
+Gemma provides rake tasks with sensible defaults based on the contents of
 your gemspec; to enable them, add the following to the top of your +Rakefile+:
   begin
     require 'rubygems'
@@ -89,11 +96,13 @@ Gemma has been tested on:
 * x86-linux (Ubuntu 10.10) with Ruby 1.8.7p299
 * x86-linux (rvm) with Ruby 1.9.2p0 (2010-08-18 revision 29036)
 * x86_64-linux (CentOS) with Ruby 1.8.7p72
-* with yard 0.5.8 and 0.6.1
+* with yard 0.5.8 and 0.6.3
 * with rcov 0.9.7.1 and 0.9.9
 Gemma has not yet been tested on Windows.
 
 == INSTALLATION
+
+On *nix:
 
   sudo gem install gemma
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# == gemma
+# = gemma
 #
 # Create new gem from template(s).
 # Options can be specified on the command line or interactively.
@@ -31,9 +31,6 @@
 #
 
 require 'getoptlong'
-require 'rdoc/usage'
-
-require 'rubygems'
 require 'gemma'
 require 'highline'
 
@@ -42,7 +39,8 @@ require 'highline'
 #
 command = ARGV.shift
 unless command && command == "new"
-  RDoc::usage
+  Gemma::Utility.print_usage_from_file_comment __FILE__
+  exit
 end
 
 getopt = GetoptLong.new(
@@ -58,7 +56,8 @@ opts['--template'] = []
 getopt.each do |opt, arg|
   case opt
   when '--help' then
-    RDoc::usage
+    Gemma::Utility.print_usage_from_file_comment __FILE__
+    exit
   when '--template' then
     opts['--template'] << arg
   else
@@ -123,4 +122,4 @@ end
 puts "creating gem in #{gt.destination_path}"
 gt.create_gem(templates)
 puts "gem created; to get started, see the following TODO tags:"
-gt.scan_for_todos 
+Gemma::Utility.rgrep(/TODO/, gt.destination_path)

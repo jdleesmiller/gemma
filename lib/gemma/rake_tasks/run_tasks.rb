@@ -1,17 +1,17 @@
 module Gemma
   class RakeTasks
     #
-    # Run an executable script in the bin folder; the load path is set according
-    # to the +require_paths+ list in the gemspec.
+    # Run an executable script in the bin folder. 
     #
-    # The script should be in the gemspec's +executables+ list; the first entry
-    # (if any) in the list is used by default.
+    # There is one task per entry in the gemspec's +executables+ list.
+    # By default, warnings are enabled, the load path is set according to the
+    # +require_paths+ in the gemspec, and rubygems is included.
     #
     # To pass arguments to the script, you have to pass them as arguments to
     # the rake task. The syntax for quoting the arguments will depend on your
     # shell, but on bash it might look like:
     #
-    #   rake run['foo --bar=baz --bat=hi']
+    #   rake my_prog['foo --bar=baz --bat=hi']
     #
     class RunTasks < Plugin
       #
@@ -21,25 +21,26 @@ module Gemma
         super(gemspec)
 
         # Defaults.
-        @task_name = :run
-        @program_name = gemspec.executables.first
-        @ruby_args = ['-w', "-I#{gemspec.require_paths.join(':')}"]
+        @task_prefix = ''
+        @program_names = gemspec.executables.dup
+        @ruby_args = ['-w', "-I#{gemspec.require_paths.join(':')}", '-rubygems']
       end
 
       #
-      # Name of rake task used to run the executable; defaults to run.
+      # The task names are formed by prepending this string onto each program
+      # name; defaults to the empty string.
       #
-      # @return [Symbol]    
+      # @return [String]    
       # 
-      attr_accessor :task_name
+      attr_accessor :task_prefix
 
       #
-      # Name of the executable (file in the bin directory) to run; defaults to
-      # the first entry in the gemspec's +executables+ list, if any.
+      # Names of the executable (file in the bin directory) to run; by default,
+      # contains the +executables+ from the gemspec.
       #
-      # @return [String, nil]
+      # @return [Array<String>] may be empty
       # 
-      attr_accessor :program_name
+      attr_accessor :program_names
 
       #
       # Arguments to be passed to ruby; by default, warnings are enabled (-w)
@@ -57,10 +58,10 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        if program_name
+        for program_name in program_names
           desc "run #{program_name}"
-          task task_name, :args do |t, args|
-            args = args[:args].split(/\s/)
+          task((task_prefix + program_name), :args) do |t, args|
+            args = (args[:args] || '').split(/\s/)
             ruby(*(ruby_args + ["bin/#{program_name}"] + args))
           end
         end

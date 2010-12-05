@@ -121,18 +121,5 @@ module Gemma
         end
       end
     end
-
-    def scan_for_todos tag=/TODO/, destination_path=self.destination_path 
-      Dir.chdir destination_path do
-        files = (Dir["**/*"] + Dir["**/.*"]).select { |f| File.file? f }.sort
-        for file in files
-          lines = File.readlines(file)
-          lines = lines.zip((0...lines.size).to_a)
-          for line, i in lines.select{|line_, _| line_ =~ tag}
-            puts "#{file}:#{i}: #{line}"
-          end
-        end
-      end
-    end
   end
 end

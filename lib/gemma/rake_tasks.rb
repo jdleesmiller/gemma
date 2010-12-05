@@ -104,23 +104,20 @@ module Gemma
     def yard; @plugins[:yard] end
 
     #
-    # @return [GemTasks]
+    # @return [BundlerGemTasks]
     #
-    #def gem; @plugins[:gem] end
+    def gem; @plugins[:gem] end
 
     protected
 
     def create_default_plugins
+      @plugins[:gem]  = Gemma::RakeTasks::BundlerGemTasks.new(gemspec,
+                                                              gemspec_file_name)
       @plugins[:rcov] = Gemma::RakeTasks::RcovTasks.new(gemspec)
       @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
       @plugins[:run]  = Gemma::RakeTasks::RunTasks.new(gemspec)
       @plugins[:test] = Gemma::RakeTasks::TestUnitTasks.new(gemspec)
       @plugins[:yard] = Gemma::RakeTasks::YardTasks.new(gemspec)
-
-      # not that helpful yet
-      # @plugins[:gem]  = Gemma::RakeTasks::GemTasks.new(gemspec,
-      #   gemspec_file_name)
     end
-
   end
 end

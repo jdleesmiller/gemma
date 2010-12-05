@@ -4,12 +4,22 @@ require "gemma"
 require "set"
 
 class TestGemma < Test::Unit::TestCase
+  # Can load empty spec.
   def test_empty_spec
     s = Gem::Specification.new
     Gemma::RakeTasks.new(s)
   end
 
-  def test_rdoc
+  # Can load our own spec.
+  def test_spec_from_file
+    Dir.chdir(File.join(File.dirname(__FILE__), '..')) do
+      Gemma::RakeTasks.new('gemma.gemspec') do |g|
+        assert_equal 'gemma', g.gemspec.name
+      end
+    end
+  end
+
+  def test_rdoc_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb lib/b.rb)
     s.test_files = %w(test/test_a.rb test/test_a.rb)
@@ -17,8 +27,7 @@ class TestGemma < Test::Unit::TestCase
     s.extra_rdoc_files = ['README.md', 'FAQ']
 
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib/a.rb lib/b.rb README.md FAQ).to_set,
-        g.rdoc.files.to_set
+      assert_equal %w(lib FAQ README.md).to_set, g.rdoc.files.to_set
       assert_equal [], g.rdoc.options
       assert_equal 'README.md', g.rdoc.main
       assert_equal nil, g.rdoc.title
@@ -29,7 +38,18 @@ class TestGemma < Test::Unit::TestCase
     end
   end
 
-  def test_yard
+  def test_run_tasks
+    s = Gem::Specification.new
+    s.files = %w(lib/a.rb)
+    s.executables = %w(a b)
+    s.test_files = %w(test/test_a.rb)
+
+    Gemma::RakeTasks.new(s) do |g|
+      assert_equal %w(a b).to_set, g.run.program_names.to_set
+    end
+  end
+
+  def test_yard_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb)
     s.test_files = %w(test/test_a.rb)
@@ -40,7 +60,7 @@ class TestGemma < Test::Unit::TestCase
     # A file should not be passed as an extra file if it's the --main file.
     # Test files should not be documented.
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib/a.rb), g.yard.files
+      assert_equal %w(lib), g.yard.files
       assert_equal [], g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
@@ -49,7 +69,7 @@ class TestGemma < Test::Unit::TestCase
       assert_equal nil, g.yard.title
 
       g.yard.with_yardoc_task do |yd|
-        assert_equal %w(lib/a.rb), yd.files
+        assert_equal %w(lib), yd.files
         assert_equal 4, yd.options.size
         assert_equal 'README.rdoc',
           Gemma::Options.extract(%w(--main), yd.options).argument
@@ -61,7 +81,7 @@ class TestGemma < Test::Unit::TestCase
     # Add some extra files (that aren't the --main file).
     s.extra_rdoc_files << 'FAQ'
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib/a.rb), g.yard.files
+      assert_equal %w(lib), g.yard.files
       assert_equal %w(FAQ), g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
@@ -70,14 +90,14 @@ class TestGemma < Test::Unit::TestCase
     # Make sure extra options are ignored.
     s.rdoc_options = ['--main', 'README.rdoc', '--diagram']
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib/a.rb), g.yard.files
+      assert_equal %w(lib), g.yard.files
       assert_equal %w(FAQ), g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
     end
     s.rdoc_options = ['--diagram', '--main', 'README.rdoc']
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib/a.rb), g.yard.files
+      assert_equal %w(lib), g.yard.files
       assert_equal %w(FAQ), g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
@@ -92,7 +112,7 @@ class TestGemma < Test::Unit::TestCase
       assert_equal [], g.yard.options
 
       g.yard.with_yardoc_task do |yd|
-        assert_equal %w(lib/a.rb - FAQ), yd.files
+        assert_equal %w(lib - FAQ), yd.files
         assert_equal 6, yd.options.size
         assert_equal 'README.rdoc',
           Gemma::Options.extract(%w(--main), yd.options).argument
@@ -104,7 +124,7 @@ class TestGemma < Test::Unit::TestCase
     end
   end
 
-  def test_test_unit
+  def test_test_unit_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb lib/b.rb)
     s.test_files = %w(test/test_a.rb test/test_b.rb)
@@ -119,7 +139,7 @@ class TestGemma < Test::Unit::TestCase
     end
   end
 
-  def test_rcov
+  def test_rcov_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb lib/b.rb)
     s.test_files = %w(test/test_a.rb test/test_b.rb)
@@ -185,6 +205,24 @@ class TestGemma < Test::Unit::TestCase
     gt.dir_name = File.join('test', "my_new_gem_full")
     FileUtils.rm_r gt.destination_path if File.directory?(gt.destination_path)
     gt.create_gem template_paths
+  end
+
+  #
+  # Exercise usage message for bin/gemma.
+  #
+  def test_print_usage
+    gemma_file = File.join(File.dirname(__FILE__), '..', 'bin', 'gemma')
+    io = StringIO.new
+    Gemma::Utility.print_usage_from_file_comment gemma_file, '#', io
+    assert io.string =~ /gemma/
+  end
+
+  def test_plugin_abstract
+    s = Gem::Specification.new
+    plugin = Gemma::RakeTasks::Plugin.new(s)
+    assert_raise(NotImplementedError) {
+      plugin.create_rake_tasks # abstract method
+    }
   end
 end
 

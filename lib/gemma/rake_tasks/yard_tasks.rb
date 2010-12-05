@@ -45,7 +45,7 @@ module Gemma
         @options = []
 
         # Yard splits up the files from the 'extra' files.
-        @files = gemspec.require_paths
+        @files = gemspec.require_paths.dup
         @extra_files = gemspec.extra_rdoc_files.dup
         @extra_files.delete(main) if main
       end
