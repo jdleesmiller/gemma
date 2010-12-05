@@ -10,22 +10,24 @@ Gem::Specification.new do |s|
   s.authors     = ["John Lees-Miller"]
   s.email       = ["jdleesmiller@gmail.com"]
   s.homepage    = "http://github.com/jdleesmiller/gemma"
-  s.summary     = "Generate helpful rake tasks from your gemspec."
-  s.description = <<DESC
-If you are using .gemspecs as intended
-(http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/), gemma generates
-common rake tasks with default settings extracted from your .gemspec file.
-DESC
+  s.summary     = "Gemspec-centric gem development helper."
+  s.description = <<DESCRIPTION
+Gemma is a gem development helper like hoe and jeweler, but it keeps the
+gemspec in a gemspec file, where it belongs, instead of in your Rakefile.
+This makes your gem play better with commands like gem and bundle.
+DESCRIPTION
 
   # TODO s.rubyforge_project = "gemma"
-  #s.add_dependency 'highline', 
+
+  s.add_dependency 'highline', '>= 1.6.1', '~> 1.6'
   
-  s.files        = Dir["{bin,lib}/**/*.rb"]
-  s.test_files   = Dir["test/test_*.rb"]
+  s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
+  s.test_files  = Dir.glob('test/test_*.rb')
+  s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
 
-  s.executables << 'gemma'
-
-  s.rdoc_options = ['--main', 'README.rdoc']
+  s.rdoc_options = [
+    "--main",    "README.rdoc",
+    "--title",   "gemma-#{Gemma::VERSION}"]
   s.extra_rdoc_files << "README.rdoc"
 end
 

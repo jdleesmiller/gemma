@@ -78,89 +78,49 @@ if interactive
   puts 
   puts "creating a new gem with gemma..."
   puts 
-
-  def ask prompt, default=nil, validate=nil
-    answer = default
-    case validate
-    when Proc then
-      validator = validate
-    when Regexp then
-      validator = proc {|x|
-        x =~ validate or begin
-          puts "answer must match #{validate}"
-          false
-        end
-      }
-    when nil
-      validator = proc {|x| true}
-    else
-      raise ArgumentError.new("validate")
-    end
-
-    begin
-      print "#{prompt}#{default ? " [#{default}]" : ""}: "
-      answer = readline.strip
-      answer = default if answer.empty?
-    end until answer && validator.call(answer)
-    answer
-  end
-
-  def choose prompt, options, default_index=nil
-    answer = nil
-    begin
-      for i in 0...options.size
-        puts "%3d. %s" % [i + 1, options[i]]
-      end
-      print "#{prompt}#{default_index ? " [#{default_index + 1}]" : ""}: "
-      answer = readline.strip
-      if answer.empty?
-        answer = default_index
-      else
-        answer = answer.to_i - 1
-      end
-    end until answer && 0 <= answer && answer < options.size
-    answer
-  end
 end
 
-#unless interactive
-#  gt.gem_name    = opts['--name']
-#else
-#  gt.gem_name    = ask('gem name', nil, /^.+$/) # weak validation
-#end
-#
-#if opts['--dir']
-#  gt.dir_name    = opts['--dir']
-#elsif interactive
-#  gt.dir_name    = ask('create gem in directory', gt.dir_name)
-#end
-#
-#if opts['--module']
-#  gt.module_name = opts['--module']
-#elsif interactive
-#  gt.module_name = ask('wrap contents in module called', gt.module_name)
-#end
+unless interactive
+  gt.gem_name    = opts['--name']
+else
+  gt.gem_name    = hl.ask('gem name: ') {|q| q.validate = /^.+$/} # weak
+end
+
+if opts['--dir']
+  gt.dir_name    = opts['--dir']
+elsif interactive
+  gt.dir_name    =
+    hl.ask('create gem in directory: ') {|q| q.default = gt.dir_name}
+end
+
+if opts['--module']
+  gt.module_name = opts['--module']
+elsif interactive
+  gt.module_name =
+    hl.ask('wrap contents in module called: ') {|q| q.default = gt.module_name}
+end
 
 templates = opts['--template']
 if templates.empty?
   if interactive
     templates << 'base' << 'test_unit'
-    case choose("type of gem", ["library", "program"], 1)
-    when 0 then
-      # no extras
-    when 1 then
-      templates << 'executable'
-    else
-      raise "BUG: bad return from choose"
+    hl.choose do |menu|
+      menu.prompt = "type of gem: "
+      menu.shell = true
+      menu.choice('library (library scripts only)') do
+        # no extras
+      end
+      menu.choice('program (both library scripts and executable scripts)') do
+        templates << 'executable'
+      end
     end
   else
     templates.push(*Gemma::GemFromTemplate::BUILTIN_TEMPLATES)
   end
   templates.map!{|name| File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT,name)}
 end
-p templates
 
-#puts "creating gem in #{gt.destination_path}"
-#gt.create_gem(templates)
-#puts "gem created; to get started, see the following TODO tags:"
-
+puts "creating gem in #{gt.destination_path}"
+gt.create_gem(templates)
+puts "gem created; to get started, see the following TODO tags:"
+gt.scan_for_todos 
