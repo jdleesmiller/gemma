@@ -1,4 +1,7 @@
 module Gemma
+  #
+  # Helpers for processing command line arguments.
+  #
   module Options
     #
     # @attr [String, nil] argument
