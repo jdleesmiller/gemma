@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '<%= gem_name %>'
 
   #s.add_runtime_dependency '...'
-  s.add_development_dependency 'gemma', '~> 0.0'
+  s.add_development_dependency 'gemma', '>= <%= Gemma::VERSION %>', '<%=
+    gemma_version_requirement %>'
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
   s.test_files  = Dir.glob('test/test_*.rb')

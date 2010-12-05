@@ -79,6 +79,15 @@ module Gemma
     end
 
     #
+    # Gem version requirement for the development dependency on gemma.
+    #
+    # @return [String]
+    #
+    def gemma_version_requirement 
+      "~> #{Gemma::VERSION.split(/\./).take(2).join('.')}"
+    end
+
+    #
     # Copy given templates to +destination_path+ and run erb where needed.
     #
     def create_gem template_paths, destination_path=self.destination_path
