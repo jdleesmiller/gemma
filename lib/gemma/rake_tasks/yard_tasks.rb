@@ -4,24 +4,25 @@ module Gemma
     # Create tasks to generate documentation with yard (yardoc) if it is
     # available.
     #
-    # The files to document are extracted from the gemspec's `files` and
-    # `extra_rdoc_files` members.
+    # The gemspec's +require_paths+ and +extra_rdoc_files+ are documented by
+    # default.
     #
     # Unfortunately, yardoc's command line options are largely incompatible with
-    # those for rdoc, but the `--main` and `--title` options from `rdoc_options`
-    # are also passed through to yardoc by default. The short forms `-m` and
-    # `-t` of these arguments are also passed on as `--main` and `--title` to
-    # yardoc (note that `-m` and `-t` mean different things to yardoc than to
-    # rdoc!). Note that any files (that is, non-options) in `rdoc_options` are
-    # also ignored.
+    # those for rdoc, but the <tt>--main</tt> and <tt>--title</tt> options from
+    # +rdoc_options+ are passed through to yardoc by default. The short forms
+    # <tt>-m</tt> and <tt>-t</tt> of these arguments are also passed on as
+    # <tt>--main</tt> and <tt>--title</tt> to yardoc (note that <tt>-m</tt> and
+    # <tt>-t</tt> mean different things to yardoc than to rdoc!).  Note that any
+    # files (that is, non-options) in +rdoc_options+ are also ignored.
     #
     # If you want to further customize your yardoc output, you can add options
-    # in the {Gemma::RakeTasks.with_gemspec_file} configuration block.
+    # in the {Gemma::RakeTasks.with_gemspec_file} configuration block or use a
+    # <tt>.yardopts</tt> file.
     #
-    # This plugin is based on the `YARD::Rake::YardocTask` that comes bundled
-    # with yard.  If you need an option that isn't exposed by the plugin, you
-    # can modify the `YardocTask` object directly in a block passed to
-    # {#with_yardoc_task}. 
+    # This plugin is based on the <tt>YARD::Rake::YardocTask</tt> that comes
+    # bundled with yard.  If you need an option that isn't exposed by the
+    # plugin, you can modify the +YardocTask+ object directly in a block passed
+    # to {#with_yardoc_task}. 
     #
     class YardTasks < Plugin
       #
@@ -43,9 +44,8 @@ module Gemma
 
         @options = []
 
-        # Don't document the test files.
-        # Yard splits up the ruby files from the 'extra' files.
-        @files = gemspec.files - gemspec.test_files - gemspec.extra_rdoc_files
+        # Yard splits up the files from the 'extra' files.
+        @files = gemspec.require_paths
         @extra_files = gemspec.extra_rdoc_files.dup
         @extra_files.delete(main) if main
       end
@@ -82,7 +82,7 @@ module Gemma
 
       #
       # Ruby files to be processed by yard; these are extracted from the
-      # gemspec; test files are not included by default.
+      # gemspec; by default these are the +require_paths+.
       #
       # @return [Array<String>] 
       #
