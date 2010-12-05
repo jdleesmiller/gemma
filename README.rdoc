@@ -43,8 +43,7 @@ First you have to have a gemspec file. See
 http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended
 for a template and advice. If you have been using hoe or jeweler, you already
 have all of the information in your Rakefile, so it shouldn't be hard to move it
-into the gemspec file. You won't need the <tt>Manifest.txt</tt> file any more,
-but you can still use it.
+into the gemspec file.
 
 Gemma provides rake tasks with (intelligent) defaults based on the contents of
 your gemspec; to enable them, add the following to the top of your +Rakefile+:
@@ -58,9 +57,9 @@ your gemspec; to enable them, add the following to the top of your +Rakefile+:
     puts "Install gemma (sudo gem install gemma) for standard rake tasks."
   end
 
-This gives you a list of standard rake tasks with settings based on your
-gemspec, in addition to any that you define yourself. (Note that the yard task
-only appears if you have the yard (yardoc) gem installed.)
+This gives you some standard rake tasks, in addition to any that you define
+yourself. (Note that the yard task only appears if you have the yard (yardoc)
+gem installed.)
 
   rake clean         # Remove any temporary products.
   rake clobber       # Remove any generated file.
@@ -72,8 +71,7 @@ only appears if you have the yard (yardoc) gem installed.)
 
 Run <tt>rake -T</tt> for a full list of tasks.
 
-You can customize the generated tasks by passing a block to
-+with_gemspec_file+:
+You can customize the standard tasks by passing a block to +with_gemspec_file+:
 
   Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
     g.rdoc.title = 'My Gem Is Great'
