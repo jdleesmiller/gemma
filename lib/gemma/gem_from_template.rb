@@ -128,7 +128,7 @@ module Gemma
         for file in files
           lines = File.readlines(file)
           lines = lines.zip((0...lines.size).to_a)
-          for line, i in lines.select{|line, i| line =~ tag}
+          for line, i in lines.select{|line_, _| line_ =~ tag}
             puts "#{file}:#{i}: #{line}"
           end
         end
