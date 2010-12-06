@@ -24,7 +24,6 @@ This gives you a simple gem template like the following:
   my_new_gem
   |-- bin
   |   +-- my_new_gem              # executable (optional)
-  |-- Gemfile                     # for integration with bundler
   |-- .gitignore                  # helpful if you're using git
   |-- lib
   |   |-- my_new_gem
@@ -37,10 +36,6 @@ This gives you a simple gem template like the following:
       +-- test_my_new_gem.rb      # unit tests with test/unit (optional)
 
 Things you need to change in the template are marked with a +TODO+ tag.
-
-Alternatively, you can create the scaffold with bundler
-(http://gembundler.com/rubygems.html)
-and then modify the Rakefile as described below.
 
 === To Modify an Existing Gem to use Gemma
 
@@ -111,12 +106,11 @@ On *nix:
 To get the source:
   git clone git://github.com/jdleesmiller/gemma.git
 
-To get development dependencies:
-  bundle 
+To get dependencies, you should also install the gem.
 
 == RELATED PROJECTS
 
-There are many projects that make gem development easier.
+There are many projects that help to automate common gem development tasks.
 Hoe and Jeweler are the most popular; they generate the gemspec and tasks using
 a configuration specified in the Rakefile, which is the opposite to what gemma
 does. Mr Bones is a gem template generator that appears to be similar to Hoe
@@ -125,6 +119,13 @@ and Jeweler, but I haven't used it myself.
 * http://seattlerb.rubyforge.org/hoe/
 * http://github.com/technicalpickles/jeweler 
 * http://codeforpeople.rubyforge.org/bones/ 
+
+Bundler also provides some support for gem development. It includes a simple gem
+scaffolding generator, and the results are compatible with gemma. It also
+includes some rake extensions for building, installing and releasing gems
+(Bundler::GemHelper).
+* http://gembundler.com
+* http://gembundler.com/rubygems.html
 
 gemesis provides tasks for building, releasing and installing gems based on the
 gemspec, but (at the time of writing) it doesn't provide tasks for tests and
@@ -137,11 +138,11 @@ gemspec, and it looks like it should work fairly well with gemma.
 
 * http://github.com/luislavena/rake-compiler
 
+
 Other helpful articles:
 
 * http://rubygems.rubyforge.org/rubygems-update/Gem/Version.html
 * http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/ 
-* http://gembundler.com/rubygems.html
 
 == TODO
 
@@ -160,7 +161,6 @@ Other helpful articles:
 
 <em>1.0.0</em>
 * added templates
-* now depends on bundler for gem tasks
 * more documentation
 
 <em>0.0.2</em>
