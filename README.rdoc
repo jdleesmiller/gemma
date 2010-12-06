@@ -123,7 +123,7 @@ and Jeweler, but I haven't used it myself.
 Bundler also provides some support for gem development. It includes a simple gem
 scaffolding generator, and the results are compatible with gemma. It also
 includes some rake extensions for building, installing and releasing gems
-(Bundler::GemHelper).
+(Bundler::GemHelper). (As of version 1.0.7.)
 * http://gembundler.com
 * http://gembundler.com/rubygems.html
 
