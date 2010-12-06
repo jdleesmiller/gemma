@@ -106,7 +106,10 @@ On *nix:
 To get the source:
   git clone git://github.com/jdleesmiller/gemma.git
 
-To get dependencies, you should also install the gem.
+To get dependencies, you can then run
+  gem build gemma.gemspec
+  gem install gemma-X.X.X.gem --development
+where X.X.X is the current gemma version.
 
 == RELATED PROJECTS
 
@@ -161,6 +164,8 @@ Other helpful articles:
 
 <em>1.0.0</em>
 * added templates
+* changed rdoc and yard tasks to use +require_paths+ instead of +files+ 
+* more tests
 * more documentation
 
 <em>0.0.2</em>
