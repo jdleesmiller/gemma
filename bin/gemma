@@ -12,6 +12,9 @@
 # -h, --help::
 #   show this message
 #
+# -v, --version::
+#   print gemma version and exit
+#
 # --name=name::
 #   name of the gem to create; if unspecified, gemma assumes that you want to
 #   create the gem interactively, and prompts will be given for any other
@@ -37,14 +40,10 @@ require 'highline'
 #
 # Process options.
 #
-command = ARGV.shift
-unless command && command == "new"
-  Gemma::Utility.print_usage_from_file_comment __FILE__
-  exit
-end
 
 getopt = GetoptLong.new(
   ['--help',     '-h', GetoptLong::NO_ARGUMENT      ],
+  ['--version',  '-v', GetoptLong::NO_ARGUMENT      ],
   ['--name',           GetoptLong::REQUIRED_ARGUMENT],
   ['--dir',            GetoptLong::REQUIRED_ARGUMENT],
   ['--module',         GetoptLong::REQUIRED_ARGUMENT],
@@ -58,11 +57,21 @@ getopt.each do |opt, arg|
   when '--help' then
     Gemma::Utility.print_usage_from_file_comment __FILE__
     exit
+  when '--version' then
+    puts "gemma-#{Gemma::VERSION}"
+    exit
   when '--template' then
     opts['--template'] << arg
   else
     opts[opt] = arg
   end
+end
+
+# Remaining argument should be the command.
+command = ARGV.shift
+unless command && command == "new"
+  Gemma::Utility.print_usage_from_file_comment __FILE__
+  exit
 end
 
 #
