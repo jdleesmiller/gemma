@@ -24,7 +24,7 @@ DESCRIPTION
   s.add_dependency 'highline', '>= 1.6.1', '~> 1.6'
   
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
-                  Dir.glob('template/**/*') + %w(README.rdoc)
+                  Dir.glob('template/**/{.*,*}') + %w(README.rdoc)
   s.test_files  = Dir.glob('test/test_*.rb') - %w(test/test_gemma_dev.rb)
   s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
 
