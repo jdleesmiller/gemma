@@ -58,14 +58,18 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        require 'rake/testtask'
-        Rake::TestTask.new(self.task_name) do |tt|
-          tt.libs        = gemspec.require_paths
-          tt.test_files  = self.files
-          tt.warning     = true
-          @with_test_task.call(tt) if @with_test_task
+        unless self.files.empty?
+          require 'rake/testtask'
+          Rake::TestTask.new(self.task_name) do |tt|
+            tt.libs        = gemspec.require_paths
+            tt.test_files  = self.files
+            tt.warning     = true
+            @with_test_task.call(tt) if @with_test_task
+          end
         end
         nil
+      rescue LoadError
+        # Assume the test task is not installed.
       end
     end
   end
