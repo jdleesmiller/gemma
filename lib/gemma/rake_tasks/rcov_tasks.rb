@@ -59,19 +59,18 @@ module Gemma
       # @private
       #
       def create_rake_tasks 
-        begin
-          require 'rcov/rcovtask'
-          Rcov::RcovTask.new(self.task_name) do |rcov|
-            rcov.libs       = gemspec.require_paths
-            rcov.test_files = gemspec.test_files
-            rcov.warning    = true
-            rcov.rcov_opts << "-x ^/"
-            rcov.output_dir = self.output
-            @with_rcov_task.call(rcov) if @with_rcov_task
-          end
-        rescue LoadError
-          # Assume rcov is not installed.
+        require 'rcov/rcovtask'
+        Rcov::RcovTask.new(self.task_name) do |rcov|
+          rcov.libs       = gemspec.require_paths
+          rcov.test_files = gemspec.test_files
+          rcov.warning    = true
+          rcov.rcov_opts << "-x ^/"
+          rcov.output_dir = self.output
+          @with_rcov_task.call(rcov) if @with_rcov_task
         end
+        nil
+      rescue LoadError
+        # Assume rcov is not installed.
       end
     end
   end

@@ -128,21 +128,19 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        begin
-          require 'yard'
-          YARD::Rake::YardocTask.new do |yd|
-            yd.name    = self.task_name
-            yd.options = complete_options
-            yd.files   = self.files
-            yd.files.push('-', *self.extra_files) unless self.extra_files.empty?
-            @with_yardoc_task.call(yd) if @with_yardoc_task
-          end
-          CLOBBER.include(self.output)
-          CLOBBER.include('.yardoc')
-        rescue LoadError
-          # Assume yard is not installed.
+        require 'yard'
+        YARD::Rake::YardocTask.new do |yd|
+          yd.name    = self.task_name
+          yd.options = complete_options
+          yd.files   = self.files
+          yd.files.push('-', *self.extra_files) unless self.extra_files.empty?
+          @with_yardoc_task.call(yd) if @with_yardoc_task
         end
+        CLOBBER.include(self.output)
+        CLOBBER.include('.yardoc')
         nil
+      rescue LoadError
+        # Assume yard is not installed.
       end
 
       private 
