@@ -21,7 +21,6 @@ DESCRIPTION
 
   # TODO s.rubyforge_project = "gemma"
 
-  s.add_dependency 'bundler',  '>= 1.0.7', '~> 1.0'
   s.add_dependency 'highline', '>= 1.6.1', '~> 1.6'
   
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +

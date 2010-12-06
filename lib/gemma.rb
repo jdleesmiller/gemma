@@ -5,7 +5,6 @@ require 'gemma/rake_tasks'
 
 # Load default Rakefile plugins:
 require 'gemma/rake_tasks/plugin'
-require 'gemma/rake_tasks/bundler_gem_tasks'
 require 'gemma/rake_tasks/rcov_tasks'
 require 'gemma/rake_tasks/rdoc_tasks'
 require 'gemma/rake_tasks/run_tasks'

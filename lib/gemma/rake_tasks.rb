@@ -53,7 +53,11 @@ module Gemma
       block.call(self) if block_given?
 
       @plugins.values.each do |plugin|
-        plugin.create_rake_tasks
+        begin
+          plugin.create_rake_tasks
+        rescue 
+          warn "plugin #{plugin.class} failed: #{$!}"
+        end
       end
     end
 
@@ -103,16 +107,9 @@ module Gemma
     #
     def yard; @plugins[:yard] end
 
-    #
-    # @return [BundlerGemTasks]
-    #
-    def gem; @plugins[:gem] end
-
     protected
 
     def create_default_plugins
-      @plugins[:gem]  = Gemma::RakeTasks::BundlerGemTasks.new(gemspec,
-                                                              gemspec_file_name)
       @plugins[:rcov] = Gemma::RakeTasks::RcovTasks.new(gemspec)
       @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
       @plugins[:run]  = Gemma::RakeTasks::RunTasks.new(gemspec)

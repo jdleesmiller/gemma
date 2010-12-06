@@ -32,19 +32,6 @@ class TestGemmaTest1 < Test::Unit::TestCase
   end
 
   #
-  # Check that the bundler build call works; it is harder to check release and
-  # install.
-  #
-  def test_bundler_exec
-    Dir.chdir(@test_gem) do
-      system "rake", '-I', @lib_path, 'clobber'
-      assert !File.exists?(File.join('pkg', 'gemma_test_1-0.0.1.gem'))
-      system "rake", '-I', @lib_path, 'build'
-      assert  File.exists?(File.join('pkg', 'gemma_test_1-0.0.1.gem'))
-    end
-  end
-
-  #
   # There are still a few TODOs left in the test project in README.rdoc.
   #
   def test_todos
