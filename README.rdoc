@@ -2,47 +2,78 @@
 
 http://github.com/jdleesmiller/gemma
 
-== DESCRIPTION
-
-If you are using .gemspecs as intended
-(http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/), gemma generates
-common rake tasks with default settings extracted from your .gemspec file.
-
 == SYNOPSIS
 
-To create a gem called +mygem+, first create <tt>mygem.gemspec</tt> as
-described in http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/.
+Gemma is a gem development helper like hoe and jeweler, but it keeps the
+gemspec in a gemspec file, where it belongs, instead of in your Rakefile.
+This helps your gem to play nicely with commands like gem and bundle, and it
+allows gemma to provide rake tasks with sensible defaults for many common gem
+development tasks.
 
-For more information about the gemspec, see the Gem::Specification Reference
-(http://docs.rubygems.org/read/chapter/20).
+See also http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended for more
+background.
 
-Then put the following at the top of your <tt>Rakefile.rb</tt>:
+=== To Create a New Gem
+
+Gemma has a simple interactive gem scaffolding tool; run
+  gemma new
+and follow the prompts. (Run with -h for help.)
+
+This gives you a simple gem template like the following:
+
+  my_new_gem
+  |-- bin
+  |   +-- my_new_gem              # executable (optional)
+  |-- .gitignore                  # helpful if you're using git
+  |-- lib
+  |   |-- my_new_gem
+  |   |   +-- version.rb          # the one and only version constant
+  |   +-- my_new_gem.rb           # the main code file 
+  |-- my_new_gem.gemspec          # gem metadata
+  |-- Rakefile.rb                 # development tasks
+  |-- README.rdoc                 # documentation
+  +-- test
+      +-- test_my_new_gem.rb      # unit tests with test/unit (optional)
+
+Things you need to change in the template are marked with a +TODO+ tag.
+
+=== To Modify an Existing Gem to use Gemma
+
+First you have to have a <tt>.gemspec</tt> file. See
+http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended
+for a template and advice, and see
+http://docs.rubygems.org/read/chapter/20
+for reference material. If you have been using hoe or jeweler, you already
+have all of the information in your Rakefile, so you just have to move it into
+a <tt>.gemspec</tt> file.
+
+Gemma provides rake tasks with sensible defaults based on the contents of
+your gemspec; to enable them, add the following to the top of your +Rakefile+:
   begin
     require 'rubygems'
     require 'gemma'
 
-    Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec'
+    Gemma::RakeTasks.with_gemspec_file 'my_gem.gemspec'
   rescue LoadError
     # Gemma is not installed; print an (optional) message:
     puts "Install gemma (sudo gem install gemma) for standard rake tasks."
   end
 
-This gives you a list of standard rake tasks with settings based on your
-gemspec, in addition to any that you define yourself. (Note that the yard task
-only appears if you have the yard gem installed.)
+This gives you some standard rake tasks, in addition to any that you define
+yourself. (Note that the yard task only appears if you have the yard (yardoc)
+gem installed.)
 
   rake clean         # Remove any temporary products.
   rake clobber       # Remove any generated file.
-  rake clobber_rcov  # Remove rcov products for rcov
-  rake clobber_rdoc  # Remove rdoc products
   rake rcov          # Analyze code coverage with tests
   rake rdoc          # Build the rdoc HTML Files
-  rake rerdoc        # Force a rebuild of the RDOC files
   rake test          # Run tests
   rake yard          # Generate YARD Documentation
+  ... and more!
 
-You can customize the generated tasks by passing a block to
-+with_gemspec_file+:
+Run <tt>rake -T</tt> for a full list of tasks.
+
+You can customize the standard tasks by passing a block to +with_gemspec_file+:
 
   Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
     g.rdoc.title = 'My Gem Is Great'
@@ -53,34 +84,35 @@ See the gemma API docs for more information.
 == REQUIREMENTS
 
 You must have ruby, rubygems and rake installed. Tasks are also included for
-rcov (http://eigenclass.org/hiki.rb?rcov) and yard (http://yardoc.org/).
+rcov (http://eigenclass.org/hiki.rb?rcov) and yard (http://yardoc.org/), if you
+have them installed. Other dependencies are handled automatically.
 
 Gemma has been tested on:
-* x86-linux (Ubuntu 10.04) with Ruby 1.8.7p249
-* x86-linux (rvm) with Ruby 1.9.2p0 (2010-08-18 revision 29034)
+* x86-linux (Ubuntu 10.10) with Ruby 1.8.7p299
+* x86-linux (rvm) with Ruby 1.9.2p0 (2010-08-18 revision 29036)
 * x86_64-linux (CentOS) with Ruby 1.8.7p72
-* with yard 0.5.8 and 0.6.1
-* with rcov 0.9.6 and 0.9.9
+* with yard 0.5.8 and 0.6.3
+* with rcov 0.9.7.1 and 0.9.9
 Gemma has not yet been tested on Windows.
 
-== INSTALL
+== INSTALLATION
 
-You should be able to install with
+On *nix:
 
-  gem install gemma
+  sudo gem install gemma
 
-Alternatively, you can get the source with
+== DEVELOPMENT
 
+To get the source and development depencies:
   git clone git://github.com/jdleesmiller/gemma.git
-
-and run
-
+  cd gemma
   gem build gemma.gemspec
-  gem install gemma-<version>.gem
+  sudo gem install gemma-X.X.X.gem --development
+where X.X.X is the current gemma version.
 
 == RELATED PROJECTS
 
-There are many projects that make gem development easier.
+There are many projects that help to automate common gem development tasks.
 Hoe and Jeweler are the most popular; they generate the gemspec and tasks using
 a configuration specified in the Rakefile, which is the opposite to what gemma
 does. Mr Bones is a gem template generator that appears to be similar to Hoe
@@ -89,6 +121,13 @@ and Jeweler, but I haven't used it myself.
 * http://seattlerb.rubyforge.org/hoe/
 * http://github.com/technicalpickles/jeweler 
 * http://codeforpeople.rubyforge.org/bones/ 
+
+Bundler also provides some support for gem development. It includes a simple gem
+scaffolding generator, and the results are compatible with gemma. It also
+includes some rake extensions for building, installing and releasing gems
+(Bundler::GemHelper). (As of version 1.0.7.)
+* http://gembundler.com
+* http://gembundler.com/rubygems.html
 
 gemesis provides tasks for building, releasing and installing gems based on the
 gemspec, but (at the time of writing) it doesn't provide tasks for tests and
@@ -100,6 +139,7 @@ rake-compiler provides support for compiling native extensions from a
 gemspec, and it looks like it should work fairly well with gemma.
 
 * http://github.com/luislavena/rake-compiler
+
 
 Other helpful articles:
 
@@ -116,11 +156,19 @@ Other helpful articles:
       g.yard_dev.options.push('--protected', '--private')
     end
 * more tasks (e.g. to publish docs)
-* generate gem skeletons
 * tasks for version control? (see http://github.com/nvie/gitflow)
 * contributions welcome!
 
 == HISTORY
+
+<em>1.0.0</em>
+* added templates
+* changed rdoc and yard tasks to use +require_paths+ instead of +files+ 
+* more tests
+* more documentation
+
+<em>0.0.2</em>
+* minor fixes
 
 <em>0.0.1</em>
 * first release

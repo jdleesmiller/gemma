@@ -1,19 +1,19 @@
 module Gemma
   class RakeTasks
     #
-    # Create tasks for generating `rdoc` API documentation with settings from
+    # Create tasks for generating +rdoc+ API documentation with settings from
     # the gemspec.
     #
-    # The default settings are based on the `files`, `rdoc_options` and
-    # `extra_rdoc_files` data in the gemspec. By default, test cases (which
-    # might be included in `files`) are not documented.
+    # The default settings are based on the +require_paths+, +rdoc_options+ and
+    # +extra_rdoc_files+ data in the gemspec. 
     #
     # If an rdoc gem is installed, it will be used; otherwise, the built-in
-    # rdoc will be used.
+    # rdoc will be used (see {#use_gem_if_available}).
     #
-    # This plugin is based on the `Rake::RDocTask` that comes bundled with rake.
-    # If you need an option that isn't exposed by the plugin, you can modify the
-    # `RDocTask` object directly in a block passed to {#with_rdoc_task}. 
+    # This plugin is based on the <tt>Rake::RDocTask</tt> that comes bundled
+    # with rake.  If you need an option that isn't exposed by the plugin, you
+    # can modify the +RDocTask+ object directly in a block passed to
+    # {#with_rdoc_task}. 
     #
     class RDocTasks < Plugin
       #
@@ -38,8 +38,7 @@ module Gemma
         @title, @options = Options.extract(%w(-t --title), @options).to_a
         @template, @options = Options.extract(%w(-T --template), @options).to_a
 
-        # Don't include the test files by default.
-        @files = gemspec.files - gemspec.test_files
+        @files = gemspec.require_paths + gemspec.extra_rdoc_files
       end
 
       #
@@ -93,8 +92,8 @@ module Gemma
       attr_accessor :use_gem_if_available
 
       #
-      # Files to be processed by rdoc; extracted from gemspec; test files are
-      # not included by default.
+      # Files and directories to be processed by rdoc; extracted from gemspec;
+      # by default, these are the gem's +require_paths+ and +extra_rdoc_files+.
       #
       # @return [Array<String>] 
       #

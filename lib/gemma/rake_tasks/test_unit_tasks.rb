@@ -17,15 +17,23 @@ module Gemma
 
         # Defaults.
         @task_name = :test
+        @files = gemspec.test_files.dup
         @with_test_task = nil
       end
 
       #
-      # Name of rake task used to generate these docs; defaults to test.
+      # Name of rake task used to run the test; defaults to test.
       #
       # @return [Symbol]    
       # 
       attr_accessor :task_name
+
+      #
+      # The files to test; defaults to the +test_files+ from the gemspec.
+      #
+      # @return [Array<String>]    
+      # 
+      attr_accessor :files
 
       #
       # Customize the test task.
@@ -50,14 +58,18 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        require 'rake/testtask'
-        Rake::TestTask.new(self.task_name) do |tt|
-          tt.libs        = gemspec.require_paths
-          tt.test_files  = gemspec.test_files
-          tt.warning     = true
-          @with_test_task.call(tt) if @with_test_task
+        unless self.files.empty?
+          require 'rake/testtask'
+          Rake::TestTask.new(self.task_name) do |tt|
+            tt.libs        = gemspec.require_paths
+            tt.test_files  = self.files
+            tt.warning     = true
+            @with_test_task.call(tt) if @with_test_task
+          end
         end
         nil
+      rescue LoadError
+        # Assume the test task is not installed.
       end
     end
   end
