@@ -103,12 +103,11 @@ On *nix:
 
 == DEVELOPMENT
 
-To get the source:
+To get the source and development depencies:
   git clone git://github.com/jdleesmiller/gemma.git
-
-To get dependencies, you can then run
+  cd gemma
   gem build gemma.gemspec
-  gem install gemma-X.X.X.gem --development
+  sudo gem install gemma-X.X.X.gem --development
 where X.X.X is the current gemma version.
 
 == RELATED PROJECTS
