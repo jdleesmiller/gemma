@@ -10,15 +10,6 @@ class TestGemma < Test::Unit::TestCase
     Gemma::RakeTasks.new(s)
   end
 
-  # Can load our own spec.
-  def test_spec_from_file
-    Dir.chdir(File.join(File.dirname(__FILE__), '..')) do
-      Gemma::RakeTasks.new('gemma.gemspec') do |g|
-        assert_equal 'gemma', g.gemspec.name
-      end
-    end
-  end
-
   def test_rdoc_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb lib/b.rb)
@@ -175,36 +166,6 @@ class TestGemma < Test::Unit::TestCase
       Gemma::Conventions.gem_name_to_module_name("a_4_b")
     assert_equal 'A4b',
       Gemma::Conventions.gem_name_to_module_name("a4b")
-  end
-
-  def test_template
-    gt = Gemma::GemFromTemplate.new
-    gt.gem_name = "my_new_gem"
-    assert gt.good_gem_name?
-    
-    assert_equal "MyNewGem", gt.module_name
-    gt.module_name = "Foo" # override default
-    assert_equal "Foo", gt.module_name
-    gt.module_name = nil
-    assert_equal "MyNewGem", gt.module_name
-
-    assert_equal "my_new_gem", gt.dir_name
-    gt.dir_name = "bar" # override default
-    assert_equal "bar", gt.dir_name
-    gt.dir_name = nil
-    assert_equal "my_new_gem", gt.dir_name
-
-    template_paths = Gemma::GemFromTemplate::BUILTIN_TEMPLATES.map{|path|
-      File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT,path)}
-    assert File.basename(template_paths.first) == 'base'
-
-    gt.dir_name = File.join('test', "my_new_gem_base")
-    FileUtils.rm_r gt.destination_path if File.directory?(gt.destination_path)
-    gt.create_gem template_paths[0..0]
-
-    gt.dir_name = File.join('test', "my_new_gem_full")
-    FileUtils.rm_r gt.destination_path if File.directory?(gt.destination_path)
-    gt.create_gem template_paths
   end
 
   #

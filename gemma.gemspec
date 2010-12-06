@@ -25,7 +25,7 @@ DESCRIPTION
   
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
                   Dir.glob('template/**/*') + %w(README.rdoc)
-  s.test_files  = Dir.glob('test/test_*.rb')
+  s.test_files  = Dir.glob('test/test_*.rb') - %w(test/test_gemma_dev.rb)
   s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
 
   s.rdoc_options = [

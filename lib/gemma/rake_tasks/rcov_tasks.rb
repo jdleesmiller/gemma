@@ -19,6 +19,7 @@ module Gemma
         # Defaults.
         @task_name = :rcov
         @output = 'rcov'
+        @files = gemspec.test_files.dup
         @with_rcov_task = nil
       end
 
@@ -35,6 +36,13 @@ module Gemma
       # @return [String] 
       #
       attr_accessor :output
+
+      #
+      # The files to test; defaults to the +test_files+ from the gemspec.
+      #
+      # @return [Array<String>]    
+      # 
+      attr_accessor :files
    
       #
       # Customize the rcov task.
@@ -62,7 +70,7 @@ module Gemma
         require 'rcov/rcovtask'
         Rcov::RcovTask.new(self.task_name) do |rcov|
           rcov.libs       = gemspec.require_paths
-          rcov.test_files = gemspec.test_files
+          rcov.test_files = self.files
           rcov.warning    = true
           rcov.rcov_opts << "-x ^/"
           rcov.output_dir = self.output

@@ -17,6 +17,7 @@ module Gemma
 
         # Defaults.
         @task_name = :test
+        @files = gemspec.test_files.dup
         @with_test_task = nil
       end
 
@@ -26,6 +27,13 @@ module Gemma
       # @return [Symbol]    
       # 
       attr_accessor :task_name
+
+      #
+      # The files to test; defaults to the +test_files+ from the gemspec.
+      #
+      # @return [Array<String>]    
+      # 
+      attr_accessor :files
 
       #
       # Customize the test task.
@@ -53,7 +61,7 @@ module Gemma
         require 'rake/testtask'
         Rake::TestTask.new(self.task_name) do |tt|
           tt.libs        = gemspec.require_paths
-          tt.test_files  = gemspec.test_files
+          tt.test_files  = self.files
           tt.warning     = true
           @with_test_task.call(tt) if @with_test_task
         end

@@ -6,6 +6,11 @@ Gemma::RakeTasks.with_gemspec_file 'gemma.gemspec' do |g|
   # Yardoc does a nice job on everything but this script; it tries to process it
   # as an rdoc file, rather than as a ruby source file.
   g.yard.extra_files.delete('bin/gemma')
+
+  # Some tests are hard to do once the gem is installed (i.e. they would cause
+  # gem check gemma --test to fail); do these here. 
+  g.test.files << 'test/test_gemma_dev.rb'
+  g.rcov.files << 'test/test_gemma_dev.rb'
 end
 
 task :default => :test
