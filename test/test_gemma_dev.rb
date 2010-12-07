@@ -1,7 +1,5 @@
 require "test/unit"
-require "rubygems"
 require "gemma"
-require "set"
 
 #
 # Some tests that don't package well, because they have to create / delete files
