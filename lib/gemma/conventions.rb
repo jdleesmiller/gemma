@@ -2,6 +2,34 @@ module Gemma
   #
   # A home for conventions, advice and best practices.
   #
+  # Some other notes, to be integrated somewhere, someday:
+  # * Do not do require 'rubygems' in lib or bin files; rubygems sets up the
+  #   load paths automatically in a wrapper for your gem executables.
+  # * For test files submitted with the gem (as +test_files+ in the gemspec),
+  #   running
+  #     gem check my_gem --test
+  #   also loads rubygems automatically. As of 1.0.1, the test_unit task passes
+  #   -rubygems to the test runner, so you don't have to explicitly require
+  #   'rubygems' in the test files either.
+  # * One often wants a 'test helper' file to be included in all of the test
+  #   files. The gem check --test command puts the gem's root directory on the
+  #   require path, and the gem's development root is on the load path when you
+  #   run rake test. So, the easiest way seems to be to create a file
+  #   test/my_gem_test_helper.rb and
+  #     require 'test/my_gem_test_helper.rb'
+  #   from all of your test_feature.rb files. You also have to add
+  #   test/my_gem_test_helper.rb to the gemspec's +files+ list (but not its
+  #   +test_files+ list), in order to make gem check --test work.
+  # * An alternative solution for the above is to just put your test helper code
+  #   in a test/test_helper.rb file and make sure it's the first file in the
+  #   +test_files+ list. The files are required (rubygems) or loaded (rake task)
+  #   in the order in which they appear in test_files, so this works. However,
+  #   it may be fragile; maintaining the order of the +test_files+ isn't
+  #   documented behavior, AFAIK. It also breaks the TEST=... feature of the
+  #   rake testtask (this feature allows you select only one test to run). (On
+  #   the other hand, the fact that the gem root is on the load path isn't
+  #   documented either.)
+  #
   module Conventions
     #
     # References:
