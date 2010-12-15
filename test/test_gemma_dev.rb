@@ -77,7 +77,7 @@ class TestGemmaDev < Test::Unit::TestCase
   # There are still a few TODOs left in the test project in README.rdoc.
   #
   def test_todos
-    # Can't have binary files; they cause encoding errors.
+    # Can't have any binary files; they cause encoding errors.
     Dir.chdir(@test_gem) do
       system "rake", '-I', @lib_path, 'clobber'
     end
@@ -85,6 +85,16 @@ class TestGemmaDev < Test::Unit::TestCase
     io = StringIO.new
     Gemma::Utility.rgrep(/TODO/, @test_gem, io)
     assert io.string =~ /README\.rdoc/
+  end
+
+  #
+  # Run rake_test; it should succeed.
+  #
+  def test_rake_test
+    Dir.chdir(@test_gem) do
+      system "rake", '-I', @lib_path, 'test'
+    end
+    assert_equal 0, $?.exitstatus, "rake test failed"
   end
 end
 

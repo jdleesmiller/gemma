@@ -14,8 +14,9 @@ module Gemma
   # * One often wants a 'test helper' file to be included in all of the test
   #   files. The gem check --test command puts the gem's root directory on the
   #   require path, and the gem's development root is on the load path when you
-  #   run rake test. So, the easiest way seems to be to create a file
-  #   test/my_gem_test_helper.rb and
+  #   run rake test (or at least it was in 1.8.7; in 1.9.2 it does not seem
+  #   to be, so we now put it in explicitly). So, the easiest way seems to be
+  #   to create a file test/my_gem_test_helper.rb and
   #     require 'test/my_gem_test_helper.rb'
   #   from all of your test_feature.rb files. You also have to add
   #   test/my_gem_test_helper.rb to the gemspec's +files+ list (but not its
@@ -30,11 +31,23 @@ module Gemma
   #   the other hand, the fact that the gem root is on the load path isn't
   #   documented either.)
   #
+  # For help on extensions:
+  # * http://nokogiri.org/tutorials/installing_nokogiri.html explains how to
+  # prepare several unices to build native extensions. 
+  #
+  # General objectives for gemma:
+  # * follow and promote accepted conventions where obvious
+  # * make the outputs from rdoc, test, etc. work like they do in rubygems
+  # * avoid load path noise ($: << ...)
+  #
   module Conventions
     #
     # References:
     # http://stackoverflow.com/questions/221320/standard-file-naming-conventions-in-ruby
     # http://containerdiv.wordpress.com/2009/05/24/ruby-gems-vs-rails-plugins/
+    #
+    # Perhaps the most direct:
+    # http://blog.segment7.net/articles/2010/11/15/how-to-name-gems
     #
     # There is probably a required format (regex) for names, but I've never
     # figured out what it is. It should be a valid file/directory name on
