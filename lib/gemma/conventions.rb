@@ -30,6 +30,12 @@ module Gemma
   #   rake testtask (this feature allows you select only one test to run). (On
   #   the other hand, the fact that the gem root is on the load path isn't
   #   documented either.)
+  # 
+  # My naming conventions aren't very good: foo_test.rb seems to be preferred to
+  # test_foo.rb (and with good reason; e.g. the former works better with
+  # commandline autocompletion). The preferred name for the test helper is then
+  # 'test_helper.rb', which makes sense. Example: shoulda 
+  # https://github.com/thoughtbot/shoulda/tree/master/test
   #
   # For help on extensions:
   # * http://nokogiri.org/tutorials/installing_nokogiri.html explains how to
@@ -48,6 +54,9 @@ module Gemma
     #
     # Perhaps the most direct:
     # http://blog.segment7.net/articles/2010/11/15/how-to-name-gems
+    #
+    # An example of the old 'no spaces' convention is activesupport, which is
+    # called activesupport but required as 'active_support'.
     #
     # There is probably a required format (regex) for names, but I've never
     # figured out what it is. It should be a valid file/directory name on
