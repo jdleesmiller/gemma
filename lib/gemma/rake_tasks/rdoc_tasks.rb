@@ -132,11 +132,7 @@ module Gemma
       #
       def create_rake_tasks
         if use_gem_if_available
-          begin
-            gem('rdoc')
-          rescue LoadError
-            # ignore -- just use the standard library one
-          end
+          gem('rdoc') rescue nil # ignore -- just use the standard library one
         end
 
         require 'rake/rdoctask'
