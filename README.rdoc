@@ -140,6 +140,9 @@ gemspec, and it looks like it should work fairly well with gemma.
 
 * http://github.com/luislavena/rake-compiler
 
+Rhesus is a generic generate-from-template tool:
+
+* https://github.com/Neurogami/rhesus
 
 Other helpful articles:
 
