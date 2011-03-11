@@ -58,7 +58,7 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        for program_name in program_names
+        program_names.each do |program_name|
           desc "run #{program_name}"
           task((task_prefix + program_name), :args) do |t, args|
             args = (args[:args] || '').split(/\s/)
