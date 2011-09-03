@@ -1,8 +1,9 @@
 module Gemma
   class RakeTasks
     #
-    # Create tasks to run minitest tests. By default, the +test_files+ given in
-    # the gemspec are tested.
+    # Create tasks to run minitest tests. By default, the +require_paths+ from
+    # the gemspec and the gem's +test+ directory are placed on the load path,
+    # and the +test_files+ given in the gemspec are executed as tests.
     #
     # Minitest works on both 1.8 and 1.9, and it's mostly compatible with 
     # <tt>Test::Unit</tt> tests.
@@ -65,6 +66,7 @@ module Gemma
           require 'rake/testtask'
           Rake::TestTask.new(self.task_name) do |tt|
             tt.libs        = gemspec.require_paths.dup
+            tt.libs       << 'test'
             tt.test_files  = self.files
             tt.ruby_opts  << '-rubygems' << '-rbundler/setup'
             @with_test_task.call(tt) if @with_test_task

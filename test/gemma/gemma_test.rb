@@ -1,10 +1,9 @@
-require "test/unit"
-require "gemma"
-require "set"
+require 'gemma/test_helper'
+require 'set'
 
 puts $:
 
-class TestGemma < Test::Unit::TestCase
+class GemmaTest < Test::Unit::TestCase
   # Can load empty spec.
   def test_empty_spec
     s = Gem::Specification.new
@@ -124,7 +123,7 @@ class TestGemma < Test::Unit::TestCase
 
     Gemma::RakeTasks.new(s) do |g|
       g.test.with_test_task do |tt|
-        assert_equal %w(lib foo).to_set, tt.libs.to_set
+        assert_equal %w(lib foo test).to_set, tt.libs.to_set
         assert_equal %w(test/test_a.rb test/test_b.rb).to_set,
           tt.file_list.to_a.to_set
       end
@@ -158,7 +157,7 @@ class TestGemma < Test::Unit::TestCase
   # Exercise usage message for bin/gemma.
   #
   def test_print_usage
-    gemma_file = File.join(File.dirname(__FILE__), '..', 'bin', 'gemma')
+    gemma_file = File.join(File.dirname(__FILE__), '..', '..', 'bin', 'gemma')
     io = StringIO.new
     Gemma::Utility.print_usage_from_file_comment gemma_file, '#', io
     assert io.string =~ /gemma/

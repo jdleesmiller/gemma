@@ -1,7 +1,6 @@
-require "test/unit"
-require "gemma"
+require 'gemma/test_helper'
 
-class TestOptions < Test::Unit::TestCase
+class OptionsTest < Test::Unit::TestCase
   include Gemma
 
   def test_empty 
