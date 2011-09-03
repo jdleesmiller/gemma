@@ -118,28 +118,13 @@ class TestGemma < Test::Unit::TestCase
     s = Gem::Specification.new
     s.files = %w(lib/a.rb lib/b.rb)
     s.test_files = %w(test/test_a.rb test/test_b.rb)
-    s.require_paths << 'ext'
+    s.require_paths << 'foo'
 
     Gemma::RakeTasks.new(s) do |g|
       g.test.with_test_task do |tt|
-        assert_equal %w(lib ext).to_set, tt.libs.to_set
+        assert_equal %w(lib foo).to_set, tt.libs.to_set
         assert_equal %w(test/test_a.rb test/test_b.rb).to_set,
           tt.file_list.to_a.to_set
-      end
-    end
-  end
-
-  def test_rcov_tasks
-    s = Gem::Specification.new
-    s.files = %w(lib/a.rb lib/b.rb)
-    s.test_files = %w(test/test_a.rb test/test_b.rb)
-    s.require_paths << 'ext'
-
-    Gemma::RakeTasks.new(s) do |g|
-      g.rcov.with_rcov_task do |rcov|
-        assert_equal %w(lib ext).to_set, rcov.libs.to_set
-        assert_equal %w(test/test_a.rb test/test_b.rb).to_set,
-          rcov.file_list.to_a.to_set
       end
     end
   end

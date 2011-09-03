@@ -45,6 +45,11 @@ module Gemma
   # * follow and promote accepted conventions where obvious
   # * make the outputs from rdoc, test, etc. work like they do in rubygems
   # * avoid load path noise ($: << ...)
+  # * make it easy to start hacking on an existing gem that uses gemma
+  #   - git clone ...
+  #   - gem install bundle
+  #   - bundle # install both gemma dependencies and the gem's dependencies
+  #   - rake -T # should now work
   #
   module Conventions
     #

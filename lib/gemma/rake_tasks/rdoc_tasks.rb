@@ -1,3 +1,5 @@
+require 'rdoc/task'
+
 module Gemma
   class RakeTasks
     #
@@ -6,9 +8,6 @@ module Gemma
     #
     # The default settings are based on the +require_paths+, +rdoc_options+ and
     # +extra_rdoc_files+ data in the gemspec. 
-    #
-    # If an rdoc gem is installed, it will be used; otherwise, the built-in
-    # rdoc will be used (see {#use_gem_if_available}).
     #
     # This plugin is based on the <tt>Rake::RDocTask</tt> that comes bundled
     # with rake.  If you need an option that isn't exposed by the plugin, you
@@ -23,7 +22,6 @@ module Gemma
         super(gemspec)
 
         # Defaults.
-        @use_gem_if_available = true
         @task_name = :rdoc
         @with_rdoc_task = nil
 
@@ -81,17 +79,6 @@ module Gemma
       attr_accessor :template
 
       #
-      # If an rdoc gem is installed, use it instead of the rdoc from the
-      # standard library (default true). 
-      #
-      # While rdoc is part of the ruby standard library, newer versions are
-      # available as gems.
-      # 
-      # @return [Boolean]
-      #
-      attr_accessor :use_gem_if_available
-
-      #
       # Files and directories to be processed by rdoc; extracted from gemspec;
       # by default, these are the gem's +require_paths+ and +extra_rdoc_files+.
       #
@@ -131,11 +118,6 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        if use_gem_if_available
-          gem('rdoc') rescue nil # ignore -- just use the standard library one
-        end
-
-        require 'rake/rdoctask'
         Rake::RDocTask.new(self.task_name) do |rd|
           rd.rdoc_dir      = self.output
           rd.rdoc_files    = self.files
@@ -143,7 +125,6 @@ module Gemma
           rd.main          = self.main
           rd.template      = self.template
           rd.options       = self.options
-          rd.inline_source = false # doesn't seem to work on 1.8.7
           @with_rdoc_task.call(rd) if @with_rdoc_task
         end
 

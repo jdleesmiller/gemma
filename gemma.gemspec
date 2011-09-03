@@ -21,7 +21,12 @@ DESCRIPTION
 
   # TODO s.rubyforge_project = "gemma"
 
-  s.add_dependency 'highline', '>= 1.6.1', '~> 1.6'
+  s.add_dependency 'bundler',  '~> 1.0.18'
+  s.add_dependency 'highline', '~> 1.6.2'
+  s.add_dependency 'rake',     '~> 0.9.2'
+  s.add_dependency 'rdoc',     '~> 3.9.4'
+  s.add_dependency 'yard',     '~> 0.7.2'
+  s.add_dependency 'minitest', '~> 2.5.1'
   
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
                   Dir.glob('template/**/{.*,*}') + %w(README.rdoc)

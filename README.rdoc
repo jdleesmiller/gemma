@@ -164,6 +164,12 @@ Other helpful articles:
 
 == HISTORY
 
+<em>2.0.0</em>
+* now relies on bundler
+* now specifies particular gem version that must be used for rake, rdoc and
+  yard; the old approach was to try to work with whatever was already installed,
+  but this proved too fragile
+
 <em>1.0.0</em>
 * added templates
 * changed rdoc and yard tasks to use +require_paths+ instead of +files+ 

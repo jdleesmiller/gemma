@@ -58,23 +58,18 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        # Note: the -I. in ruby_opts puts the current directory on the load
-        # path for compatibility with the way gem check --test works; this
-        # wasn't needed in 1.8.7, but it seems to be necessary in 1.9.2.
         unless self.files.empty?
           require 'rake/testtask'
           Rake::TestTask.new(self.task_name) do |tt|
             tt.libs        = gemspec.require_paths.dup
             tt.test_files  = self.files
-            tt.ruby_opts  << '-I.' << '-rubygems'
-            tt.warning     = true
+            tt.ruby_opts  << '-rubygems' << '-rbundler/setup'
             @with_test_task.call(tt) if @with_test_task
           end
         end
         nil
-      rescue LoadError
-        # Assume the test task is not installed.
       end
     end
   end
 end
+

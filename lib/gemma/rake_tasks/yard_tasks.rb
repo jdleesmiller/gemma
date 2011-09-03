@@ -1,3 +1,5 @@
+require 'yard'
+
 module Gemma
   class RakeTasks
     #
@@ -128,7 +130,6 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        require 'yard'
         YARD::Rake::YardocTask.new do |yd|
           yd.name    = self.task_name
           yd.options = complete_options

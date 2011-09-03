@@ -1,5 +1,5 @@
-$:.unshift File.expand_path("../lib", __FILE__)
 require 'rubygems'
+require 'bundler/setup'
 require 'gemma'
 
 Gemma::RakeTasks.with_gemspec_file 'gemma.gemspec' do |g|
@@ -9,8 +9,7 @@ Gemma::RakeTasks.with_gemspec_file 'gemma.gemspec' do |g|
 
   # Some tests are hard to do once the gem is installed (i.e. they would cause
   # gem check gemma --test to fail); do these here. 
-  g.test.files << 'test/test_gemma_dev.rb'
-  g.rcov.files << 'test/test_gemma_dev.rb'
+  #g.test.files << 'test/test_gemma_dev.rb'
 end
 
 task :default => :test

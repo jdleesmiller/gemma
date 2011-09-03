@@ -8,6 +8,7 @@ module Gemma
   # @example To create the default tasks based on your _mygem_.gemspec file:
   #   # At the top of Rakefile.rb.
   #   require 'rubygems'
+  #   require 'bundler/setup'
   #   require 'gemma'
   #
   #   Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec'
@@ -22,7 +23,7 @@ module Gemma
     end
 
     #
-    # Constructor for internal use; you should usually use the
+    # Constructor mainly for internal use; you should usually use the
     # `with_gemspec_file` alias (see examples in {RakeTasks}).
     #
     # @param [String, Gem::Specification] gemspec either the name of a gemspec
@@ -43,7 +44,7 @@ module Gemma
         @gemspec_file_name = nil
         @gemspec = gemspec
       else
-        raise ArgumentError
+        raise ArgumentError, 'bad gemspec argument'
       end
 
       @plugins = {}
@@ -83,11 +84,6 @@ module Gemma
     attr_reader :plugins
 
     #
-    # @return [RcovTasks] 
-    #
-    def rcov; @plugins[:rcov] end
-
-    #
     # @return [RDocTasks] 
     #
     def rdoc; @plugins[:rdoc] end
@@ -110,7 +106,6 @@ module Gemma
     protected
 
     def create_default_plugins
-      @plugins[:rcov] = Gemma::RakeTasks::RcovTasks.new(gemspec)
       @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
       @plugins[:run]  = Gemma::RakeTasks::RunTasks.new(gemspec)
       @plugins[:test] = Gemma::RakeTasks::TestUnitTasks.new(gemspec)

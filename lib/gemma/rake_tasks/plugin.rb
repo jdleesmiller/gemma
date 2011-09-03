@@ -11,6 +11,8 @@ module Gemma
     # are generated.
     #
     class Plugin
+      include Rake::DSL
+
       def initialize gemspec
         @gemspec = gemspec
       end
