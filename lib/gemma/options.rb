@@ -33,20 +33,24 @@ module Gemma
     # Matching options that appear after a `--` terminator are not extracted;
     # they remain in the {ExtractResult#remaining_options} list.
     #
+    # The +options+ parameter takes an array of arguments; to split a string
+    # into the appropriate form, you can use the +Shellwords+ module in the ruby
+    # standard library.  
+    #
     # @example
     #   Gemma::Options.extract(%w(-a), %w(-a foo bar.txt))
     #   #=> #<struct Gemma::Options::ExtractResult argument="foo",
     #   #     remaining_options=["bar.txt"]>
     #
     # @param [Array<String>] names one or more names for the option to extract
-    # (`['--file','-f']`, for example)
+    #        (`['--file','-f']`, for example)
     #
     # @param [Array<String>] options to extract from; you should ensure that
-    # there isn't leading/trailing whitespace (strip), because this method
-    # doesn't detect it
+    #        there isn't leading/trailing whitespace (strip), because this
+    #        method doesn't detect it
     #
     # @return [ExtractResult] contains the argument for the given option and the
-    # rest of the options
+    #         rest of the options
     #
     def self.extract names, options
       options = options.dup
