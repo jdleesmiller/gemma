@@ -127,6 +127,7 @@ module Gemma
           rd.options       = self.options
           @with_rdoc_task.call(rd) if @with_rdoc_task
         end
+        CLOBBER.include(self.output)
 
         nil
       end
