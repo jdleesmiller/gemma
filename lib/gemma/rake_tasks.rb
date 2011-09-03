@@ -94,7 +94,7 @@ module Gemma
     def run; @plugins[:run] end
 
     #
-    # @return [TestUnitTasks]
+    # @return [MinitestTasks]
     #
     def test; @plugins[:test] end
 
@@ -108,7 +108,7 @@ module Gemma
     def create_default_plugins
       @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
       @plugins[:run]  = Gemma::RakeTasks::RunTasks.new(gemspec)
-      @plugins[:test] = Gemma::RakeTasks::TestUnitTasks.new(gemspec)
+      @plugins[:test] = Gemma::RakeTasks::MinitestTasks.new(gemspec)
       @plugins[:yard] = Gemma::RakeTasks::YardTasks.new(gemspec)
     end
   end

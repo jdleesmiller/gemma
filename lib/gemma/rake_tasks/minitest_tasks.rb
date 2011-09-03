@@ -1,14 +1,17 @@
 module Gemma
   class RakeTasks
     #
-    # Create tasks to run Test::Unit tests using the built-in (standard library)
-    # `test/unit`. By default, the `test_files` given in the gemspec are tested.
+    # Create tasks to run minitest tests. By default, the +test_files+ given in
+    # the gemspec are tested.
+    #
+    # Minitest works on both 1.8 and 1.9, and it's mostly compatible with 
+    # <tt>Test::Unit</tt> tests.
     #
     # This plugin is based on the `Rake::TestTask` that comes bundled with rake.
     # If you need an option that isn't exposed by the plugin, you can modify the
     # `TestTask` object directly in a block passed to {#with_test_task}. 
     #
-    class TestUnitTasks < Plugin
+    class MinitestTasks < Plugin
       #
       # @param [Gem::Specification] gemspec
       #

@@ -2,6 +2,8 @@ require "test/unit"
 require "gemma"
 require "set"
 
+puts $:
+
 class TestGemma < Test::Unit::TestCase
   # Can load empty spec.
   def test_empty_spec
