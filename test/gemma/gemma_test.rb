@@ -1,8 +1,6 @@
 require 'gemma/test_helper'
 require 'set'
 
-puts $:
-
 class GemmaTest < Test::Unit::TestCase
   # Can load empty spec.
   def test_empty_spec
