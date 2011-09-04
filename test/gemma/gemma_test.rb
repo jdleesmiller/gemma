@@ -119,6 +119,10 @@ class Gemma::GemmaTest < Test::Unit::TestCase
     s.test_files = %w(test/test_a.rb test/test_b.rb)
     s.require_paths << 'foo'
 
+    # annoyance: if we ran this test with rake TEST=... then the environmental
+    # variable will affect the outcome below; clear it
+    ENV.delete('TEST')
+
     Gemma::RakeTasks.new(s) do |g|
       g.test.with_test_task do |tt|
         assert_equal %w(lib foo test).to_set, tt.libs.to_set
