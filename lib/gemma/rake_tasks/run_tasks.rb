@@ -62,8 +62,8 @@ module Gemma
         program_names.each do |program_name|
           desc "run #{program_name}"
           task((task_prefix + program_name), :args) do |t, args|
-            args = Shellwords.shellsplit(args[:args] || '')
-            ruby(*(ruby_args + ["bin/#{program_name}"] + args))
+            program_args = Shellwords.shellsplit(args[:args] || '')
+            Kernel.exec(program_name, *program_args)
           end
         end
         nil
