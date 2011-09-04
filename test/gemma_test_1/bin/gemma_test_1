@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'gemma_test_1'
-
-# Write marker file expected by gemma's test/test_gemma_test_1.rb.
-File.open('gemma_test_1_marker.txt','w') do |f|
-  f.puts "hello world"
-end
-

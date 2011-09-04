@@ -1,7 +1,7 @@
 require 'gemma/test_helper'
 require 'set'
 
-class GemmaTest < Test::Unit::TestCase
+class Gemma::GemmaTest < Test::Unit::TestCase
   # Can load empty spec.
   def test_empty_spec
     s = Gem::Specification.new
