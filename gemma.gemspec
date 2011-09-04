@@ -26,6 +26,8 @@ DESCRIPTION
   s.add_dependency 'rdoc',     '~> 3.9.4'
   s.add_dependency 'yard',     '~> 0.7.2'
   s.add_dependency 'minitest', '~> 2.5.1'
+
+  s.add_development_dependency 'open4', '~> 1.1.0'
   
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
                   Dir.glob('template/**/{.*,*}') + %w(README.rdoc)

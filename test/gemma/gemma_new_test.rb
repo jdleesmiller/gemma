@@ -1,6 +1,6 @@
 require 'gemma/test_helper'
 require 'tmpdir'
-require 'open3'
+require 'open4'
 
 #
 # Run the 'gemma new' command and then run some basic commands to make sure that
@@ -17,18 +17,19 @@ class Gemma::GemmaNewTest < Test::Unit::TestCase
   # we have to hack things a bit more than should be necessary)
   #
   # We also don't want to generate lots of confusing test output, so we capture
-  # stdout and stderr.
+  # stdout and stderr using Open4. (On 1.9.2, we can use <tt>Open3.popen2e</tt>,
+  # which is nicer, but Open3 on ruby 1.8.7 doesn't let us get exitstatus.)
   #
   def run_cmd *args
     Bundler.with_clean_env {
-      status = nil
       # FIXME in bundler 1.1, this should not be necessary; see
       # https://github.com/carlhuda/bundler/issues/1133
       ENV.delete_if { |k,_| k[0,7] == 'BUNDLE_' }
-      output = Open3.popen2e(*args) {|i,oe,t|
+
+      output = nil
+      status = Open4.popen4(*args) {|pid,i,o,e|
         i.close
-        status = t.value
-        oe.read
+        output = o.read + e.read
       }
       [status, output]
     }

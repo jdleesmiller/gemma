@@ -3,10 +3,9 @@ module Gemma
     #
     # Run an executable script in the bin folder. 
     #
-    # There is one task per entry in the gemspec's +executables+ list. By
-    # default, both +rubygems+ and +bundler/setup+ are required, which sets up
-    # the load path in the same way that rubygems does when the installed
-    # executable is run.
+    # There is one task per entry in the gemspec's +executables+ list. The
+    # executable is run with <tt>Kernel.exec</tt>, and the effect is much like
+    # running <tt>bundle exec name</tt>.
     #
     # To pass arguments to the script, you have to pass them as arguments to
     # the rake task. The syntax for quoting the arguments will depend on your
@@ -24,7 +23,6 @@ module Gemma
         # Defaults.
         @task_prefix = ''
         @program_names = gemspec.executables.dup
-        @ruby_args = ['-rubygems', '-rbundler/setup']
       end
 
       #
@@ -42,14 +40,6 @@ module Gemma
       # @return [Array<String>] may be empty
       # 
       attr_accessor :program_names
-
-      #
-      # Arguments to be passed to ruby; by default, warnings are enabled (-w)
-      # and the gemspec's +require_paths+ are on the load path (-I).
-      #
-      # @return [Array<String>]
-      #
-      attr_accessor :ruby_args
 
       #
       # Internal method; see {Plugin#create_rake_tasks}.
