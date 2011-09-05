@@ -26,6 +26,14 @@ class Gemma::GemmaNewTest < Test::Unit::TestCase
       # https://github.com/carlhuda/bundler/issues/1133
       ENV.delete_if { |k,_| k[0,7] == 'BUNDLE_' }
 
+      # We also have to clear RUBYOPT, because Bundler::ORIGINAL_ENV in the test
+      # runner's process still contains some bundler stuff from rake's process.
+      # This suggests that we might have to stop using rake's built-in TestTask,
+      # and instead use one that runs the tests in a Bundler.with_clean_env
+      # block. However, it usually doesn't seem to make a difference, unless
+      # you're doing strange things like we are here.
+      ENV.delete('RUBYOPT')
+
       output = nil
       status = Open4.popen4(*args) {|pid,i,o,e|
         i.close
@@ -59,8 +67,14 @@ class Gemma::GemmaNewTest < Test::Unit::TestCase
 
     # run bundler on the test gem; it should find the same gems that we're using
     # in the gemma bundle 
-    status, output = run_cmd('bundle', '--local')
+    status, output = run_cmd('bundle', 'install', '--local')
     raise "bundle failed:\n#{output}" unless status.exitstatus == 0
+
+    # it should say that it has loaded two things from source: gemma and the
+    # test_gem itself; if it doesn't it indicates that something strange
+    # happened with bundler's environment (or it may just break on future
+    # versions of bundler)
+    raise "did not load from source" unless output =~ /from source at/
 
     # bundler should produce a lock file
     raise "no Gemfile.lock in test gem" unless File.exists?('Gemfile.lock')
