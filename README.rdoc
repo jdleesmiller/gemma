@@ -90,10 +90,10 @@ See the gemma API docs for more information.
 == REQUIREMENTS
 
 Gemma has been tested on:
-* ruby 1.9.2p290 (2011-07-09 revision 32553) [i686-linux]
-* ruby 1.8.7 (2011-06-30 patchlevel 352) [i686-linux]
+* ruby 1.9.2p290 (2011-07-09 revision 32553) [i686-linux] and [x86_64-linux]
+* ruby 1.8.7 (2011-06-30 patchlevel 352) [i686-linux] and [x86_64-linux]
 
-Gemma has not yet been tested on Windows.
+Gemma has not yet been tested on Windows or Mac OS X.
 
 == INSTALLATION
 
