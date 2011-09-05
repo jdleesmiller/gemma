@@ -10,7 +10,7 @@ module Gemma
     # +extra_rdoc_files+ data in the gemspec. 
     #
     # This plugin is based on the <tt>Rake::RDocTask</tt> that comes bundled
-    # with rake.  If you need an option that isn't exposed by the plugin, you
+    # with rdoc.  If you need an option that isn't exposed by the plugin, you
     # can modify the +RDocTask+ object directly in a block passed to
     # {#with_rdoc_task}. 
     #
