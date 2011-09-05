@@ -4,8 +4,8 @@ module Gemma
     # Run an executable script in the bin folder. 
     #
     # There is one task per entry in the gemspec's +executables+ list. The
-    # executable is run with <tt>Kernel.exec</tt>, and the effect is much like
-    # running <tt>bundle exec name</tt>.
+    # executable is run with <tt>Kernel.exec</tt>. The result is equivalent to
+    # running <tt>bundler exec ...</tt>.
     #
     # To pass arguments to the script, you have to pass them as arguments to
     # the rake task. The syntax for quoting the arguments will depend on your
