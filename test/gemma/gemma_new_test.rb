@@ -111,6 +111,11 @@ class Gemma::GemmaNewTest < Test::Unit::TestCase
     # generate yard output
     status, output = run_cmd('rake yard')
     assert_equal 0, status.exitstatus
+
+    # build the gem; this should fail, because we have invalid authors, etc.
+    status, output = run_cmd('rake build')
+    assert_match /TODO/, output # "... is not a valid author"
+    assert_equal 1, status.exitstatus
   end
 end
 

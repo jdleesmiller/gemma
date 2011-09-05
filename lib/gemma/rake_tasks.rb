@@ -103,6 +103,11 @@ module Gemma
     #
     def yard; @plugins[:yard] end
 
+    #
+    # @return [GemTasks]
+    #
+    def gem; @plugins[:gem] end
+
     protected
 
     def create_default_plugins
@@ -110,6 +115,7 @@ module Gemma
       @plugins[:run]  = Gemma::RakeTasks::RunTasks.new(gemspec)
       @plugins[:test] = Gemma::RakeTasks::MinitestTasks.new(gemspec)
       @plugins[:yard] = Gemma::RakeTasks::YardTasks.new(gemspec)
+      @plugins[:gem] = Gemma::RakeTasks::GemTasks.new(gemspec,gemspec_file_name)
     end
   end
 end

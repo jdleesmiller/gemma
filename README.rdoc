@@ -2,6 +2,8 @@
 
 http://github.com/jdleesmiller/gemma
 
+http://github.com/jdleesmiller/gemma/wiki
+
 == SYNOPSIS
 
 Gemma is a gem development helper like hoe and jeweler, but it keeps the
@@ -70,11 +72,14 @@ yourself.
 Run <tt>rake -T</tt> for a full list of tasks.
 
   % rake -T
+  rake build         # Build my_gem-0.0.1.gem into the pkg directory
   rake clean         # Remove any temporary products.
   rake clobber       # Remove any generated file.
   rake clobber_rdoc  # Remove RDoc HTML files
+  rake install       # Build and install my_gem-0.0.1.gem into system gems
   rake my_gem[args]  # run my_gem
   rake rdoc          # Build RDoc HTML files
+  rake release       # Create tag v0.0.1 and build and push my_gem-0.0.1.gem ...
   rake rerdoc        # Rebuild RDoc HTML files
   rake test          # Run tests
   rake yard          # Generate YARD Documentation
