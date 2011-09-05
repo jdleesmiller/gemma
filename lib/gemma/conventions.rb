@@ -1,36 +1,31 @@
 module Gemma
   #
-  # A home for conventions, advice and best practices.
+  # Methods to check input against accepted conventions.
+  #
+  # For help on extensions:
+  # * http://nokogiri.org/tutorials/installing_nokogiri.html explains how to
+  # prepare several unices to build native extensions. 
+  #
+  # General objectives for gemma:
+  # * follow and promote accepted conventions where obvious
+  # * make the outputs from rdoc, test, etc. work like they do in rubygems
+  # * avoid load path noise ($: << ...)
+  # * make it easy to start hacking on an existing gem that uses gemma
+  #   - git clone ...
+  #   - gem install bundle
+  #   - bundle # install both gemma dependencies and the gem's dependencies
+  #   - rake -T # should now work
   #
   module Conventions
     #
-    # References:
-    # http://stackoverflow.com/questions/221320/standard-file-naming-conventions-in-ruby
-    # http://containerdiv.wordpress.com/2009/05/24/ruby-gems-vs-rails-plugins/
-    #
-    # There is probably a required format (regex) for names, but I've never
-    # figured out what it is. It should be a valid file/directory name on
-    # Windows.
-    #
-    GOOD_GEM_NAME_TIPS = <<-STRING
-    Some tips for good gem names:
-      * use lower case
-      * separate words with _ (underscore)
-      * don't put 'ruby' in the name; this is implied, because it's a rubygem
-
-    It is also common to use a hyphen (-) to separate words.
-
-    If your gem name is my_new_gem, it can be installed with
-      sudo gem install my_new_gem
-    used in scripts with
-      require 'rubygems'
-      require 'my_new_gem'
-    and its contents should be contained in a module or class called MyNewGem.
-    STRING
-
-    #
     # Check gem naming conventions; this is sufficient but not necessary for
     # the gem name to be valid.
+    #
+    # References:
+    # * http://guides.rubygems.org/patterns/
+    # * http://blog.segment7.net/articles/2010/11/15/how-to-name-gems
+    # * http://stackoverflow.com/questions/221320/standard-file-naming-conventions-in-ruby
+    # * http://containerdiv.wordpress.com/2009/05/24/ruby-gems-vs-rails-plugins/
     #
     # @return [Boolean]
     #

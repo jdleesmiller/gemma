@@ -111,7 +111,7 @@ end
 templates = opts['--template']
 if templates.empty?
   if interactive
-    templates << 'base' << 'test_unit'
+    templates << 'base' << 'minitest'
     hl.choose do |menu|
       menu.prompt = "type of gem: "
       menu.shell = true

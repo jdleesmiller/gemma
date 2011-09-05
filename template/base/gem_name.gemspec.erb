@@ -11,17 +11,16 @@ Gem::Specification.new do |s|
   s.authors           = ['TODO write your name']
   s.email             = ['TODO write your e-mail address']
   s.homepage          = 'TODO homepage'
-  s.summary           = %q{TODO write gem summary}
-  s.description       = %q{TODO write gem description}
+  s.summary           = %q{TODO write short gem summary}
+  s.description       = %q{TODO write longer gem description}
 
   s.rubyforge_project = '<%= gem_name %>'
 
-  #s.add_runtime_dependency '...'
-  s.add_development_dependency 'gemma', '>= <%= Gemma::VERSION %>', '<%=
-    gemma_version_requirement %>'
+  #s.add_runtime_dependency '...', '~> x.y.z'
+  s.add_development_dependency 'gemma', '~> <%= Gemma::VERSION %>'
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
-  s.test_files  = Dir.glob('test/test_*.rb')
+  s.test_files  = Dir.glob('test/<%= gem_name %>/*_test.rb')
   s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
 
   s.rdoc_options = [

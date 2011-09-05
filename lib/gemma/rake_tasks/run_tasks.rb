@@ -3,13 +3,13 @@ module Gemma
     #
     # Run an executable script in the bin folder. 
     #
-    # There is one task per entry in the gemspec's +executables+ list.
-    # By default, warnings are enabled, the load path is set according to the
-    # +require_paths+ in the gemspec, and rubygems is included.
+    # There is one task per entry in the gemspec's +executables+ list. The
+    # executable is run with <tt>Kernel.exec</tt>. The result is equivalent to
+    # running <tt>bundler exec ...</tt>.
     #
     # To pass arguments to the script, you have to pass them as arguments to
     # the rake task. The syntax for quoting the arguments will depend on your
-    # shell, but on bash it might look like:
+    # shell, but on bash looks like:
     #
     #   rake my_prog['foo --bar=baz --bat=hi']
     #
@@ -23,7 +23,6 @@ module Gemma
         # Defaults.
         @task_prefix = ''
         @program_names = gemspec.executables.dup
-        @ruby_args = ['-w', "-I#{gemspec.require_paths.join(':')}", '-rubygems']
       end
 
       #
@@ -43,14 +42,6 @@ module Gemma
       attr_accessor :program_names
 
       #
-      # Arguments to be passed to ruby; by default, warnings are enabled (-w)
-      # and the gemspec's +require_paths+ are on the load path (-I).
-      #
-      # @return [Array<String>]
-      #
-      attr_accessor :ruby_args
-
-      #
       # Internal method; see {Plugin#create_rake_tasks}.
       #
       # @return [nil]
@@ -58,11 +49,11 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        for program_name in program_names
+        program_names.each do |program_name|
           desc "run #{program_name}"
           task((task_prefix + program_name), :args) do |t, args|
-            args = (args[:args] || '').split(/\s/)
-            ruby(*(ruby_args + ["bin/#{program_name}"] + args))
+            program_args = Shellwords.shellsplit(args[:args] || '')
+            Kernel.exec(program_name, *program_args)
           end
         end
         nil

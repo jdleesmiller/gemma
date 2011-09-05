@@ -17,7 +17,7 @@ module Gemma
     # there are files that occur in multiple templates (files in earlier
     # templates are overwritten by those in later templates, at present).
     #
-    BUILTIN_TEMPLATES = %w(base executable test_unit)
+    BUILTIN_TEMPLATES = %w(base executable minitest)
 
     def initialize
       @gem_name = nil
@@ -79,16 +79,10 @@ module Gemma
     end
 
     #
-    # Gem version requirement for the development dependency on gemma.
-    #
-    # @return [String]
-    #
-    def gemma_version_requirement 
-      "~> #{Gemma::VERSION.split(/\./).take(2).join('.')}"
-    end
-
-    #
     # Copy given templates to +destination_path+ and run erb where needed.
+    #
+    # @param [Array<String>] template_paths absolute paths of the template
+    #        directories to copy
     #
     def create_gem template_paths, destination_path=self.destination_path
       raise "destination #{destination_path} exists" if File.exists?(
