@@ -133,6 +133,9 @@ On a system ruby:
 
 == HISTORY
 
+<em>2.1.0</em>
+* updated dependencies
+
 <em>2.0.0</em>
 * now relies on bundler
 * now specifies particular gem version that must be used for rake, rdoc and
