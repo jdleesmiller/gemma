@@ -4,6 +4,8 @@ http://github.com/jdleesmiller/gemma
 
 http://github.com/jdleesmiller/gemma/wiki
 
+{<img src="https://secure.travis-ci.org/jdleesmiller/gemma.png"/>}[http://travis-ci.org/jdleesmiller/gemma]
+
 == SYNOPSIS
 
 Gemma is a gem development helper like hoe and jeweler, but it keeps the
