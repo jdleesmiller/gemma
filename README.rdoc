@@ -135,6 +135,9 @@ On a system ruby:
 
 == HISTORY
 
+<em>2.2.0</em>
+* updated dependencies; now using bundler 1.1
+
 <em>2.1.0</em>
 * updated dependencies
 
