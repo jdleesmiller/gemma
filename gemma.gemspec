@@ -20,7 +20,6 @@ DESCRIPTION
 
   # TODO s.rubyforge_project = "gemma"
 
-  s.add_dependency 'bundler',  '~> 1.2.1'
   s.add_dependency 'highline', '~> 1.6.15'
   s.add_dependency 'rake',     '~> 0.9.2'
   s.add_dependency 'rdoc',     '~> 3.12.0'

@@ -108,10 +108,12 @@ On RVM:
   gem install gemma
 
 On a system ruby:
+  sudo gem install bundler
   sudo gem install gemma
 
 == DEVELOPMENT
 
+  gem install bundler
   gem install bundler
   git clone git://github.com/jdleesmiller/gemma.git
   cd gemma
