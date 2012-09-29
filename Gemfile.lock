@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gemma (2.2.0)
+    gemma (2.3.0)
       bundler (~> 1.2.1)
       highline (~> 1.6.15)
       minitest (~> 2.12.1)
