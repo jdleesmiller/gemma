@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gemma (2.4.0)
+    gemma (3.0.0)
       highline (~> 1.6.15)
       minitest (~> 4.3.3)
       rake (~> 10.0.3)
