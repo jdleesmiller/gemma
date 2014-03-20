@@ -6,3 +6,4 @@ pkg/*
 /rdoc
 /yard
 /.yardoc
+/Gemfile.lock
