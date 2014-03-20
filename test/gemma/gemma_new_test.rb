@@ -6,7 +6,7 @@ require 'open4'
 # Run the 'gemma new' command and then run some basic commands to make sure that
 # things worked out.
 #
-class Gemma::GemmaNewTest < Test::Unit::TestCase
+class Gemma::GemmaNewTest < MiniTest::Test
   #
   # Run a command in a bundler-free environment and capture both stdout and
   # stderror output.
@@ -66,7 +66,7 @@ class Gemma::GemmaNewTest < Test::Unit::TestCase
     end
 
     # run bundler on the test gem; it should find the same gems that we're using
-    # in the gemma bundle 
+    # in the gemma bundle
     status, output = run_cmd('bundle', 'install', '--local')
     raise "bundle failed:\n#{output}" unless status.exitstatus == 0
 
@@ -96,13 +96,8 @@ class Gemma::GemmaNewTest < Test::Unit::TestCase
 
     # run the tests; they should fail initially
     status, output = run_cmd('rake')
-    assert_not_equal 0, status.exitstatus
+    assert status.exitstatus != 0
     assert_match /TODO write tests/, output
-
-    # run the executable; it should also fail
-    status, output = run_cmd('rake test_gem')
-    assert_not_equal 0, status.exitstatus
-    assert_match /TODO write program code/, output
 
     # generate rdoc output
     status, output = run_cmd('rake rdoc')

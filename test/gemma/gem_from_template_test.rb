@@ -1,7 +1,7 @@
 require 'gemma/test_helper'
 require 'tmpdir'
 
-class Gemma::GemFromTemplateTest < Test::Unit::TestCase
+class Gemma::GemFromTemplateTest < MiniTest::Test
   def setup
     @tmp = Dir.mktmpdir('gemma')
     @old_pwd = Dir.pwd
@@ -20,7 +20,7 @@ class Gemma::GemFromTemplateTest < Test::Unit::TestCase
     gt = Gemma::GemFromTemplate.new
     gt.gem_name = "my_new_gem"
     assert gt.good_gem_name?
-    
+
     assert_equal "MyNewGem", gt.module_name
     gt.module_name = "Foo" # override default
     assert_equal "Foo", gt.module_name

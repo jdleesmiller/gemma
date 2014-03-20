@@ -20,14 +20,14 @@ DESCRIPTION
 
   # TODO s.rubyforge_project = "gemma"
 
-  s.add_dependency 'highline', '~> 1.6.15'
-  s.add_dependency 'rake',     '~> 10.0.3'
-  s.add_dependency 'rdoc',     '~> 3.12.0'
-  s.add_dependency 'yard',     '~> 0.8.3'
-  s.add_dependency 'minitest', '~> 4.3.3'
+  s.add_dependency 'highline', '>= 1.6.21'
+  s.add_dependency 'rake',     '>= 10.1.1'
+  s.add_dependency 'rdoc',     '>= 4.1.1'
+  s.add_dependency 'yard',     '>= 0.8.7'
+  s.add_dependency 'minitest', '>= 5.3.1'
 
   s.add_development_dependency 'open4', '~> 1.3.0'
-  
+
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
                   Dir.glob('template/**/{.*,*}') + %w(README.rdoc)
   s.test_files  = Dir.glob('test/gemma/*_test.rb')
