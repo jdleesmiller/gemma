@@ -18,8 +18,6 @@ with commands like gem and bundle, and it allows gemma to provide rake tasks
 with sensible defaults for many common gem development tasks.
 DESCRIPTION
 
-  # TODO s.rubyforge_project = "gemma"
-
   s.add_dependency 'highline', '>= 1.6.21'
   s.add_dependency 'rake',     '>= 10.1.1'
   s.add_dependency 'rdoc',     '>= 4.1.1'
