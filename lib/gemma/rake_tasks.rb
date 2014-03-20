@@ -56,7 +56,7 @@ module Gemma
       @plugins.values.each do |plugin|
         begin
           plugin.create_rake_tasks
-        rescue 
+        rescue
           warn "plugin #{plugin.class} failed: #{$!}"
         end
       end
@@ -75,7 +75,7 @@ module Gemma
     #
     # @return [Gem::Specification] not nil; you should not modify this object
     # (make the changes in the gemspec file instead).
-    # 
+    #
     attr_reader :gemspec
 
     #
@@ -84,14 +84,9 @@ module Gemma
     attr_reader :plugins
 
     #
-    # @return [RDocTasks] 
+    # @return [RDocTasks]
     #
     def rdoc; @plugins[:rdoc] end
-
-    #
-    # @return [RunTasks]
-    #
-    def run; @plugins[:run] end
 
     #
     # @return [MinitestTasks]
@@ -112,7 +107,6 @@ module Gemma
 
     def create_default_plugins
       @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
-      @plugins[:run]  = Gemma::RakeTasks::RunTasks.new(gemspec)
       @plugins[:test] = Gemma::RakeTasks::MinitestTasks.new(gemspec)
       @plugins[:yard] = Gemma::RakeTasks::YardTasks.new(gemspec)
       @plugins[:gem] = Gemma::RakeTasks::GemTasks.new(gemspec,gemspec_file_name)
