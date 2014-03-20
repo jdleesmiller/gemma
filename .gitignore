@@ -1,5 +1,4 @@
 .*.swp
-.rvmrc
 pkg/*
 *.gem
 .bundle
