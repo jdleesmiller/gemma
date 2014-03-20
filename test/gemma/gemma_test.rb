@@ -27,17 +27,6 @@ class Gemma::GemmaTest < MiniTest::Test
     end
   end
 
-  def test_run_tasks
-    s = Gem::Specification.new
-    s.files = %w(lib/a.rb)
-    s.executables = %w(a b)
-    s.test_files = %w(test/test_a.rb)
-
-    Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(a b).to_set, g.run.program_names.to_set
-    end
-  end
-
   def test_yard_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb)

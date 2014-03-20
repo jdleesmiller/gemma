@@ -90,7 +90,6 @@ class Gemma::GemmaNewTest < MiniTest::Test
     status, output = run_cmd('rake -T')
     assert_equal 0, status.exitstatus
     assert_match /rake test/, output
-    assert_match /rake test_gem/, output
     assert_match /rake rdoc/, output
     assert_match /rake yard/, output
 
