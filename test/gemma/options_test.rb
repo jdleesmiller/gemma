@@ -1,9 +1,9 @@
 require 'gemma/test_helper'
 
-class OptionsTest < Test::Unit::TestCase
+class OptionsTest < MiniTest::Test
   include Gemma
 
-  def test_empty 
+  def test_empty
     # empty input
     assert_equal Options::ExtractResult.new(nil, []),
       Options.extract(%w(--a), [])
@@ -42,7 +42,7 @@ class OptionsTest < Test::Unit::TestCase
   def test_terminator_2
     input = %w(foo --a av  -- --b bv)
 
-    # should not be able to find options after the -- terminator 
+    # should not be able to find options after the -- terminator
     assert_equal Options::ExtractResult.new('av', %w(foo -- --b bv)),
       Options.extract(%w(--a), input)
     assert_equal Options::ExtractResult.new(nil, input),

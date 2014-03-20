@@ -1,7 +1,7 @@
 require '<%= gem_name %>'
-require 'test/unit'
+require 'minitest/autorun'
 
-class Test<%= module_name %> < Test::Unit::TestCase
+class Test<%= module_name %> < MiniTest::Test
   def test_<%= gem_name %>
     assert_equal 3, 1 + 1, "TODO write tests"
   end

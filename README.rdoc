@@ -79,7 +79,6 @@ Run <tt>rake -T</tt> for a full list of tasks.
   rake clobber       # Remove any generated file.
   rake clobber_rdoc  # Remove RDoc HTML files
   rake install       # Build and install my_gem-0.0.1.gem into system gems
-  rake my_gem[args]  # run my_gem
   rake rdoc          # Build RDoc HTML files
   rake release       # Create tag v0.0.1 and build and push my_gem-0.0.1.gem ...
   rake rerdoc        # Rebuild RDoc HTML files
@@ -93,14 +92,6 @@ You can customize the standard tasks by passing a block to +with_gemspec_file+:
   end
 
 See the gemma API docs for more information.
-
-== REQUIREMENTS
-
-Gemma has been tested on:
-* ruby 1.9.2p290 (2011-07-09 revision 32553) [i686-linux] and [x86_64-linux]
-* ruby 1.8.7 (2011-06-30 patchlevel 352) [i686-linux] and [x86_64-linux]
-
-Gemma has not yet been tested on Windows or Mac OS X.
 
 == INSTALLATION
 
@@ -137,6 +128,13 @@ On a system ruby:
 
 == HISTORY
 
+<em>4.0.0</em>
+* updated dependencies
+* removed RunTasks -- bundler handles this now
+
+<em>3.0.0</em>
+* updated dependencies
+
 <em>2.2.0</em>
 * updated dependencies; now using bundler 1.1
 
@@ -164,7 +162,7 @@ On a system ruby:
 
 == LICENSE
 
-Copyright (c) 2010 John Lees-Miller
+Copyright (c) 2010-2014 John Lees-Miller
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

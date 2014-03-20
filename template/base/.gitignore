@@ -4,3 +4,6 @@ pkg/*
 .bundle
 /rcov
 /rdoc
+/yard
+/.yardoc
+/Gemfile.lock

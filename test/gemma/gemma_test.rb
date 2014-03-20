@@ -1,7 +1,7 @@
 require 'gemma/test_helper'
 require 'set'
 
-class Gemma::GemmaTest < Test::Unit::TestCase
+class Gemma::GemmaTest < MiniTest::Test
   # Can load empty spec.
   def test_empty_spec
     s = Gem::Specification.new
@@ -27,24 +27,13 @@ class Gemma::GemmaTest < Test::Unit::TestCase
     end
   end
 
-  def test_run_tasks
-    s = Gem::Specification.new
-    s.files = %w(lib/a.rb)
-    s.executables = %w(a b)
-    s.test_files = %w(test/test_a.rb)
-
-    Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(a b).to_set, g.run.program_names.to_set
-    end
-  end
-
   def test_yard_tasks
     s = Gem::Specification.new
     s.files = %w(lib/a.rb)
     s.test_files = %w(test/test_a.rb)
     s.rdoc_options = ['--main', 'README.rdoc']
     s.extra_rdoc_files = ['README.rdoc']
- 
+
     # Just one option.
     # A file should not be passed as an extra file if it's the --main file.
     # Test files should not be documented.
@@ -168,7 +157,7 @@ class Gemma::GemmaTest < Test::Unit::TestCase
   def test_plugin_abstract
     s = Gem::Specification.new
     plugin = Gemma::RakeTasks::Plugin.new(s)
-    assert_raise(NotImplementedError) {
+    assert_raises(NotImplementedError) {
       plugin.create_rake_tasks # abstract method
     }
   end
