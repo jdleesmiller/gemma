@@ -19,7 +19,7 @@ with sensible defaults for many common gem development tasks.
 DESCRIPTION
 
   s.add_dependency 'highline', '>= 1.6.21'
-  s.add_dependency 'rake',     '>= 10.1.1'
+  s.add_dependency 'rake',     '>= 10.2.2'
   s.add_dependency 'rdoc',     '>= 4.1.1'
   s.add_dependency 'yard',     '>= 0.8.7'
   s.add_dependency 'minitest', '>= 5.3.1'
