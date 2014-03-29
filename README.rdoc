@@ -4,7 +4,9 @@ http://github.com/jdleesmiller/gemma
 
 http://github.com/jdleesmiller/gemma/wiki
 
-{<img src="https://secure.travis-ci.org/jdleesmiller/gemma.png"/>}[http://travis-ci.org/jdleesmiller/gemma]
+[![Build Status](https://secure.travis-ci.org/jdleesmiller/gemma.png)](http://travis-ci.org/jdleesmiller/gemma)
+[![Dependency Status](https://gemnasium.com/jdleesmiller/gemma.png)](https://gemnasium.com/jdleesmiller/gemma)
+[![Gem Version](https://badge.fury.io/rb/gemma.png)](http://badge.fury.io/rb/gemma)
 
 == SYNOPSIS
 
