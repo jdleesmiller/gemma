@@ -58,7 +58,7 @@ module Gemma
         begin
           plugin.create_rake_tasks
         rescue
-          warn "plugin #{plugin.class} failed: #{$!}"
+          warn "plugin #{plugin.class} failed: #{$ERROR_INFO}"
         end
       end
     end

@@ -53,7 +53,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
     # create a test gem; note that here we DO want the gemma bundler
     # environment, because it puts our gemma executable on the bin path
     output = `gemma new --name="test_gem"`
-    raise "gemma new failed:\n#{output}" unless $?.exitstatus
+    raise "gemma new failed:\n#{output}" unless $CHILD_STATUS.exitstatus
 
     # we should get some TODOs from the template in the output
     assert_match(/TODO write your name/, output)
