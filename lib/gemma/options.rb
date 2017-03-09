@@ -67,12 +67,13 @@ module Gemma
         elsif x =~ /^(--[^=]+)/ then
           if names.member?(Regexp.last_match(1)) then
             # Found a long style option; look for its argument (if any).
-            if x =~ /=(.*)$/ then
-              result = Regexp.last_match(1)
+            result = \
+            if x =~ /=(.*)$/
+              Regexp.last_match(1)
             elsif !options.empty? && options.first !~ /^-./
-              result = options.shift
+              options.shift
             else
-              result = ''
+              ''
             end
           else
             done << x
@@ -80,14 +81,16 @@ module Gemma
         elsif x =~ /^(-(.))(.*)/ then
           # Found a short style option; this may actually represent several
           # options; look for matching short options.
-          name, letter, rest = Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)
+          name = Regexp.last_match(1)
+          rest = Regexp.last_match(3)
           if names.member?(name)
+            result = \
             if rest.length.positive?
-              result = rest
+              rest
             elsif !options.empty? && options.first !~ /^-./
-              result = options.shift
+              options.shift
             else
-              result = ''
+              ''
             end
           else
             done << x

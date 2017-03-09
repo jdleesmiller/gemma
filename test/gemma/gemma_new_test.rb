@@ -100,11 +100,11 @@ class Gemma::GemmaNewTest < MiniTest::Test
     assert_match(/TODO write tests/, output)
 
     # generate rdoc output
-    status, output = run_cmd('rake rdoc')
+    status, _output = run_cmd('rake rdoc')
     assert_equal 0, status.exitstatus
 
     # generate yard output
-    status, output = run_cmd('rake yard')
+    status, _output = run_cmd('rake yard')
     assert_equal 0, status.exitstatus
 
     # build the gem; this should fail, because we have invalid authors, etc.
