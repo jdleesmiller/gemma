@@ -18,7 +18,7 @@ module Gemma
     # there are files that occur in multiple templates (files in earlier
     # templates are overwritten by those in later templates, at present).
     #
-    BUILTIN_TEMPLATES = %w(base executable minitest)
+    BUILTIN_TEMPLATES = %w(base executable minitest).freeze
 
     def initialize
       @gem_name = nil
