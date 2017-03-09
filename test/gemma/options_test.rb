@@ -48,7 +48,7 @@ class OptionsTest < MiniTest::Test
   end
 
   def test_terminator_2
-    input = %w(foo --a av  -- --b bv)
+    input = %w(foo --a av -- --b bv)
 
     # should not be able to find options after the -- terminator
     assert_equal \
@@ -67,7 +67,7 @@ class OptionsTest < MiniTest::Test
 
   def test_short_form
     # should be able to find -a but not -b
-    input = %w(foo -a av  -- -b bv)
+    input = %w(foo -a av -- -b bv)
     assert_equal \
       Options::ExtractResult.new('av', %w(foo -- -b bv)),
       Options.extract(%w(-a), input)
