@@ -29,8 +29,8 @@ module Gemma
       def create_rake_tasks
         require 'bundler/gem_helper'
         dir = File.dirname(@gemspec_file_name) if @gemspec_file_name
-        Bundler::GemHelper.install_tasks(:dir => dir,
-                                         :name => gemspec.name)
+        Bundler::GemHelper.install_tasks(dir: dir,
+                                         name: gemspec.name)
         nil
       end
     end
