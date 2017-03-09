@@ -85,7 +85,7 @@ module Gemma
     # @param [Array<String>] template_paths absolute paths of the template
     #        directories to copy
     #
-    def create_gem(template_paths, destination_path=self.destination_path)
+    def create_gem(template_paths, destination_path = self.destination_path)
       raise "destination #{destination_path} exists" if File.exist?(
         destination_path)
 
