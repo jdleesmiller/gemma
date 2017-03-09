@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Gemma
   module Utility
-    # 
+    #
     # If the usage information for a script is documented in a comment block at
     # the top of the file, this method prints it out. If there is a shebang
     # (#!) on the first line, it is not printed.

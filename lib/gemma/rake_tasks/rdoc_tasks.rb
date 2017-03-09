@@ -8,12 +8,12 @@ module Gemma
     # the gemspec.
     #
     # The default settings are based on the +require_paths+, +rdoc_options+ and
-    # +extra_rdoc_files+ data in the gemspec. 
+    # +extra_rdoc_files+ data in the gemspec.
     #
     # This plugin is based on the <tt>Rake::RDocTask</tt> that comes bundled
     # with rdoc.  If you need an option that isn't exposed by the plugin, you
     # can modify the +RDocTask+ object directly in a block passed to
-    # {#with_rdoc_task}. 
+    # {#with_rdoc_task}.
     #
     class RDocTasks < Plugin
       #
@@ -43,15 +43,15 @@ module Gemma
       #
       # Name of rake task used to generate these docs; defaults to rdoc.
       #
-      # @return [Symbol]    
-      # 
+      # @return [Symbol]
+      #
       attr_accessor :task_name
 
       #
       # Name of output directory (the rdoc option --output); extracted from
       # gemspec; defaults to rdoc.
       #
-      # @return [String] 
+      # @return [String]
       #
       attr_accessor :output
 
@@ -59,7 +59,7 @@ module Gemma
       # Name of file to display in index.html (the rdoc option --main);
       # extracted from gemspec; defaults to nil (none).
       #
-      # @return [String, nil] 
+      # @return [String, nil]
       #
       attr_accessor :main
 
@@ -67,7 +67,7 @@ module Gemma
       # Title for HTML output (the rdoc option --title); extracted from gemspec;
       # defaults to nil (unspecified).
       #
-      # @return [String, nil] 
+      # @return [String, nil]
       #
       attr_accessor :title
 
@@ -75,7 +75,7 @@ module Gemma
       # Name of template used to generate html output (the rdoc option
       # --template); extracted from gemspec; defaults to nil (unspecified).
       #
-      # @return [String, nil] 
+      # @return [String, nil]
       #
       attr_accessor :template
 
@@ -83,7 +83,7 @@ module Gemma
       # Files and directories to be processed by rdoc; extracted from gemspec;
       # by default, these are the gem's +require_paths+ and +extra_rdoc_files+.
       #
-      # @return [Array<String>] 
+      # @return [Array<String>]
       #
       attr_accessor :files
 
@@ -92,7 +92,7 @@ module Gemma
       # the {#output}, {#main}, {#title} and {#template} options and the
       # {#files} list are handled separately.
       #
-      # @return [Array<String>] 
+      # @return [Array<String>]
       #
       attr_accessor :options
 

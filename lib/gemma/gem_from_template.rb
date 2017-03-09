@@ -73,7 +73,7 @@ module Gemma
     attr_writer :dir_name
 
     #
-    # Full path of root of the gem to be created. 
+    # Full path of root of the gem to be created.
     #
     def destination_path
       File.expand_path(File.join('.', self.dir_name))

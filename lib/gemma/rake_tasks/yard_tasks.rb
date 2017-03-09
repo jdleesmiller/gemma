@@ -25,7 +25,7 @@ module Gemma
     # This plugin is based on the <tt>YARD::Rake::YardocTask</tt> that comes
     # bundled with yard.  If you need an option that isn't exposed by the
     # plugin, you can modify the +YardocTask+ object directly in a block passed
-    # to {#with_yardoc_task}. 
+    # to {#with_yardoc_task}.
     #
     class YardTasks < Plugin
       #
@@ -56,14 +56,14 @@ module Gemma
       #
       # Name of rake task used to generate these docs; defaults to yard.
       #
-      # @return [Symbol] 
+      # @return [Symbol]
       #
       attr_accessor :task_name
 
       #
       # Name of output directory (the yard option --output); defaults to yard.
       #
-      # @return [String] 
+      # @return [String]
       #
       attr_accessor :output
 
@@ -71,7 +71,7 @@ module Gemma
       # Name of file to display in index.html (the yard option --main);
       # extracted from gemspec; defaults to nil (none).
       #
-      # @return [String, nil] 
+      # @return [String, nil]
       #
       attr_accessor :main
 
@@ -79,7 +79,7 @@ module Gemma
       # Title for HTML output (the yard option --title); extracted from gemspec;
       # defaults to nil (unspecified).
       #
-      # @return [String, nil] 
+      # @return [String, nil]
       #
       attr_accessor :title
 
@@ -87,7 +87,7 @@ module Gemma
       # Ruby files to be processed by yard; these are extracted from the
       # gemspec; by default these are the +require_paths+.
       #
-      # @return [Array<String>] 
+      # @return [Array<String>]
       #
       attr_accessor :files
 
@@ -95,7 +95,7 @@ module Gemma
       # Extra files (e.g. FAQ, LICENSE) to be processed by yard; these are
       # extracted from the gemspec.
       #
-      # @return [Array<String>] 
+      # @return [Array<String>]
       #
       attr_accessor :extra_files
 
@@ -145,14 +145,14 @@ module Gemma
         # Assume yard is not installed.
       end
 
-      private 
+      private
 
-      # 
+      #
       # Options to be passed to yardoc; this includes {#options} and the
       # {#main}, {#title} and {#output} options.
       #
       # @return [Array<String>]
-      # 
+      #
       def complete_options
         opts = self.options.dup
         opts.push('--main', self.main) if self.main

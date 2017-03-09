@@ -36,7 +36,7 @@ module Gemma
     #
     # The +options+ parameter takes an array of arguments; to split a string
     # into the appropriate form, you can use the +Shellwords+ module in the ruby
-    # standard library.  
+    # standard library.
     #
     # @example
     #   Gemma::Options.extract(%w(-a), %w(-a foo bar.txt))

@@ -5,7 +5,7 @@ module Gemma
   #
   # For help on extensions:
   # * http://nokogiri.org/tutorials/installing_nokogiri.html explains how to
-  # prepare several unices to build native extensions. 
+  # prepare several unices to build native extensions.
   #
   # General objectives for gemma:
   # * follow and promote accepted conventions where obvious

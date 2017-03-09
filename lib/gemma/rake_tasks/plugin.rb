@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Gemma
   class RakeTasks
-    # 
+    #
     # Plugins generate rake tasks based on the content of the gemspec.
     #
     # The intention is that the plugin processes the gemspec and sets
