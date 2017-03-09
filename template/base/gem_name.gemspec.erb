@@ -1,9 +1,6 @@
-# -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
- 
-require '<%= gem_name %>/version'
- 
+# frozen_string_literal: true
+require_relative 'lib/<%= gem_name %>/version'
+
 Gem::Specification.new do |s|
   s.name              = '<%= gem_name %>'
   s.version           = <%= module_name %>::VERSION
@@ -26,4 +23,3 @@ Gem::Specification.new do |s|
     "--title",   "#{s.full_name} Documentation"]
   s.extra_rdoc_files << "README.rdoc"
 end
-
