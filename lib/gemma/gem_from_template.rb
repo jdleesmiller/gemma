@@ -86,12 +86,13 @@ module Gemma
     #        directories to copy
     #
     def create_gem(template_paths, destination_path = self.destination_path)
-      raise "destination #{destination_path} exists" if File.exist?(
-        destination_path)
+      if File.exist?(destination_path)
+        raise "destination #{destination_path} exists"
+      end
 
       # Copy templates in.
       FileUtils.mkdir_p destination_path
-      for path in template_paths
+      template_paths.each do |path|
         FileUtils.cp_r File.join(path, '.'), destination_path
       end
 
@@ -102,8 +103,8 @@ module Gemma
         end
 
         files = (Dir['**/*'] + Dir['**/.*']).select { |f| File.file? f }.sort
-        FileUtils.chmod 0644, files
-        FileUtils.chmod 0755, files.select { |f| File.dirname(f) == 'bin' }
+        FileUtils.chmod 0o644, files
+        FileUtils.chmod 0o755, files.select { |f| File.dirname(f) == 'bin' }
         files.each do |file|
           # Rename files with names that depend on the gem name.
           if file =~ /gem_name/
@@ -113,15 +114,14 @@ module Gemma
           end
 
           # Run erb to customize each file.
-          if File.extname(file) == '.erb'
-            erb_file = File.read file
-            File.open file, 'w' do |f|
-              erb = ERB.new(erb_file)
-              erb.filename = file
-              f.puts erb.result(binding)
-            end
-            FileUtils.mv file, file.sub(/\.erb$/, '')
+          next unless File.extname(file) == '.erb'
+          erb_file = File.read file
+          File.open file, 'w' do |f|
+            erb = ERB.new(erb_file)
+            erb.filename = file
+            f.puts erb.result(binding)
           end
+          FileUtils.mv file, file.sub(/\.erb$/, '')
         end
       end
     end

@@ -19,7 +19,7 @@ module Gemma
   class RakeTasks
     # Alias for new.
     class <<self
-      alias :with_gemspec_file :new
+      alias with_gemspec_file new
     end
 
     #
@@ -35,11 +35,11 @@ module Gemma
     #
     # @private
     #
-    def initialize(gemspec, &block)
+    def initialize(gemspec)
       # Load gemspec.
       if gemspec.is_a?(String)
         @gemspec_file_name = gemspec
-        @gemspec = Gem::Specification::load(gemspec_file_name)
+        @gemspec = Gem::Specification.load(gemspec_file_name)
       elsif gemspec.is_a?(Gem::Specification)
         @gemspec_file_name = nil
         @gemspec = gemspec
@@ -51,7 +51,7 @@ module Gemma
       create_default_plugins
 
       # Let the user add more plugins and alter settings.
-      block.call(self) if block_given?
+      yield(self) if block_given?
 
       @plugins.values.each do |plugin|
         begin

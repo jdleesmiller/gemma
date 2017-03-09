@@ -23,7 +23,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
   #
   def run_cmd(*args)
     Bundler.with_clean_env do
-      # FIXME in bundler 1.1, this should not be necessary; see
+      # FIXME: in bundler 1.1, this should not be necessary; see
       # https://github.com/carlhuda/bundler/issues/1133
       ENV.delete_if { |k, _| k[0, 7] == 'BUNDLE_' }
 

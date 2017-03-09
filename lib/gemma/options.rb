@@ -60,38 +60,38 @@ module Gemma
 
       until options.empty?
         x = options.shift
-        if x == '--' then
+        if x == '--'
           # Stop at the '--' terminator.
           done << x
           break
-        elsif x =~ /^(--[^=]+)/ then
-          if names.member?(Regexp.last_match(1)) then
+        elsif x =~ /^(--[^=]+)/
+          if names.member?(Regexp.last_match(1))
             # Found a long style option; look for its argument (if any).
             result = \
-            if x =~ /=(.*)$/
-              Regexp.last_match(1)
-            elsif !options.empty? && options.first !~ /^-./
-              options.shift
-            else
-              ''
-            end
+              if x =~ /=(.*)$/
+                Regexp.last_match(1)
+              elsif !options.empty? && options.first !~ /^-./
+                options.shift
+              else
+                ''
+              end
           else
             done << x
           end
-        elsif x =~ /^(-(.))(.*)/ then
+        elsif x =~ /^(-(.))(.*)/
           # Found a short style option; this may actually represent several
           # options; look for matching short options.
           name = Regexp.last_match(1)
           rest = Regexp.last_match(3)
           if names.member?(name)
             result = \
-            if rest.length.positive?
-              rest
-            elsif !options.empty? && options.first !~ /^-./
-              options.shift
-            else
-              ''
-            end
+              if rest.length.positive?
+                rest
+              elsif !options.empty? && options.first !~ /^-./
+                options.shift
+              else
+                ''
+              end
           else
             done << x
           end

@@ -9,6 +9,14 @@ Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*'
+
 Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*'
+
+Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 module Gemma
+  #
+  # Utility functions.
+  #
   module Utility
     #
     # If the usage information for a script is documented in a comment block at
@@ -11,7 +14,7 @@ module Gemma
     )
       lines = File.readlines(file)
       lines.shift if lines.first =~ /^#!/ # ignore shebang
-      for line in lines
+      lines.each do |line|
         line.strip!
         break unless line =~ /^#{comment_char}(.*)/
         io.puts Regexp.last_match(1)

@@ -142,7 +142,7 @@ module Gemma
         CLOBBER.include('.yardoc')
         nil
       rescue LoadError
-        # Assume yard is not installed.
+        nil # Assume yard is not installed.
       end
 
       private
