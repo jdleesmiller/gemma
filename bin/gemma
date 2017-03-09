@@ -89,10 +89,10 @@ if interactive
   puts
 end
 
-unless interactive
-  gt.gem_name = opts['--name']
-else
+if interactive
   gt.gem_name = hl.ask('gem name: ') { |q| q.validate = /^.+$/ } # weak
+else
+  gt.gem_name = opts['--name']
 end
 
 if opts['--dir']
@@ -126,7 +126,7 @@ if templates.empty?
       end
     end
   else
-    templates.push(*Gemma::GemFromTemplate::BUILTIN_TEMPLATES)
+    templates.concat(Gemma::GemFromTemplate::BUILTIN_TEMPLATES)
   end
   templates.map! do |name|
     File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, name)
