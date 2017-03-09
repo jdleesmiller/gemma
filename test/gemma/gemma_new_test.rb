@@ -36,7 +36,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
       ENV.delete('RUBYOPT')
 
       output = nil
-      status = Open4.popen4(*args) do |pid, i, o, e|
+      status = Open4.popen4(*args) do |_pid, i, o, e|
         i.close
         output = o.read + e.read
       end
