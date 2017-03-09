@@ -23,11 +23,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
   #
   def run_cmd(*args)
     Bundler.with_clean_env do
-      # FIXME: in bundler 1.1, this should not be necessary; see
-      # https://github.com/carlhuda/bundler/issues/1133
-      ENV.delete_if { |k, _| k[0, 7] == 'BUNDLE_' }
-
-      # We also have to clear RUBYOPT, because Bundler::ORIGINAL_ENV in the test
+      # We have to clear RUBYOPT, because Bundler::ORIGINAL_ENV in the test
       # runner's process still contains some bundler stuff from rake's process.
       # This suggests that we might have to stop using rake's built-in TestTask,
       # and instead use one that runs the tests in a Bundler.with_clean_env
