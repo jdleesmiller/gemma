@@ -38,4 +38,3 @@ DESCRIPTION
     '--title',   "#{s.full_name} Documentation"]
   s.extra_rdoc_files = %w(README.rdoc bin/gemma)
 end
-

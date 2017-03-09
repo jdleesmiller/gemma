@@ -15,4 +15,3 @@ require 'gemma/rake_tasks/gem_tasks'
 
 require 'gemma/conventions'
 require 'gemma/gem_from_template'
-

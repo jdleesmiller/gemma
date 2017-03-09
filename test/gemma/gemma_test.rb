@@ -163,4 +163,3 @@ class Gemma::GemmaTest < MiniTest::Test
     }
   end
 end
-

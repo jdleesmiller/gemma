@@ -113,4 +113,3 @@ class Gemma::GemmaNewTest < MiniTest::Test
     assert_equal 1, status.exitstatus
   end
 end
-

@@ -102,4 +102,3 @@ module Gemma
     end
   end
 end
-
