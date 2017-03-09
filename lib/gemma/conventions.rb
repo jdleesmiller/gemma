@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Gemma
   #
   # Methods to check input against accepted conventions.
