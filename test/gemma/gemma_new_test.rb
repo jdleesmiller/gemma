@@ -25,7 +25,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
     Bundler.with_clean_env {
       # FIXME in bundler 1.1, this should not be necessary; see
       # https://github.com/carlhuda/bundler/issues/1133
-      ENV.delete_if { |k,_| k[0,7] == 'BUNDLE_' }
+      ENV.delete_if { |k, _| k[0, 7] == 'BUNDLE_' }
 
       # We also have to clear RUBYOPT, because Bundler::ORIGINAL_ENV in the test
       # runner's process still contains some bundler stuff from rake's process.
@@ -36,7 +36,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
       ENV.delete('RUBYOPT')
 
       output = nil
-      status = Open4.popen4(*args) {|pid,i,o,e|
+      status = Open4.popen4(*args) {|pid, i, o, e|
         i.close
         output = o.read + e.read
       }

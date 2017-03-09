@@ -76,7 +76,7 @@ module Gemma
     # Full path of root of the gem to be created. 
     #
     def destination_path
-      File.expand_path(File.join('.',self.dir_name))
+      File.expand_path(File.join('.', self.dir_name))
     end
 
     #
@@ -92,7 +92,7 @@ module Gemma
       # Copy templates in.
       FileUtils.mkdir_p destination_path
       for path in template_paths
-        FileUtils.cp_r File.join(path,'.'), destination_path
+        FileUtils.cp_r File.join(path, '.'), destination_path
       end
 
       Dir.chdir destination_path do

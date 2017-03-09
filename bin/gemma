@@ -126,7 +126,7 @@ if templates.empty?
   else
     templates.push(*Gemma::GemFromTemplate::BUILTIN_TEMPLATES)
   end
-  templates.map!{|name| File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT,name)}
+  templates.map!{|name| File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, name)}
 end
 
 puts "creating gem in #{gt.destination_path}"
