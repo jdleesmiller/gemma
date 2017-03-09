@@ -40,7 +40,7 @@ module Gemma
     # @return [Boolean]
     #
     def good_gem_name?
-      Conventions.good_gem_name? self.gem_name
+      Conventions.good_gem_name? gem_name
     end
 
     #
@@ -50,7 +50,7 @@ module Gemma
     # @return [String]
     #
     def module_name
-      @module_name || Conventions.gem_name_to_module_name(self.gem_name)
+      @module_name || Conventions.gem_name_to_module_name(gem_name)
     end
 
     #
@@ -76,7 +76,7 @@ module Gemma
     # Full path of root of the gem to be created.
     #
     def destination_path
-      File.expand_path(File.join('.', self.dir_name))
+      File.expand_path(File.join('.', dir_name))
     end
 
     #

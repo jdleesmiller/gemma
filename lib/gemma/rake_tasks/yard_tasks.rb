@@ -132,13 +132,13 @@ module Gemma
       #
       def create_rake_tasks
         YARD::Rake::YardocTask.new do |yd|
-          yd.name    = self.task_name
+          yd.name    = task_name
           yd.options = complete_options
-          yd.files   = self.files
-          yd.files.push('-', *self.extra_files) unless self.extra_files.empty?
+          yd.files   = files
+          yd.files.push('-', *extra_files) unless extra_files.empty?
           @with_yardoc_task.call(yd) if @with_yardoc_task
         end
-        CLOBBER.include(self.output)
+        CLOBBER.include(output)
         CLOBBER.include('.yardoc')
         nil
       rescue LoadError
@@ -154,10 +154,10 @@ module Gemma
       # @return [Array<String>]
       #
       def complete_options
-        opts = self.options.dup
-        opts.push('--main', self.main) if self.main
-        opts.push('--title', self.title) if self.title
-        opts.push('--output', self.output)
+        opts = options.dup
+        opts.push('--main', main) if main
+        opts.push('--title', title) if title
+        opts.push('--output', output)
         opts
       end
     end

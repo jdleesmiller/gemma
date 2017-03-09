@@ -63,12 +63,12 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        unless self.files.empty?
+        unless files.empty?
           require 'rake/testtask'
-          Rake::TestTask.new(self.task_name) do |tt|
+          Rake::TestTask.new(task_name) do |tt|
             tt.libs        = gemspec.require_paths.dup
             tt.libs       << 'test'
-            tt.test_files  = self.files
+            tt.test_files  = files
             tt.ruby_opts  << '-rubygems' << '-rbundler/setup'
             @with_test_task.call(tt) if @with_test_task
           end

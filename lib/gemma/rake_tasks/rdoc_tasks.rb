@@ -119,16 +119,16 @@ module Gemma
       # @private
       #
       def create_rake_tasks
-        Rake::RDocTask.new(self.task_name) do |rd|
-          rd.rdoc_dir      = self.output
-          rd.rdoc_files    = self.files
-          rd.title         = self.title
-          rd.main          = self.main
-          rd.template      = self.template
-          rd.options       = self.options
+        Rake::RDocTask.new(task_name) do |rd|
+          rd.rdoc_dir      = output
+          rd.rdoc_files    = files
+          rd.title         = title
+          rd.main          = main
+          rd.template      = template
+          rd.options       = options
           @with_rdoc_task.call(rd) if @with_rdoc_task
         end
-        CLOBBER.include(self.output)
+        CLOBBER.include(output)
 
         nil
       end
