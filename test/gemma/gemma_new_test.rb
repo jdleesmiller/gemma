@@ -66,6 +66,13 @@ class Gemma::GemmaNewTest < MiniTest::Test
       f.puts "gem 'gemma', :path => #{@old_pwd.dump}"
     end
 
+    # bundler will complain if we don't fill in the TODOs
+    gemspec_name = 'test_gem.gemspec'
+    gemspec = File.read(gemspec_name)
+    gemspec.gsub!(/TODO\s*/, '')
+    gemspec.gsub!(/'homepage'/, "'http://example.com'")
+    File.open(gemspec_name, 'w') { |f| f.puts gemspec }
+
     # run bundler on the test gem; it should find the same gems that we're using
     # in the gemma bundle
     status, output = run_cmd('bundle', 'install', '--local')
@@ -107,9 +114,8 @@ class Gemma::GemmaNewTest < MiniTest::Test
     status, _output = run_cmd('rake yard')
     assert_equal 0, status.exitstatus
 
-    # build the gem; this should fail, because we have invalid authors, etc.
-    status, output = run_cmd('rake build')
-    assert_match(/TODO/, output) # "... is not a valid author"
-    assert_equal 1, status.exitstatus
+    # build the gem
+    status, _output = run_cmd('rake build')
+    assert_equal 0, status.exitstatus
   end
 end
