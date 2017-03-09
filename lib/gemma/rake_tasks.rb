@@ -87,22 +87,30 @@ module Gemma
     #
     # @return [RDocTasks]
     #
-    def rdoc; @plugins[:rdoc] end
+    def rdoc
+      @plugins[:rdoc]
+    end
 
     #
     # @return [MinitestTasks]
     #
-    def test; @plugins[:test] end
+    def test
+      @plugins[:test]
+    end
 
     #
     # @return [YardTasks]
     #
-    def yard; @plugins[:yard] end
+    def yard
+      @plugins[:yard]
+    end
 
     #
     # @return [GemTasks]
     #
-    def gem; @plugins[:gem] end
+    def gem
+      @plugins[:gem]
+    end
 
     protected
 
