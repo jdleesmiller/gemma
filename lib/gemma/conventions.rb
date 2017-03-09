@@ -41,7 +41,7 @@ module Gemma
     # @return [String]
     #
     def self.gem_name_to_module_name(gem_name)
-      gem_name.gsub(/(?:^|_|-)([a-z0-9])/) { $1.upcase }
+      gem_name.gsub(/(?:^|_|-)([a-z0-9])/) { Regexp.last_match(1).upcase }
     end
   end
 end

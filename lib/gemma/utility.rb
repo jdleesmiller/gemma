@@ -12,7 +12,7 @@ module Gemma
       for line in lines
         line.strip!
         break unless line =~ /^#{comment_char}(.*)/
-        io.puts $1
+        io.puts Regexp.last_match(1)
       end
     end
 
