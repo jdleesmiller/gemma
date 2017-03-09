@@ -35,6 +35,7 @@ DESCRIPTION
 
   s.rdoc_options = [
     '--main',    'README.rdoc',
-    '--title',   "#{s.full_name} Documentation"]
+    '--title',   "#{s.full_name} Documentation"
+  ]
   s.extra_rdoc_files = %w(README.rdoc bin/gemma)
 end

@@ -17,7 +17,6 @@ module Gemma
   #   # ... other tasks ...
   #
   class RakeTasks
-
     # Alias for new.
     class <<self
       alias :with_gemspec_file :new
@@ -118,7 +117,8 @@ module Gemma
       @plugins[:rdoc] = Gemma::RakeTasks::RDocTasks.new(gemspec)
       @plugins[:test] = Gemma::RakeTasks::MinitestTasks.new(gemspec)
       @plugins[:yard] = Gemma::RakeTasks::YardTasks.new(gemspec)
-      @plugins[:gem] = Gemma::RakeTasks::GemTasks.new(gemspec, gemspec_file_name)
+      @plugins[:gem] =
+        Gemma::RakeTasks::GemTasks.new(gemspec, gemspec_file_name)
     end
   end
 end

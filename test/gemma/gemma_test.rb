@@ -86,8 +86,10 @@ class Gemma::GemmaTest < MiniTest::Test
 
     # Some more complicated options.
     # Note that we ignore things that could be files ('bat').
-    s.rdoc_options = ['foo bar', '--baz', 'bat', '--title', 'a b c',
-      '--diagram', '--main', 'README.rdoc', 'ABCD']
+    s.rdoc_options = [
+      'foo bar', '--baz', 'bat', '--title', 'a b c', '--diagram', '--main',
+      'README.rdoc', 'ABCD'
+    ]
     Gemma::RakeTasks.new(s) do |g|
       assert_equal 'a b c', g.yard.title
       assert_equal [], g.yard.options
