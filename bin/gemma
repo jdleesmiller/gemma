@@ -43,8 +43,8 @@ require 'highline'
 #
 
 getopt = GetoptLong.new(
-  ['--help',     '-h', GetoptLong::NO_ARGUMENT      ],
-  ['--version',  '-v', GetoptLong::NO_ARGUMENT      ],
+  ['--help',     '-h', GetoptLong::NO_ARGUMENT],
+  ['--version',  '-v', GetoptLong::NO_ARGUMENT],
   ['--name',           GetoptLong::REQUIRED_ARGUMENT],
   ['--dir',            GetoptLong::REQUIRED_ARGUMENT],
   ['--module',         GetoptLong::REQUIRED_ARGUMENT],
@@ -90,23 +90,25 @@ if interactive
 end
 
 unless interactive
-  gt.gem_name    = opts['--name']
+  gt.gem_name = opts['--name']
 else
-  gt.gem_name    = hl.ask('gem name: ') {|q| q.validate = /^.+$/} # weak
+  gt.gem_name = hl.ask('gem name: ') { |q| q.validate = /^.+$/ } # weak
 end
 
 if opts['--dir']
-  gt.dir_name    = opts['--dir']
+  gt.dir_name = opts['--dir']
 elsif interactive
-  gt.dir_name    =
-    hl.ask('create gem in directory: ') {|q| q.default = gt.dir_name}
+  gt.dir_name = hl.ask('create gem in directory: ') do |q|
+    q.default = gt.dir_name
+  end
 end
 
 if opts['--module']
   gt.module_name = opts['--module']
 elsif interactive
-  gt.module_name =
-    hl.ask('wrap contents in module called: ') {|q| q.default = gt.module_name}
+  gt.module_name = hl.ask('wrap contents in module called: ') do |q|
+    q.default = gt.module_name
+  end
 end
 
 templates = opts['--template']
@@ -126,7 +128,9 @@ if templates.empty?
   else
     templates.push(*Gemma::GemFromTemplate::BUILTIN_TEMPLATES)
   end
-  templates.map!{|name| File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, name)}
+  templates.map! do |name|
+    File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, name)
+  end
 end
 
 puts "creating gem in #{gt.destination_path}"

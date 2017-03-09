@@ -66,10 +66,10 @@ module Gemma
         unless files.empty?
           require 'rake/testtask'
           Rake::TestTask.new(task_name) do |tt|
-            tt.libs        = gemspec.require_paths.dup
-            tt.libs       << 'test'
-            tt.test_files  = files
-            tt.ruby_opts  << '-rubygems' << '-rbundler/setup'
+            tt.libs = gemspec.require_paths.dup
+            tt.libs << 'test'
+            tt.test_files = files
+            tt.ruby_opts << '-rubygems' << '-rbundler/setup'
             @with_test_task.call(tt) if @with_test_task
           end
         end

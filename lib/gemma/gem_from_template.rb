@@ -103,7 +103,7 @@ module Gemma
 
         files = (Dir['**/*'] + Dir['**/.*']).select { |f| File.file? f }.sort
         FileUtils.chmod 0644, files
-        FileUtils.chmod 0755, files.select{|f| File.dirname(f) == 'bin'}
+        FileUtils.chmod 0755, files.select { |f| File.dirname(f) == 'bin' }
         files.each do |file|
           # Rename files with names that depend on the gem name.
           if file =~ /gem_name/

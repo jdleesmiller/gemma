@@ -6,7 +6,9 @@ module Gemma
     # the top of the file, this method prints it out. If there is a shebang
     # (#!) on the first line, it is not printed.
     #
-    def self.print_usage_from_file_comment(file, comment_char = '#', io = $stdout)
+    def self.print_usage_from_file_comment(
+      file, comment_char = '#', io = $stdout
+    )
       lines = File.readlines(file)
       lines.shift if lines.first =~ /^#!/ # ignore shebang
       for line in lines
@@ -29,7 +31,8 @@ module Gemma
     #
     def self.rgrep(tag, path, io = $stdout)
       Dir.chdir path do
-        (Dir['**/*'] + Dir['**/.*']).select {|f| File.file? f}.sort.each do |f|
+        globs = Dir['**/*'] + Dir['**/.*']
+        globs.select { |f| File.file?(f) }.sort.each do |f|
           File.readlines(f).each_with_index do |line, i|
             io.puts "#{f}:#{i}: #{line}" if line =~ tag
           end
