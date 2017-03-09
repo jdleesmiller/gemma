@@ -20,7 +20,7 @@ class Gemma::GemmaTest < MiniTest::Test
       assert_equal %w(lib FAQ README.md).to_set, g.rdoc.files.to_set
       assert_equal [], g.rdoc.options
       assert_equal 'README.md', g.rdoc.main
-      assert_equal nil, g.rdoc.title
+      assert_nil g.rdoc.title
 
       g.rdoc.with_rdoc_task do |rd|
         assert_equal rd.rdoc_files, g.rdoc.files
@@ -45,7 +45,7 @@ class Gemma::GemmaTest < MiniTest::Test
       assert_equal [], g.yard.options
       assert_equal 'yard', g.yard.output
       assert_equal :yard, g.yard.task_name
-      assert_equal nil, g.yard.title
+      assert_nil g.yard.title
 
       g.yard.with_yardoc_task do |yd|
         assert_equal %w(lib), yd.files
