@@ -86,7 +86,7 @@ module Gemma
     #        directories to copy
     #
     def create_gem(template_paths, destination_path=self.destination_path)
-      raise "destination #{destination_path} exists" if File.exists?(
+      raise "destination #{destination_path} exists" if File.exist?(
         destination_path)
 
       # Copy templates in.
