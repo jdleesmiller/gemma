@@ -22,7 +22,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
   # which is nicer, but Open3 on ruby 1.8.7 doesn't let us get exitstatus.)
   #
   def run_cmd(*args)
-    Bundler.with_clean_env {
+    Bundler.with_clean_env do
       # FIXME in bundler 1.1, this should not be necessary; see
       # https://github.com/carlhuda/bundler/issues/1133
       ENV.delete_if { |k, _| k[0, 7] == 'BUNDLE_' }
@@ -36,12 +36,12 @@ class Gemma::GemmaNewTest < MiniTest::Test
       ENV.delete('RUBYOPT')
 
       output = nil
-      status = Open4.popen4(*args) {|pid, i, o, e|
+      status = Open4.popen4(*args) do |pid, i, o, e|
         i.close
         output = o.read + e.read
-      }
+      end
       [status, output]
-    }
+    end
   end
 
   def setup

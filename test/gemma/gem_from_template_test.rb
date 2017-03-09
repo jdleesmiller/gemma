@@ -34,8 +34,9 @@ class Gemma::GemFromTemplateTest < MiniTest::Test
     gt.dir_name = nil # revert back to default
     assert_equal 'my_new_gem', gt.dir_name
 
-    template_paths = Gemma::GemFromTemplate::BUILTIN_TEMPLATES.map{|path|
-      File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, path)}
+    template_paths = Gemma::GemFromTemplate::BUILTIN_TEMPLATES.map do |path|
+      File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, path)
+    end
     assert_equal 'base', File.basename(template_paths.first)
 
     gt.dir_name = 'my_new_gem_base'
@@ -52,8 +53,9 @@ class Gemma::GemFromTemplateTest < MiniTest::Test
     gt = Gemma::GemFromTemplate.new
     gt.gem_name = 'test_gem'
 
-    template_paths = Gemma::GemFromTemplate::BUILTIN_TEMPLATES.map{|path|
-      File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, path)}
+    template_paths = Gemma::GemFromTemplate::BUILTIN_TEMPLATES.map do |path|
+      File.join(Gemma::GemFromTemplate::TEMPLATE_ROOT, path)
+    end
     gt.create_gem template_paths
 
     # look for some to-do markers

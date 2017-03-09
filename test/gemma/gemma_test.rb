@@ -167,8 +167,8 @@ class Gemma::GemmaTest < MiniTest::Test
   def test_plugin_abstract
     s = Gem::Specification.new
     plugin = Gemma::RakeTasks::Plugin.new(s)
-    assert_raises(NotImplementedError) {
+    assert_raises(NotImplementedError) do
       plugin.create_rake_tasks # abstract method
-    }
+    end
   end
 end
