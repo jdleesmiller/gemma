@@ -69,7 +69,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
     # run bundler on the test gem; it should find the same gems that we're using
     # in the gemma bundle
     status, output = run_cmd('bundle', 'install', '--local')
-    raise "bundle failed:\n#{output}" unless status.exitstatus == 0
+    raise "bundle failed:\n#{output}" unless status.exitstatus.zero?
 
     # it should say that it has loaded two things from source: gemma and the
     # test_gem itself; if it doesn't it indicates that something strange
@@ -96,7 +96,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
 
     # run the tests; they should fail initially
     status, output = run_cmd('rake')
-    assert status.exitstatus != 0
+    assert status.exitstatus.nonzero?
     assert_match /TODO write tests/, output
 
     # generate rdoc output

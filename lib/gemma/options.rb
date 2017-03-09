@@ -82,7 +82,7 @@ module Gemma
           # options; look for matching short options.
           name, letter, rest = Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)
           if names.member?(name)
-            if rest.length > 0
+            if rest.length.positive?
               result = rest
             elsif !options.empty? && options.first !~ /^-./
               result = options.shift
