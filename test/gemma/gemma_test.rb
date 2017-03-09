@@ -122,26 +122,26 @@ class Gemma::GemmaTest < MiniTest::Test
   end
 
   def test_conventions_good_gem_name
-    assert  Gemma::Conventions.good_gem_name?("my_gem_name")
-    assert  Gemma::Conventions.good_gem_name?("my-gem-name")
-    assert  Gemma::Conventions.good_gem_name?("foo")
-    assert  Gemma::Conventions.good_gem_name?("foo1")
-    assert  Gemma::Conventions.good_gem_name?("foo_4_bar")
-    assert !Gemma::Conventions.good_gem_name?("Foo")
-    assert !Gemma::Conventions.good_gem_name?("FooBar")
-    assert !Gemma::Conventions.good_gem_name?("Foo_Bar")
-    assert !Gemma::Conventions.good_gem_name?("Foo-Bar")
+    assert  Gemma::Conventions.good_gem_name?('my_gem_name')
+    assert  Gemma::Conventions.good_gem_name?('my-gem-name')
+    assert  Gemma::Conventions.good_gem_name?('foo')
+    assert  Gemma::Conventions.good_gem_name?('foo1')
+    assert  Gemma::Conventions.good_gem_name?('foo_4_bar')
+    assert !Gemma::Conventions.good_gem_name?('Foo')
+    assert !Gemma::Conventions.good_gem_name?('FooBar')
+    assert !Gemma::Conventions.good_gem_name?('Foo_Bar')
+    assert !Gemma::Conventions.good_gem_name?('Foo-Bar')
   end
 
   def test_conventions_gem_name_to_module_name
     assert_equal 'MyGem',
-      Gemma::Conventions.gem_name_to_module_name("my_gem")
+      Gemma::Conventions.gem_name_to_module_name('my_gem')
     assert_equal 'MyGem3',
-      Gemma::Conventions.gem_name_to_module_name("my_gem3")
+      Gemma::Conventions.gem_name_to_module_name('my_gem3')
     assert_equal 'A4B',
-      Gemma::Conventions.gem_name_to_module_name("a_4_b")
+      Gemma::Conventions.gem_name_to_module_name('a_4_b')
     assert_equal 'A4b',
-      Gemma::Conventions.gem_name_to_module_name("a4b")
+      Gemma::Conventions.gem_name_to_module_name('a4b')
   end
 
   #

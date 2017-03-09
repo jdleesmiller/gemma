@@ -1,3 +1,3 @@
-require "minitest/autorun"
-require "gemma"
+require 'minitest/autorun'
+require 'gemma'
 

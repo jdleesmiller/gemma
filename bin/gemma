@@ -30,7 +30,7 @@
 #
 # --template=path::
 #   path to template to use instead of default template(s); specify this
-#   argument multiple times to copy from several templates (in order). 
+#   argument multiple times to copy from several templates (in order).
 #
 
 require 'getoptlong'
@@ -69,7 +69,7 @@ end
 
 # Remaining argument should be the command.
 command = ARGV.shift
-unless command && command == "new"
+unless command && command == 'new'
   Gemma::Utility.print_usage_from_file_comment __FILE__
   exit
 end
@@ -83,9 +83,9 @@ gt = Gemma::GemFromTemplate.new
 interactive = !opts['--name'] || opts['--name'].empty?
 
 if interactive
-  puts 
-  puts "creating a new gem with gemma..."
-  puts 
+  puts
+  puts 'creating a new gem with gemma...'
+  puts
 end
 
 unless interactive
@@ -113,7 +113,7 @@ if templates.empty?
   if interactive
     templates << 'base' << 'minitest'
     hl.choose do |menu|
-      menu.prompt = "type of gem: "
+      menu.prompt = 'type of gem: '
       menu.shell = true
       menu.choice('library (library scripts only)') do
         # no extras
@@ -130,5 +130,5 @@ end
 
 puts "creating gem in #{gt.destination_path}"
 gt.create_gem(templates)
-puts "gem created; to get started, see the following TODO tags:"
+puts 'gem created; to get started, see the following TODO tags:'
 Gemma::Utility.rgrep(/TODO/, gt.destination_path)

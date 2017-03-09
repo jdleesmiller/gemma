@@ -28,7 +28,7 @@ module Gemma
     #
     def self.rgrep tag, path, io=$stdout
       Dir.chdir path do
-        (Dir["**/*"] + Dir["**/.*"]).select {|f| File.file? f}.sort.each do |f|
+        (Dir['**/*'] + Dir['**/.*']).select {|f| File.file? f}.sort.each do |f|
           File.readlines(f).each_with_index do |line, i|
             io.puts "#{f}:#{i}: #{line}" if line =~ tag
           end

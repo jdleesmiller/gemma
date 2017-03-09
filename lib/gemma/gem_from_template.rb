@@ -95,12 +95,12 @@ module Gemma
       end
 
       Dir.chdir destination_path do
-        dirs = Dir["**/*"].select { |f| File.directory? f }.sort
+        dirs = Dir['**/*'].select { |f| File.directory? f }.sort
         dirs.grep(/gem_name/).each do |file|
           FileUtils.mv file, file.gsub(/gem_name/, gem_name)
         end
 
-        files = (Dir["**/*"] + Dir["**/.*"]).select { |f| File.file? f }.sort
+        files = (Dir['**/*'] + Dir['**/.*']).select { |f| File.file? f }.sort
         FileUtils.chmod 0644, files
         FileUtils.chmod 0755, files.select{|f| File.dirname(f) == 'bin'}
         files.each do |file|
@@ -112,9 +112,9 @@ module Gemma
           end
 
           # Run erb to customize each file.
-          if File.extname(file) == ".erb"
+          if File.extname(file) == '.erb'
             erb_file = File.read file
-            File.open file, "w" do |f|
+            File.open file, 'w' do |f|
               erb = ERB.new(erb_file)
               erb.filename = file
               f.puts erb.result(binding)

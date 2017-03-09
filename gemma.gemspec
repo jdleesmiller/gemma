@@ -4,13 +4,13 @@ $:.unshift lib unless $:.include?(lib)
 require 'gemma/version'
 
 Gem::Specification.new do |s|
-  s.name        = "gemma"
+  s.name        = 'gemma'
   s.version     = Gemma::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["John Lees-Miller"]
-  s.email       = ["jdleesmiller@gmail.com"]
-  s.homepage    = "http://github.com/jdleesmiller/gemma"
-  s.summary     = "A gem development tool that plays well with bundler."
+  s.authors     = ['John Lees-Miller']
+  s.email       = ['jdleesmiller@gmail.com']
+  s.homepage    = 'http://github.com/jdleesmiller/gemma'
+  s.summary     = 'A gem development tool that plays well with bundler.'
   s.description = <<DESCRIPTION
 Gemma is a gem development helper like hoe and jeweler, but it keeps the gemspec
 in a gemspec file, instead of in a Rakefile. This helps your gem to play nicely
@@ -33,8 +33,8 @@ DESCRIPTION
   s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
 
   s.rdoc_options = [
-    "--main",    "README.rdoc",
-    "--title",   "#{s.full_name} Documentation"]
+    '--main',    'README.rdoc',
+    '--title',   "#{s.full_name} Documentation"]
   s.extra_rdoc_files = %w(README.rdoc bin/gemma)
 end
 

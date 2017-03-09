@@ -60,7 +60,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
     Dir.chdir('test_gem')
 
     # edit the test gem's Gemfile to point to this gemma
-    raise "no Gemfile in test gem" unless File.exists?('Gemfile')
+    raise 'no Gemfile in test gem' unless File.exists?('Gemfile')
     File.open('Gemfile', 'a') do |f|
       f.puts "gem 'gemma', :path => #{@old_pwd.dump}"
     end
@@ -74,10 +74,10 @@ class Gemma::GemmaNewTest < MiniTest::Test
     # test_gem itself; if it doesn't it indicates that something strange
     # happened with bundler's environment (or it may just break on future
     # versions of bundler)
-    raise "did not load from source" unless output =~ /from source at/
+    raise 'did not load from source' unless output =~ /from source at/
 
     # bundler should produce a lock file
-    raise "no Gemfile.lock in test gem" unless File.exists?('Gemfile.lock')
+    raise 'no Gemfile.lock in test gem' unless File.exists?('Gemfile.lock')
   end
 
   def teardown
