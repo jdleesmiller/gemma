@@ -50,9 +50,11 @@ class Gemma::GemmaTest < MiniTest::Test
       g.yard.with_yardoc_task do |yd|
         assert_equal %w(lib), yd.files
         assert_equal 4, yd.options.size
-        assert_equal 'README.rdoc',
+        assert_equal \
+          'README.rdoc',
           Gemma::Options.extract(%w(--main), yd.options).argument
-        assert_equal 'yard',
+        assert_equal \
+          'yard',
           Gemma::Options.extract(%w(--output), yd.options).argument
       end
     end
@@ -93,11 +95,14 @@ class Gemma::GemmaTest < MiniTest::Test
       g.yard.with_yardoc_task do |yd|
         assert_equal %w(lib - FAQ), yd.files
         assert_equal 6, yd.options.size
-        assert_equal 'README.rdoc',
+        assert_equal \
+          'README.rdoc',
           Gemma::Options.extract(%w(--main), yd.options).argument
-        assert_equal 'yard',
+        assert_equal \
+          'yard',
           Gemma::Options.extract(%w(--output), yd.options).argument
-        assert_equal 'a b c',
+        assert_equal \
+          'a b c',
           Gemma::Options.extract(%w(--title), yd.options).argument
       end
     end
@@ -116,7 +121,8 @@ class Gemma::GemmaTest < MiniTest::Test
     Gemma::RakeTasks.new(s) do |g|
       g.test.with_test_task do |tt|
         assert_equal %w(lib foo test).to_set, tt.libs.to_set
-        assert_equal %w(test/test_a.rb test/test_b.rb).to_set,
+        assert_equal \
+          %w(test/test_a.rb test/test_b.rb).to_set,
           tt.file_list.to_a.to_set
       end
     end
@@ -135,13 +141,16 @@ class Gemma::GemmaTest < MiniTest::Test
   end
 
   def test_conventions_gem_name_to_module_name
-    assert_equal 'MyGem',
-      Gemma::Conventions.gem_name_to_module_name('my_gem')
-    assert_equal 'MyGem3',
+    assert_equal \
+      'MyGem', Gemma::Conventions.gem_name_to_module_name('my_gem')
+    assert_equal \
+      'MyGem3',
       Gemma::Conventions.gem_name_to_module_name('my_gem3')
-    assert_equal 'A4B',
+    assert_equal \
+      'A4B',
       Gemma::Conventions.gem_name_to_module_name('a_4_b')
-    assert_equal 'A4b',
+    assert_equal \
+      'A4b',
       Gemma::Conventions.gem_name_to_module_name('a4b')
   end
 
