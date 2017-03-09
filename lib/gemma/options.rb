@@ -53,7 +53,7 @@ module Gemma
     # @return [ExtractResult] contains the argument for the given option and the
     #         rest of the options
     #
-    def self.extract names, options
+    def self.extract(names, options)
       options = options.dup
       result = nil
       done = []

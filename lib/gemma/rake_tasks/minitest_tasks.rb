@@ -17,7 +17,7 @@ module Gemma
       #
       # @param [Gem::Specification] gemspec
       #
-      def initialize gemspec
+      def initialize(gemspec)
         super(gemspec)
 
         # Defaults.
@@ -50,7 +50,7 @@ module Gemma
       #
       # @return [nil]
       #
-      def with_test_task &block
+      def with_test_task(&block)
         @with_test_task = block
         nil
       end

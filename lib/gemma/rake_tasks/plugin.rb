@@ -14,7 +14,7 @@ module Gemma
     class Plugin
       include Rake::DSL
 
-      def initialize gemspec
+      def initialize(gemspec)
         @gemspec = gemspec
       end
 

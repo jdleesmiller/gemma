@@ -30,7 +30,7 @@ module Gemma
     #
     # @return [Boolean]
     #
-    def self.good_gem_name? gem_name
+    def self.good_gem_name?(gem_name)
       gem_name =~ /^[a-z0-9]+[a-z0-9_\-]*$/
     end
 
@@ -40,7 +40,7 @@ module Gemma
     #
     # @return [String]
     #
-    def self.gem_name_to_module_name gem_name
+    def self.gem_name_to_module_name(gem_name)
       gem_name.gsub(/(?:^|_|-)([a-z0-9])/) { $1.upcase }
     end
   end

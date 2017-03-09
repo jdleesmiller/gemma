@@ -31,7 +31,7 @@ module Gemma
       #
       # @param [Gem::Specification] gemspec
       #
-      def initialize gemspec
+      def initialize(gemspec)
         super(gemspec)
 
         # Defaults.
@@ -118,7 +118,7 @@ module Gemma
       #
       # @return [nil]
       #
-      def with_yardoc_task &block
+      def with_yardoc_task(&block)
         @with_yardoc_task = block
         nil
       end

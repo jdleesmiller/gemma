@@ -14,7 +14,7 @@ module Gemma
       # @param [Gem::Specification] gemspec
       # @param [String, nil] gemspec_file_name
       #
-      def initialize gemspec, gemspec_file_name
+      def initialize(gemspec, gemspec_file_name)
         super(gemspec)
         @gemspec_file_name = gemspec_file_name
       end

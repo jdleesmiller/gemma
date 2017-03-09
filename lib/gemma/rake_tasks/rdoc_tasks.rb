@@ -19,7 +19,7 @@ module Gemma
       #
       # @param [Gem::Specification] gemspec
       #
-      def initialize gemspec
+      def initialize(gemspec)
         super(gemspec)
 
         # Defaults.
@@ -106,7 +106,7 @@ module Gemma
       #
       # @return [nil]
       #
-      def with_rdoc_task &block
+      def with_rdoc_task(&block)
         @with_rdoc_task = block
         nil
       end

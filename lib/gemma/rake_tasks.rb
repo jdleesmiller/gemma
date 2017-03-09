@@ -36,7 +36,7 @@ module Gemma
     #
     # @private
     #
-    def initialize gemspec, &block
+    def initialize(gemspec, &block)
       # Load gemspec.
       if gemspec.is_a?(String)
         @gemspec_file_name = gemspec

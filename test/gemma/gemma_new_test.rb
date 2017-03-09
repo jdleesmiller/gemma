@@ -21,7 +21,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
   # stdout and stderr using Open4. (On 1.9.2, we can use <tt>Open3.popen2e</tt>,
   # which is nicer, but Open3 on ruby 1.8.7 doesn't let us get exitstatus.)
   #
-  def run_cmd *args
+  def run_cmd(*args)
     Bundler.with_clean_env {
       # FIXME in bundler 1.1, this should not be necessary; see
       # https://github.com/carlhuda/bundler/issues/1133
