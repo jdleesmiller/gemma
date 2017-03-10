@@ -13,7 +13,9 @@ module Gemma
       file, comment_char = '#', io = $stdout
     )
       lines = File.readlines(file)
-      lines.shift if lines.first =~ /^#!/ # ignore shebang
+      # ignore shebang and magic comments
+      lines.shift if lines.first =~ /^#!/
+      lines.shift if lines.first =~ /^#\s*frozen_string_literal/
       lines.each do |line|
         line.strip!
         break unless line =~ /^#{comment_char}(.*)/
