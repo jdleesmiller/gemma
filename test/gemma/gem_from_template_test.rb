@@ -61,6 +61,6 @@ class Gemma::GemFromTemplateTest < MiniTest::Test
     # look for some to-do markers
     io = StringIO.new
     Gemma::Utility.rgrep(/TODO/, gt.destination_path, io)
-    assert io.string =~ /README\.rdoc/
+    assert io.string =~ /README\.md/
   end
 end

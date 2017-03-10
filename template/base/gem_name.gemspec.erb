@@ -1,25 +1,27 @@
 # frozen_string_literal: true
+
 require_relative 'lib/<%= gem_name %>/version'
 
 Gem::Specification.new do |s|
-  s.name              = '<%= gem_name %>'
-  s.version           = <%= module_name %>::VERSION
-  s.platform          = Gem::Platform::RUBY
-  s.authors           = ['TODO write your name']
-  s.email             = ['TODO write your e-mail address']
-  s.homepage          = 'TODO homepage'
-  s.summary           = %q{TODO write short gem summary}
-  s.description       = %q{TODO write longer gem description}
+  s.name        = '<%= gem_name %>'
+  s.version     = <%= module_name %>::VERSION
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = ['TODO write your name']
+  s.email       = ['TODO write your e-mail address']
+  s.homepage    = 'TODO homepage'
+  s.summary     = %(TODO write short gem summary)
+  s.description = %(TODO write longer gem description)
 
-  #s.add_runtime_dependency '...', '~> x.y.z'
+  # s.add_runtime_dependency '...', '~> x.y.z'
   s.add_development_dependency 'gemma', '~> <%= Gemma::VERSION %>'
 
-  s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
+  s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.md)
   s.test_files  = Dir.glob('test/<%= gem_name %>/*_test.rb')
-  s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
+  s.executables = Dir.glob('bin/*').map { |f| File.basename(f) }
 
   s.rdoc_options = [
-    "--main",    "README.rdoc",
-    "--title",   "#{s.full_name} Documentation"]
-  s.extra_rdoc_files << "README.rdoc"
+    '--main',    'README.md',
+    '--title',   "#{s.full_name} Documentation"
+  ]
+  s.extra_rdoc_files << 'README.md'
 end
