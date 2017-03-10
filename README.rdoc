@@ -38,13 +38,13 @@ This gives you a simple gem template like the following:
   |-- bin
   |   `-- my_gem           # executable (optional)
   |-- Gemfile              # for bundler (see below)
-  |-- lib                  
+  |-- lib
   |   |-- my_gem           # most of your code goes here
   |   |   `-- version.rb   # the version constant
   |   `-- my_gem.rb        # the main code file
   |-- my_gem.gemspec       # gem metadata
-  |-- Rakefile.rb          # development tasks
-  |-- README.rdoc          # documentation
+  |-- Rakefile             # development tasks
+  |-- README.md            # documentation
   `-- test                 # unit tests go here
       `-- my_gem
           `-- my_gem_test.rb
@@ -66,7 +66,7 @@ your gemspec; to enable them, add the following to the top of your +Rakefile+:
 
   Gemma::RakeTasks.with_gemspec_file 'my_gem.gemspec'
 
-  task :default => :test
+  task default: :test
 
 This gives you some standard rake tasks, in addition to any that you define
 yourself.
@@ -97,17 +97,10 @@ See the gemma API docs for more information.
 
 == INSTALLATION
 
-On RVM:
   gem install gemma
-
-On a system ruby:
-  sudo gem install bundler
-  sudo gem install gemma
 
 == DEVELOPMENT
 
-  gem install bundler
-  gem install gemma
   git clone git://github.com/jdleesmiller/gemma.git
   cd gemma
   bundle
@@ -129,6 +122,15 @@ On a system ruby:
 * contributions welcome!
 
 == HISTORY
+
+<em>5.0.0</em>
+* updated dependencies
+* added rubocop as a dependency and lint the code and the template
+* converted the template readme to markdown
+* dropped support for rubies < 2.3 (use 4.x for older rubies)
+
+<em>4.1.0</em>
+* updated dependencies
 
 <em>4.0.0</em>
 * updated dependencies
@@ -152,7 +154,7 @@ On a system ruby:
 
 <em>1.0.0</em>
 * added templates
-* changed rdoc and yard tasks to use +require_paths+ instead of +files+ 
+* changed rdoc and yard tasks to use +require_paths+ instead of +files+
 * more tests
 * more documentation
 
@@ -184,4 +186,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
