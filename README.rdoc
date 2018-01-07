@@ -123,6 +123,9 @@ See the gemma API docs for more information.
 
 == HISTORY
 
+<em>5.0.1</em>
+* fix rake testtask to avoid `cannot load such file -- ubygems` in ruby 2.5.0
+
 <em>5.0.0</em>
 * updated dependencies
 * added rubocop as a dependency and lint the code and the template
