@@ -69,7 +69,6 @@ module Gemma
             tt.libs = gemspec.require_paths.dup
             tt.libs << 'test'
             tt.test_files = files
-            tt.ruby_opts << '-rubygems' << '-rbundler/setup'
             @with_test_task.call(tt) if @with_test_task
           end
         end
