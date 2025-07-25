@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
                   Dir.glob('template/**/{.*,*}') + %w[README.rdoc]
+  s.test_files  = Dir.glob('test/gemma/*_test.rb')
   s.executables = Dir.glob('bin/*').map { |f| File.basename(f) }
 
   s.rdoc_options = [
