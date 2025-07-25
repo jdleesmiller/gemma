@@ -7,7 +7,7 @@ require 'open4'
 # Run the 'gemma new' command and then run some basic commands to make sure that
 # things worked out.
 #
-class Gemma::GemmaNewTest < MiniTest::Test
+class Gemma::GemmaNewTest < Minitest::Test
   #
   # Run a command in a bundler-free environment and capture both stdout and
   # stderror output.
@@ -22,7 +22,7 @@ class Gemma::GemmaNewTest < MiniTest::Test
   # which is nicer, but Open3 on ruby 1.8.7 doesn't let us get exitstatus.)
   #
   def run_cmd(*args)
-    Bundler.with_clean_env do
+    Bundler.with_original_env do
       # We have to clear RUBYOPT, because Bundler::ORIGINAL_ENV in the test
       # runner's process still contains some bundler stuff from rake's process.
       # This suggests that we might have to stop using rake's built-in TestTask,
@@ -73,12 +73,6 @@ class Gemma::GemmaNewTest < MiniTest::Test
     # in the gemma bundle
     status, output = run_cmd('bundle', 'install', '--local')
     raise "bundle failed:\n#{output}" unless status.exitstatus.zero?
-
-    # it should say that it has loaded two things from source: gemma and the
-    # test_gem itself; if it doesn't it indicates that something strange
-    # happened with bundler's environment (or it may just break on future
-    # versions of bundler)
-    raise 'did not load from source' unless output =~ /from source at/
 
     # bundler should produce a lock file
     raise 'no Gemfile.lock in test gem' unless File.exist?('Gemfile.lock')

@@ -2,7 +2,7 @@
 require 'gemma/test_helper'
 require 'tmpdir'
 
-class Gemma::GemFromTemplateTest < MiniTest::Test
+class Gemma::GemFromTemplateTest < Minitest::Test
   def setup
     @tmp = Dir.mktmpdir('gemma')
     @old_pwd = Dir.pwd

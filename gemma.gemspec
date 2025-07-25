@@ -17,6 +17,7 @@ with sensible defaults for many common gem development tasks.
 DESCRIPTION
 
   s.add_dependency 'highline', '>= 1.6.21'
+  s.add_dependency 'getoptlong', '>= 0.2.1'
   s.add_dependency 'rake',     '>= 10.2.2'
   s.add_dependency 'rdoc',     '>= 4.1.1'
   s.add_dependency 'rubocop',  '>= 0.42.0'

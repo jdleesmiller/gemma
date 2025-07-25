@@ -3,7 +3,7 @@
 require '<%= gem_name %>'
 require 'minitest/autorun'
 
-class Test<%= module_name %> < MiniTest::Test
+class Test<%= module_name %> < Minitest::Test
   def test_<%= gem_name %>
     assert_equal 3, 1 + 1, 'TODO write tests'
   end

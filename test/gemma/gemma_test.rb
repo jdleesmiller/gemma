@@ -2,7 +2,7 @@
 require 'gemma/test_helper'
 require 'set'
 
-class Gemma::GemmaTest < MiniTest::Test
+class Gemma::GemmaTest < Minitest::Test
   # Can load empty spec.
   def test_empty_spec
     s = Gem::Specification.new

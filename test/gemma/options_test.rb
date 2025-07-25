@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'gemma/test_helper'
 
-class OptionsTest < MiniTest::Test
+class OptionsTest < Minitest::Test
   include Gemma
 
   def test_empty
