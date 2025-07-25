@@ -1,6 +1,0 @@
-language: ruby
-before_install:
-  - 'gem update --system'
-rvm:
-  - 3.0.7
-  - 3.4.3

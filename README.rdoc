@@ -4,7 +4,7 @@ http://github.com/jdleesmiller/gemma
 
 http://github.com/jdleesmiller/gemma/wiki
 
-{<img src="https://secure.travis-ci.org/jdleesmiller/gemma.png" alt="Build Status" />}[http://travis-ci.org/jdleesmiller/gemma]
+{<img src="https://github.com/jdleesmiller/gemma/actions/workflows/ci.yml/badge.svg" alt="Build Status" />}[https://github.com/jdleesmiller/gemma/actions/workflows/ci.yml]
 {<img src="https://gemnasium.com/jdleesmiller/gemma.png" alt="Dependency Status " />}[https://gemnasium.com/jdleesmiller/gemma]
 {<img src="https://badge.fury.io/rb/gemma.png" alt="Gem Version" />}[http://badge.fury.io/rb/gemma]
 
