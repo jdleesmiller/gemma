@@ -5,7 +5,6 @@ https://github.com/jdleesmiller/gemma
 https://github.com/jdleesmiller/gemma/wiki
 
 [![Build Status](https://github.com/jdleesmiller/gemma/actions/workflows/ci.yml/badge.svg)](https://github.com/jdleesmiller/gemma/actions/workflows/ci.yml)
-[![Dependency Status](https://gemnasium.com/jdleesmiller/gemma.png)](https://gemnasium.com/jdleesmiller/gemma)
 [![Gem Version](https://badge.fury.io/rb/gemma.png)](http://badge.fury.io/rb/gemma)
 
 ## SYNOPSIS
@@ -125,14 +124,14 @@ rake -T # list development tasks
 
 - make it easier to add custom tasks and / or new task generators, as in
 
-  ```ruby
-  # DOES NOT WORK YET
-  Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
-    g.yard_dev = Gemma::RakeTasks::YardTasks.new(g.gemspec, :yard_dev)
-    g.yard_dev.output = 'dev_docs'
-    g.yard_dev.options.push('--protected', '--private')
-  end
-  ```
+   ```ruby
+   # DOES NOT WORK YET
+   Gemma::RakeTasks.with_gemspec_file 'mygem.gemspec' do |g|
+     g.yard_dev = Gemma::RakeTasks::YardTasks.new(g.gemspec, :yard_dev)
+     g.yard_dev.output = 'dev_docs'
+     g.yard_dev.options.push('--protected', '--private')
+   end
+   ```
 
 - more tasks (e.g. to publish docs)
 - more tasks to support C extensions

@@ -28,13 +28,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'yard',     '>= 0.8.7'
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') +
-                  Dir.glob('template/**/{.*,*}') + %w[README.rdoc]
+                  Dir.glob('template/**/{.*,*}') + %w[README.md]
   s.test_files  = Dir.glob('test/gemma/*_test.rb')
   s.executables = Dir.glob('bin/*').map { |f| File.basename(f) }
 
   s.rdoc_options = [
-    '--main',    'README.rdoc',
+    '--main',    'README.md',
     '--title',   "#{s.full_name} Documentation"
   ]
-  s.extra_rdoc_files = %w[README.rdoc bin/gemma]
+  s.extra_rdoc_files = %w[README.md bin/gemma]
 end
