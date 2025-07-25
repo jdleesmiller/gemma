@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Gemma
   #
   # Methods to check input against accepted conventions.
@@ -31,7 +32,7 @@ module Gemma
     # @return [Boolean]
     #
     def self.good_gem_name?(gem_name)
-      gem_name =~ /^[a-z0-9]+[a-z0-9_\-]*$/
+      gem_name =~ /^[a-z0-9]+[a-z0-9_-]*$/
     end
 
     #

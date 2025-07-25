@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'erb'
 require 'fileutils'
 require 'yaml'
@@ -18,7 +19,7 @@ module Gemma
     # there are files that occur in multiple templates (files in earlier
     # templates are overwritten by those in later templates, at present).
     #
-    BUILTIN_TEMPLATES = %w(base executable minitest).freeze
+    BUILTIN_TEMPLATES = %w[base executable minitest].freeze
 
     def initialize
       @gem_name = nil
@@ -86,9 +87,7 @@ module Gemma
     #        directories to copy
     #
     def create_gem(template_paths, destination_path = self.destination_path)
-      if File.exist?(destination_path)
-        raise "destination #{destination_path} exists"
-      end
+      raise "destination #{destination_path} exists" if File.exist?(destination_path)
 
       # Copy templates in.
       FileUtils.mkdir_p destination_path
@@ -99,22 +98,23 @@ module Gemma
       Dir.chdir destination_path do
         dirs = Dir['**/*'].select { |f| File.directory? f }.sort
         dirs.grep(/gem_name/).each do |file|
-          FileUtils.mv file, file.gsub(/gem_name/, gem_name)
+          FileUtils.mv file, file.gsub('gem_name', gem_name)
         end
 
         files = (Dir['**/*'] + Dir['**/.*']).select { |f| File.file? f }.sort
         FileUtils.chmod 0o644, files
-        FileUtils.chmod 0o755, files.select { |f| File.dirname(f) == 'bin' }
+        FileUtils.chmod(0o755, files.select { |f| File.dirname(f) == 'bin' })
         files.each do |file|
           # Rename files with names that depend on the gem name.
           if file =~ /gem_name/
-            new_file = file.sub(/gem_name/, gem_name)
+            new_file = file.sub('gem_name', gem_name)
             FileUtils.mv file, new_file
             file = new_file
           end
 
           # Run erb to customize each file.
           next unless File.extname(file) == '.erb'
+
           erb_file = File.read file
           File.open file, 'w' do |f|
             erb = ERB.new(erb_file)

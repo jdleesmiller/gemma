@@ -123,6 +123,10 @@ See the gemma API docs for more information.
 
 == HISTORY
 
+<em>6.0.0</em>
+* updated dependencies
+* dropped support for rubies < 3 (use 5.x for older rubies)
+
 <em>5.0.1</em>
 * fix rake testtask to avoid <tt>cannot load such file -- ubygems</tt> in ruby 2.5.0
 

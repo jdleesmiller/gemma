@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Gemma
   #
   # Helpers for processing command line arguments.
@@ -60,14 +61,15 @@ module Gemma
 
       until options.empty?
         x = options.shift
-        if x == '--'
+        case x
+        when '--'
           # Stop at the '--' terminator.
           done << x
           break
-        elsif x =~ /^(--[^=]+)/
+        when /^(--[^=]+)/
           if names.member?(Regexp.last_match(1))
             # Found a long style option; look for its argument (if any).
-            result = \
+            result =
               if x =~ /=(.*)$/
                 Regexp.last_match(1)
               elsif !options.empty? && options.first !~ /^-./
@@ -78,13 +80,13 @@ module Gemma
           else
             done << x
           end
-        elsif x =~ /^(-(.))(.*)/
+        when /^(-(.))(.*)/
           # Found a short style option; this may actually represent several
           # options; look for matching short options.
           name = Regexp.last_match(1)
           rest = Regexp.last_match(3)
           if names.member?(name)
-            result = \
+            result =
               if rest.length.positive?
                 rest
               elsif !options.empty? && options.first !~ /^-./

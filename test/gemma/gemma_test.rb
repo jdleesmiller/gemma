@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'gemma/test_helper'
 require 'set'
 
@@ -11,13 +12,13 @@ class Gemma::GemmaTest < Minitest::Test
 
   def test_rdoc_tasks
     s = Gem::Specification.new
-    s.files = %w(lib/a.rb lib/b.rb)
-    s.test_files = %w(test/test_a.rb test/test_a.rb)
+    s.files = %w[lib/a.rb lib/b.rb]
+    s.test_files = %w[test/test_a.rb test/test_a.rb]
     s.rdoc_options = ['--main', 'README.md']
     s.extra_rdoc_files = ['README.md', 'FAQ']
 
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib FAQ README.md).to_set, g.rdoc.files.to_set
+      assert_equal %w[lib FAQ README.md].to_set, g.rdoc.files.to_set
       assert_equal [], g.rdoc.options
       assert_equal 'README.md', g.rdoc.main
       assert_nil g.rdoc.title
@@ -30,8 +31,8 @@ class Gemma::GemmaTest < Minitest::Test
 
   def test_yard_tasks
     s = Gem::Specification.new
-    s.files = %w(lib/a.rb)
-    s.test_files = %w(test/test_a.rb)
+    s.files = %w[lib/a.rb]
+    s.test_files = %w[test/test_a.rb]
     s.rdoc_options = ['--main', 'README.rdoc']
     s.extra_rdoc_files = ['README.rdoc']
 
@@ -39,7 +40,7 @@ class Gemma::GemmaTest < Minitest::Test
     # A file should not be passed as an extra file if it's the --main file.
     # Test files should not be documented.
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib), g.yard.files
+      assert_equal %w[lib], g.yard.files
       assert_equal [], g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
@@ -48,22 +49,22 @@ class Gemma::GemmaTest < Minitest::Test
       assert_nil g.yard.title
 
       g.yard.with_yardoc_task do |yd|
-        assert_equal %w(lib), yd.files
+        assert_equal %w[lib], yd.files
         assert_equal 4, yd.options.size
         assert_equal \
           'README.rdoc',
-          Gemma::Options.extract(%w(--main), yd.options).argument
+          Gemma::Options.extract(%w[--main], yd.options).argument
         assert_equal \
           'yard',
-          Gemma::Options.extract(%w(--output), yd.options).argument
+          Gemma::Options.extract(%w[--output], yd.options).argument
       end
     end
 
     # Add some extra files (that aren't the --main file).
     s.extra_rdoc_files << 'FAQ'
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib), g.yard.files
-      assert_equal %w(FAQ), g.yard.extra_files
+      assert_equal %w[lib], g.yard.files
+      assert_equal %w[FAQ], g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
     end
@@ -71,15 +72,15 @@ class Gemma::GemmaTest < Minitest::Test
     # Make sure extra options are ignored.
     s.rdoc_options = ['--main', 'README.rdoc', '--diagram']
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib), g.yard.files
-      assert_equal %w(FAQ), g.yard.extra_files
+      assert_equal %w[lib], g.yard.files
+      assert_equal %w[FAQ], g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
     end
     s.rdoc_options = ['--diagram', '--main', 'README.rdoc']
     Gemma::RakeTasks.new(s) do |g|
-      assert_equal %w(lib), g.yard.files
-      assert_equal %w(FAQ), g.yard.extra_files
+      assert_equal %w[lib], g.yard.files
+      assert_equal %w[FAQ], g.yard.extra_files
       assert_equal 'README.rdoc', g.yard.main
       assert_equal [], g.yard.options
     end
@@ -95,25 +96,25 @@ class Gemma::GemmaTest < Minitest::Test
       assert_equal [], g.yard.options
 
       g.yard.with_yardoc_task do |yd|
-        assert_equal %w(lib - FAQ), yd.files
+        assert_equal %w[lib - FAQ], yd.files
         assert_equal 6, yd.options.size
         assert_equal \
           'README.rdoc',
-          Gemma::Options.extract(%w(--main), yd.options).argument
+          Gemma::Options.extract(%w[--main], yd.options).argument
         assert_equal \
           'yard',
-          Gemma::Options.extract(%w(--output), yd.options).argument
+          Gemma::Options.extract(%w[--output], yd.options).argument
         assert_equal \
           'a b c',
-          Gemma::Options.extract(%w(--title), yd.options).argument
+          Gemma::Options.extract(%w[--title], yd.options).argument
       end
     end
   end
 
   def test_test_unit_tasks
     s = Gem::Specification.new
-    s.files = %w(lib/a.rb lib/b.rb)
-    s.test_files = %w(test/test_a.rb test/test_b.rb)
+    s.files = %w[lib/a.rb lib/b.rb]
+    s.test_files = %w[test/test_a.rb test/test_b.rb]
     s.require_paths << 'foo'
 
     # annoyance: if we ran this test with rake TEST=... then the environmental
@@ -122,9 +123,9 @@ class Gemma::GemmaTest < Minitest::Test
 
     Gemma::RakeTasks.new(s) do |g|
       g.test.with_test_task do |tt|
-        assert_equal %w(lib foo test).to_set, tt.libs.to_set
+        assert_equal %w[lib foo test].to_set, tt.libs.to_set
         assert_equal \
-          %w(test/test_a.rb test/test_b.rb).to_set,
+          %w[test/test_a.rb test/test_b.rb].to_set,
           tt.file_list.to_a.to_set
       end
     end
@@ -163,7 +164,7 @@ class Gemma::GemmaTest < Minitest::Test
     gemma_file = File.join(File.dirname(__FILE__), '..', '..', 'bin', 'gemma')
     io = StringIO.new
     Gemma::Utility.print_usage_from_file_comment gemma_file, '#', io
-    assert io.string =~ /gemma/
+    assert_match(/gemma/, io.string)
   end
 
   def test_plugin_abstract

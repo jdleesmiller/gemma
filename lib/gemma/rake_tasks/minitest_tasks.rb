@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Gemma
   class RakeTasks
     #
@@ -18,7 +19,7 @@ module Gemma
       # @param [Gem::Specification] gemspec
       #
       def initialize(gemspec)
-        super(gemspec)
+        super
 
         # Defaults.
         @task_name = :test
@@ -69,7 +70,7 @@ module Gemma
             tt.libs = gemspec.require_paths.dup
             tt.libs << 'test'
             tt.test_files = files
-            @with_test_task.call(tt) if @with_test_task
+            @with_test_task&.call(tt)
           end
         end
         nil

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rake/clean'
 
 module Gemma
@@ -18,7 +19,7 @@ module Gemma
   #
   class RakeTasks
     # Alias for new.
-    class <<self
+    class << self
       alias with_gemspec_file new
     end
 
@@ -53,12 +54,10 @@ module Gemma
       # Let the user add more plugins and alter settings.
       yield(self) if block_given?
 
-      @plugins.values.each do |plugin|
-        begin
-          plugin.create_rake_tasks
-        rescue
-          warn "plugin #{plugin.class} failed: #{$ERROR_INFO}"
-        end
+      @plugins.each_value do |plugin|
+        plugin.create_rake_tasks
+      rescue StandardError
+        warn "plugin #{plugin.class} failed: #{$ERROR_INFO}"
       end
     end
 

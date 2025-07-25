@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Gemma
   #
   # Utility functions.
@@ -18,7 +19,8 @@ module Gemma
       lines.shift if lines.first =~ /^#\s*frozen_string_literal/
       lines.each do |line|
         line.strip!
-        break unless line =~ /^#{comment_char}(.*)/
+        break unless line.empty? || line =~ /^#{comment_char}(.*)/
+
         io.puts Regexp.last_match(1)
       end
     end

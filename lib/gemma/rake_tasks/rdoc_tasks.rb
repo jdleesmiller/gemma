@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rdoc/task'
 
 module Gemma
@@ -20,7 +21,7 @@ module Gemma
       # @param [Gem::Specification] gemspec
       #
       def initialize(gemspec)
-        super(gemspec)
+        super
 
         # Defaults.
         @task_name = :rdoc
@@ -29,13 +30,13 @@ module Gemma
         # I'm not sure whether it's a good idea to pass -o in the gemspec, but
         # for now we'll handle it, because it's needed in the Rakefile.
         @options = gemspec.rdoc_options
-        @output, @options = Options.extract(%w(-o --output --op), @options).to_a
+        @output, @options = Options.extract(%w[-o --output --op], @options).to_a
         @output ||= 'rdoc'
 
         # Extract --main, --title and --template so RDocTask can have them.
-        @main, @options  = Options.extract(%w(-m --main), @options).to_a
-        @title, @options = Options.extract(%w(-t --title), @options).to_a
-        @template, @options = Options.extract(%w(-T --template), @options).to_a
+        @main, @options  = Options.extract(%w[-m --main], @options).to_a
+        @title, @options = Options.extract(%w[-t --title], @options).to_a
+        @template, @options = Options.extract(%w[-T --template], @options).to_a
 
         @files = gemspec.require_paths + gemspec.extra_rdoc_files
       end
@@ -126,7 +127,7 @@ module Gemma
           rd.main          = main
           rd.template      = template
           rd.options       = options
-          @with_rdoc_task.call(rd) if @with_rdoc_task
+          @with_rdoc_task&.call(rd)
         end
         CLOBBER.include(output)
 

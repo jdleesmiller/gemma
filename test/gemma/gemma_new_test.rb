@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'gemma/test_helper'
 require 'tmpdir'
 require 'open4'
@@ -58,6 +59,7 @@ class Gemma::GemmaNewTest < Minitest::Test
 
     # edit the test gem's Gemfile to point to this gemma
     raise 'no Gemfile in test gem' unless File.exist?('Gemfile')
+
     File.open('Gemfile', 'a') do |f|
       f.puts "gem 'gemma', :path => #{@old_pwd.dump}"
     end
@@ -66,7 +68,7 @@ class Gemma::GemmaNewTest < Minitest::Test
     gemspec_name = 'test_gem.gemspec'
     gemspec = File.read(gemspec_name)
     gemspec.gsub!(/TODO\s*/, '')
-    gemspec.gsub!(/'homepage'/, "'http://example.com'")
+    gemspec.gsub!("'homepage'", "'http://example.com'")
     File.open(gemspec_name, 'w') { |f| f.puts gemspec }
 
     # run bundler on the test gem; it should find the same gems that we're using

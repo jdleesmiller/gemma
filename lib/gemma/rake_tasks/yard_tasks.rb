@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'yard'
 
 module Gemma
@@ -32,7 +33,7 @@ module Gemma
       # @param [Gem::Specification] gemspec
       #
       def initialize(gemspec)
-        super(gemspec)
+        super
 
         # Defaults.
         @task_name = :yard
@@ -42,8 +43,8 @@ module Gemma
         # Extract supported rdoc options and add to the default yard options.
         # Keep track of main, if it is given, because we have to remove it from
         # the extra files list (otherwise it shows up twice in the output).
-        @main = Options.extract(%w(-m --main), gemspec.rdoc_options).argument
-        @title = Options.extract(%w(-t --title), gemspec.rdoc_options).argument
+        @main = Options.extract(%w[-m --main], gemspec.rdoc_options).argument
+        @title = Options.extract(%w[-t --title], gemspec.rdoc_options).argument
 
         @options = []
 
@@ -136,7 +137,7 @@ module Gemma
           yd.options = complete_options
           yd.files   = files
           yd.files.push('-', *extra_files) unless extra_files.empty?
-          @with_yardoc_task.call(yd) if @with_yardoc_task
+          @with_yardoc_task&.call(yd)
         end
         CLOBBER.include(output)
         CLOBBER.include('.yardoc')

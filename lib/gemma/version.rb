@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Gemma
   VERSION_MAJOR = 5
   VERSION_MINOR = 0

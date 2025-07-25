@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+
 #
 # = gemma
 #
@@ -55,13 +56,13 @@ opts = {}
 opts['--template'] = []
 getopt.each do |opt, arg|
   case opt
-  when '--help' then
+  when '--help'
     Gemma::Utility.print_usage_from_file_comment __FILE__
     exit
-  when '--version' then
+  when '--version'
     puts "gemma-#{Gemma::VERSION}"
     exit
-  when '--template' then
+  when '--template'
     opts['--template'] << arg
   else
     opts[opt] = arg
@@ -89,11 +90,11 @@ if interactive
   puts
 end
 
-if interactive
-  gt.gem_name = hl.ask('gem name: ') { |q| q.validate = /^.+$/ } # weak
-else
-  gt.gem_name = opts['--name']
-end
+gt.gem_name = if interactive
+                hl.ask('gem name: ') { |q| q.validate = /^.+$/ } # weak
+              else
+                opts['--name']
+              end
 
 if opts['--dir']
   gt.dir_name = opts['--dir']

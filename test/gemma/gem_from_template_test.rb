@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'gemma/test_helper'
 require 'tmpdir'
 
